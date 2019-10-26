@@ -9,6 +9,7 @@ import SliderComponent from '../components/SliderComponent'
 const Main = (props) => {
 	return (
 		<Fragment>
+			<img src="/images/shoeImage.png" alt="shoes background" />
 			<SliderComponent />
 		</Fragment>
 	);

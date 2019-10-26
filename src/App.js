@@ -2,19 +2,23 @@ import React from 'react';
 import styled from 'styled-components'
 import Navbar from './components/Navbar'
 import GlobalStyle from './styles/Globalstyles';
-import {MainPage} from '../src/pages'
-
+import { MainPage } from '../src/pages'
 
 
 const StyledApp = styled.div`
 	height: 100vh;
 	width: 100%;
-	background: linear-gradient(180deg, #4d0000 0%, rgba(255, 255, 255, 0) 100%),
-		#350000;
+	background-color: black;
 
-		& > img {
-				position: absolute;
-		}
+	& > img {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+	}
+
+	& > img:nth-child(2) {
+		opacity: 0.3;
+	}
 
 `;
 
@@ -23,10 +27,10 @@ function App() {
   return (
 		<StyledApp>
 			<GlobalStyle />
-			<img src="/images/dotsred.svg" alt="" />
+			<img src="/images/backgroundFade.png" alt="faded background" />
 			<MainPage />
 
-			<Navbar />¨
+			<Navbar />
 		</StyledApp>
 	);
 }

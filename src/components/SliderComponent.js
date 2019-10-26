@@ -7,12 +7,11 @@ import "slick-carousel/slick/slick-theme.css";
 import CardSlider from "./CardSlider";
 
 const StyledSliderComponent = styled.div`
-	height: 100%;
 	width: 100%;
-	top: 150px;
+	top: 19%;
 
 	& > .fixed-container {
-		height: 450px;
+		height: 370px;
 
 		& > div > div {
 			/* overflow: scroll; */
@@ -29,8 +28,8 @@ const StyledSliderComponent = styled.div`
 	.slick-slide {
 		transform: scale(0.8);
 		transition: transform 0.2s ease-in-out;
-		width: 270px;
-		height: 450px;
+		width: 230px;
+		height: 370px;
 	}
 	.slick-slide.slick-center {
 		transform: scale(1);
@@ -41,26 +40,26 @@ const StyledSliderComponent = styled.div`
 		overflow: hidden;
 	}
 	div > div > .slick-list {
-		height: 450px;
+		height: 370px;
 		width: 100%;
 		/* padding: 0 20% 0 0; */
 		& > div > div > div > div {
-			height: 450px;
+			height: 370px;
 		}
 	}
 `;
 
 const SliderComponent = () => {
-	    var settings = {
-				infinite: true,
-				speed: 500,
-				slidesToShow: 1,
-				centerMode: true,
-				centerPadding: 0,
-				swipe: true,
-				variableWidth: true,
-				adaptiveHeight: true
-			};
+  var settings = {
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		centerMode: true,
+		centerPadding: 0,
+		swipe: true,
+		variableWidth: true,
+		adaptiveHeight: true
+	};
 
 	return (
 		<StyledSliderComponent>
@@ -68,18 +67,18 @@ const SliderComponent = () => {
 				<Slider {...settings}>
 					<CardSlider
 						cardHref="/timer"
-						cardName="Timer"
-						cardImg="/images/time.png"
+						cardName="TIMER"
+						cardImg="/images/timer.png"
 					/>
 					<CardSlider
 						cardHref="/health"
-						cardName="Health"
+						cardName="HEALTH"
 						cardImg="/images/heart.png"
 					/>
 					<CardSlider
 						cardHref="/moves"
-						cardName="Moves"
-						cardImg="/images/stat.png"
+						cardName="MOVES"
+						cardImg="/images/moves.png"
 					/>
 
 				</Slider>

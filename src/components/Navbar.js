@@ -10,14 +10,20 @@ const StyledNavbar = styled.div`
 	align-items: center;
 	width: 100vw;
 	position: absolute;
-	height: 48px;
-	/* left: 0px; */
-	top: 764px;
-	background: #FFFFFF;
+	height: 54px;
+	top: calc(100% - 54px);
+	background: rgba(0,0,0, 0.4);
 
 	& > img {
-		width: 7%;
-		height: 45%;
+		height: 24px;
+	}
+
+	& > img:nth-child(2) {
+		height: 30px;
+	}
+
+	& > img:nth-child(5) {
+		height: 26px;
 	}
 
 `;
@@ -58,12 +64,11 @@ const Navbar = () => {
 
 	return (
 		<StyledNavbar>
-			<img src="images/homeblack.png" alt="" />
-			<img src="images/timeblack.png" alt="" />
-			<img src="images/statblack.png" alt="" />
-			<img src="images/heartblack.png" alt="" />
-			<img src="images/setupblack.png" alt="" />
-
+				<img src="images/home.png" alt="home icon" />
+				<img src="images/timer.png" alt="timer icon" />
+				<img src="images/moves.png" alt="moves icon" />
+				<img src="images/heart.png" alt="heart icon" />
+				<img src="images/settings.png" alt="settings icon" />
 			{/* <MainSVG
 				xmlns="http://www.w3.org/2000/svg"
 				preserveAspectRatio
