@@ -3,27 +3,25 @@ import styled from 'styled-components';
 import { UserContext } from '../../../../context'
 import TopIcons from '../../../../components/TopIcons'
 
-const StyledHealth = styled.div`
+const StyledSettings = styled.div`
 
 `;
 
-const PageHealth = () => {
+const PageSettings = () => {
 	const {isAuth} = useContext(UserContext);
 
 	useEffect(() => {
-
-			console.log(isAuth);
-
+		console.log(isAuth);
 	}, [isAuth]);
 
 	return (
-		<StyledHealth>
-			<TopIcons iconSrc='images/heart.png'/>
+		<StyledSettings>
+			<TopIcons iconSrc='images/settings.png'/>
 
 			{isAuth && <h2>Welcome</h2>}
-			<h1>Health</h1>
-		</StyledHealth>
+			<h1>settings</h1>
+		</StyledSettings>
 	);
 };
 
-export default PageHealth;
+export default PageSettings;
