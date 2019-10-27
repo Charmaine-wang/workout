@@ -7,13 +7,16 @@ import { createBrowserHistory } from "history";
 
 import firebase, { auth, firestore } from "./firebase";
 import { collectIdsAndDocs } from './components/Utilities';
-import PageMain from './pages/menu/main'
-import PageLogin from './pages/menu/Login'
 import { UserContext } from "./context";
-import PageTimer from './pages/menu/main/Timer'
+import PageSignup from "./pages/menu/Signup";
+import PageLogin from './pages/menu/Login'
+
+import PageMain from './pages/menu/main'
+import PageTimer from "./pages/menu/main/Timer";
 import PageHealth from "./pages/menu/main/Health";
 import PageMoves from "./pages/menu/main/Moves";
-import PageSignup from "./pages/menu/Signup";
+import PageSettings from "./pages/menu/main/Settings";
+
 
 
 
@@ -22,14 +25,18 @@ import PageSignup from "./pages/menu/Signup";
 const StyledApp = styled.div`
 	height: 100vh;
 	width: 100%;
-	background: linear-gradient(180deg, #4d0000 0%, rgba(255, 255, 255, 0) 100%),
-		#350000;
-
-		& > img {
-				position: absolute;
-		}
-
+	background-color: black;
+	& > img {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+	}
+	& > img:nth-child(2) {
+		opacity: 0.3;
+	}
 `;
+
+
 const history = createBrowserHistory();
 const App = (props) => {
 	// const {isAuth} = useContext(UserContext)
@@ -65,8 +72,12 @@ useEffect(() => {
 	// };
 	}
 
+	// !!!!!!!!! byt PageMain/PageHealth till PageLogin eller tvärtom medan login inte har cookie för att se sidorna
+
   return (
 		<StyledApp>
+		<GlobalStyle />
+			<img src="/images/backgroundFade.png" alt="faded background" />
 			<Router history={history}>
 				<UserContext.Provider
 					value={{ userData, setUserData, isLoggedIn, setLoggedIn }}
@@ -92,6 +103,13 @@ useEffect(() => {
 							path="/moves"
 							component={isLoggedIn ? PageMoves : PageLogin}
 						/>
+
+						<Route
+							exact
+							path="/settings"
+							component={isLoggedIn ? PageSettings : PageLogin}
+						/>
+
 						<Route exact path="/signup" component={PageSignup} />
 						{/* <Route exact path="/" component={!isLoggedIn ? PageLogin : PageMain} /> */}
 
@@ -99,6 +117,8 @@ useEffect(() => {
 					</Switch>
 				</UserContext.Provider>
 				{/* <PageMain /> */}
+
+				<Navbar />
 			</Router>
 		</StyledApp>
 	);

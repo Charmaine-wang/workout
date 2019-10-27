@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TweenMax } from "gsap";
 
+import { Link } from "react-router-dom"
+
 
 const StyledNavbar = styled.div`
 	display: flex;
@@ -10,16 +12,18 @@ const StyledNavbar = styled.div`
 	align-items: center;
 	width: 100vw;
 	position: absolute;
-	height: 48px;
-	/* left: 0px; */
-	top: 764px;
-	background: #FFFFFF;
-
-	& > img {
-		width: 7%;
-		height: 45%;
+	height: 54px;
+	top: calc(100% - 54px);
+	background: rgba(0,0,0, 0.4);
+	& > a img {
+		height: 24px;
 	}
-
+	& > a:nth-child(2) img {
+		height: 30px;
+	}
+	& > a:nth-child(5) img {
+		height: 26px;
+	}
 `;
 
 const MainSVG = styled.svg`
@@ -56,13 +60,15 @@ const Navbar = () => {
 		console.log(size);
 	}, [reset]);
 
+	// <NavLink to="/timer"> TIMER </NavLink>
 	return (
 		<StyledNavbar>
-			<img src="images/homeblack.png" alt="" />
-			<img src="images/timeblack.png" alt="" />
-			<img src="images/statblack.png" alt="" />
-			<img src="images/heartblack.png" alt="" />
-			<img src="images/setupblack.png" alt="" />
+
+			<Link exact to={"/"}> <img src="images/home.png" alt="home icon" /> </Link>
+			<Link to={"/timer"}> <img src="images/timer.png" alt="timer icon" /> </Link>
+			<Link to={"/moves"}> <img src="images/moves.png" alt="moves icon" /> </Link>
+			<Link to={"/health"}> <img src="images/heart.png" alt="heart icon" /> </Link>
+			<Link to={"/settings"}> <img src="images/settings.png" alt="settings icon" /> </Link>
 
 			{/* <MainSVG
 				xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +92,6 @@ const Navbar = () => {
 						<feComposite in="SourceGraphic" in2="goo" operator="atop" />
 					</filter>
 				</defs>
-
 				<g filter="url(#fancy-goo)">
 					<circle className="circle-shape" fill="#000000" />
 				</g>
@@ -98,5 +103,6 @@ const Navbar = () => {
 		</StyledNavbar>
 	);
 };
+
 
 export default Navbar;

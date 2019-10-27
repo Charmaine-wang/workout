@@ -5,7 +5,6 @@ const StyledCardSlider = styled.div`
 	width: 100%;
 	height: 100%;
 	transform: ${props => props.scaleCard};
-
 	& > a {
 		display: flex;
 		align-items: center;
@@ -13,32 +12,27 @@ const StyledCardSlider = styled.div`
 		text-decoration: none;
 		width: 100%;
 		height: 100%;
-		background-color: lightsalmon;
-		border-radius: 5px;
+		background-color: rgba(0,0,0, 0.5);
+		border-radius: 10px;
 		& > div {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			height: 240px;
+			height: 180px;
 			justify-content: flex-start;
-
 			& > img {
 				width: 80px;
-				height: 70px;
 			}
-			& > h1{
-				padding-bottom: 10px;
+			& > p{
+				padding-bottom: 16px;
+				font-size: 30px;
+				color: white;
 			}
 		}
 	}
-
-
 `;
 
-
 const CardSlider = (props) => {
-
-
 	useEffect(() => {
 		console.log("mounted");
 	}, []);
@@ -47,8 +41,8 @@ const CardSlider = (props) => {
 		<StyledCardSlider>
 			<a href={props.cardHref}>
 				<div>
-					<h1>{props.cardName}</h1>
-					<img src={props.cardImg} alt="" />
+					<p>{props.cardName}</p>
+					<img src={props.cardImg} alt="icon" />
 				</div>
 			</a>
 		</StyledCardSlider>

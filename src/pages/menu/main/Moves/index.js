@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { UserContext } from '../../../../context'
+import TopIcons from '../../../../components/TopIcons'
 
 const StyledMoves = styled.div`
-	display: flex;
+
 `;
 
 const PageMoves = () => {
-	const [myState, setmyState] = useState(null);
+	const {isAuth} = useContext(UserContext);
 
 	useEffect(() => {
 		console.log("mounted");
