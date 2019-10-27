@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom"
 
 const StyledTopIcons = styled.div`
 	position: absolute;
@@ -10,14 +11,15 @@ const StyledTopIcons = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	> img:nth-child(1) {
+
+	> a img {
 		width: 24px;
 		height: 24px;
 		opacity: 0.7;
 	}
-	> img:nth-child(2) {
-		width: 30px;
-		opacity: 0.6;
+	> img {
+		width: 32px;
+		opacity: 0.7;
 	}
 `;
 
@@ -25,7 +27,7 @@ const StyledTopIcons = styled.div`
 const TopIcons = (props) => {
 	return (
 		<StyledTopIcons>
-			<img src="images/arrowBack.png" alt="arrow back" />
+			<Link exact to={"/"}> <img src="images/arrowBack.png" alt="arrow back" /> </Link>
 			<img src={props.iconSrc} alt="choice icon" />
 		</StyledTopIcons>
 	);

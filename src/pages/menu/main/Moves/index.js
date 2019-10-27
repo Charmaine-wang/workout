@@ -16,6 +16,8 @@ const PageMoves = () => {
 
 	return (
 		<StyledMoves>
+			<TopIcons iconSrc='images/moves.png'/>
+
 			<h1>Moves</h1>
 		</StyledMoves>
 	);

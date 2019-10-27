@@ -19,9 +19,6 @@ import PageSettings from "./pages/menu/main/Settings";
 
 
 
-
-
-
 const StyledApp = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -76,7 +73,7 @@ useEffect(() => {
 
   return (
 		<StyledApp>
-		<GlobalStyle />
+			<GlobalStyle />
 			<img src="/images/backgroundFade.png" alt="faded background" />
 			<Router history={history}>
 				<UserContext.Provider
@@ -103,13 +100,11 @@ useEffect(() => {
 							path="/moves"
 							component={isLoggedIn ? PageMoves : PageLogin}
 						/>
-
 						<Route
 							exact
 							path="/settings"
 							component={isLoggedIn ? PageSettings : PageLogin}
 						/>
-
 						<Route exact path="/signup" component={PageSignup} />
 						{/* <Route exact path="/" component={!isLoggedIn ? PageLogin : PageMain} /> */}
 
