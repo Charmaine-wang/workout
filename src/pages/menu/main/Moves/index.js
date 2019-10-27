@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const StyledTimer = styled.div`
+const StyledMoves = styled.div`
 	display: flex;
 `;
 
-const Timer = () => {
+const PageMoves = () => {
 	const [myState, setmyState] = useState(null);
 
 	useEffect(() => {
@@ -13,10 +13,10 @@ const Timer = () => {
 	}, []);
 
 	return (
-		<StyledTimer>
-			<h1>Timer</h1>
-		</StyledTimer>
+		<StyledMoves>
+			<h1>Moves</h1>
+		</StyledMoves>
 	);
 };
 
-export default Timer;
+export default PageMoves;
