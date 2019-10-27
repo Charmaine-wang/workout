@@ -8,8 +8,6 @@ const StyledSignup = styled.div`
 `;
 
 const PageSignup = (props) => {
-	const [myState, setmyState] = useState(null);
-
 
 	return (
 		<StyledSignup>
