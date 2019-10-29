@@ -85,17 +85,17 @@ const SliderComponent = () => {
 				<div className="fixed-container">
 					<Slider {...settings}>
 						<CardSlider
-							cardHref="/timer"
+							cardLink="/timer"
 							cardName="TIMER"
 							cardImg="/images/timer.png"
 						/>
 						<CardSlider
-							cardHref="/moves"
+							cardLink="/moves"
 							cardName="MOVES"
 							cardImg="/images/moves.png"
 						/>
 						<CardSlider
-							cardHref="/health"
+							cardLink="/health"
 							cardName="HEALTH"
 							cardImg="/images/heart.png"
 						/>

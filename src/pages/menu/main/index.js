@@ -11,28 +11,26 @@ const [user, isLoading] = useAuthState(firebase.auth());
   if (isLoading) {
 		return (
 			<>
-					<h1>Du loggas snart in</h1>
+				<h1>Du loggas snart in</h1>
 			</>
 		);
 	}
 
 	console.log(user);
 
-				return (
-					<Fragment>
-						<img src="/images/shoeImage.png" alt="shoes background" />
+	return (
+		<Fragment>
+		<img src="/images/shoeImage.png" alt="shoes background" />
 
-						<SliderComponent />
-							<button onClick={() => {
-								firebase.auth().signOut()
-								window.location.href = '/login'
-							}
-								}  >logga ut</button>
+		<SliderComponent />
+		<button onClick={() => {
+			firebase.auth().signOut()
+			window.location.href = '/login'
+		}
+	}  >logga ut</button>
 
-					</Fragment>
-				);
-			};
-
-
+	</Fragment>
+	);
+};
 
 export default withRouter(PageMain);

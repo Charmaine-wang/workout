@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 const StyledCardSlider = styled.div`
 	width: 100%;
@@ -39,12 +40,12 @@ const CardSlider = (props) => {
 
 	return (
 		<StyledCardSlider>
-			<a href={props.cardHref}>
+			<Link to={props.cardLink}>
 				<div>
 					<p>{props.cardName}</p>
 					<img src={props.cardImg} alt="icon" />
 				</div>
-			</a>
+			</Link>
 		</StyledCardSlider>
 	);
 };
