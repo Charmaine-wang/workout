@@ -68,36 +68,6 @@ const Navbar = () => {
 			<Link to={"/health"}> <img src="images/heart.png" alt="heart icon" /> </Link>
 			<Link to={"/settings"}> <img src="images/settings.png" alt="settings icon" /> </Link>
 
-			{/* <MainSVG
-				xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio
-				width="100%"
-				height="100%"
-			>
-				<defs>
-					<filter id="fancy-goo">
-						<feGaussianBlur
-							in="SourceGraphic"
-							stdDeviation="10"
-							result="blur"
-						/>
-						<feColorMatrix
-							in="blur"
-							mode="matrix"
-							values="1 0 0 0 -255  0 1 0 0 -255  0 0 1 0 -255  0 0 0 30 -9"
-							result="goo"
-						/>
-						<feComposite in="SourceGraphic" in2="goo" operator="atop" />
-					</filter>
-				</defs>
-				<g filter="url(#fancy-goo)">
-					<circle className="circle-shape" fill="#000000" />
-				</g>
-			</MainSVG>
-			<svg>
-				<circle cx="100" cy="100" r="50" fill="red" id="cir" />
-			</svg> */}
-
 		</StyledNavbar>
 	);
 };

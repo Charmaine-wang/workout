@@ -13,7 +13,7 @@ const PageSignup = (props) => {
 		<StyledSignup>
 			<h1>Signup</h1>
 			<Signup />
-			<Link to={"/"}>SIGNUP</Link>
+			<Link to={"/login"}>SIGNUP</Link>
 		</StyledSignup>
 	);
 };

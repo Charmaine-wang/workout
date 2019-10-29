@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { auth } from "../firebase";
-import { Link } from 'react-router-dom'
-import { UserContext } from '../context'
-import { withRouter } from "react-router-dom";
+import firebase from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {Link} from 'react-router-dom'
+
+
 
 const StyledSignIn = styled.form`
 	/* height: 100%;
@@ -14,24 +14,21 @@ const StyledSignIn = styled.form`
 
 const SignIn = ( props ) => {
 
-const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext)
+  const [user, isLoading] = useAuthState(firebase.auth());
 
-	const handleOwnerChange = e => {
+console.log(user);
 
-				setUserData({
-					...userData,
-					[e.target.name]: e.target.value
-				});
-	};
+  const handleSubmit =  (event) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
 
-  const handleSubmit = async (email, password) => {
-	auth
-	.signInWithEmailAndPassword(email, password)
-	.then(() => {
-				console.log("wooop Loggedin");
-				setLoggedIn(true)
-		console.log(isLoggedIn);
-	})
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        formData.get('email'),
+        formData.get('password')
+      )
+
 	.catch(function(error) {
 
 		var errorCode = error.code;
@@ -46,37 +43,25 @@ const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext
 
 	};
 
+  if (isLoading) {
+		return <div><h1>LOAD LOAD LOAAAADS</h1></div>;
+	}
+
+	if (user) {
+		return window.location.href = "/";
+	}
+
 	return (
 		<StyledSignIn {...props} className="SignIn" onSubmit={handleSubmit}>
 			<label htmlFor="email">Email</label>
-			<input
-				type="text"
-				name="email"
-				id="email"
-				value={userData.email}
-				onChange={handleOwnerChange}
-				required
-			/>
+			<input type="text" name="email" id="email" required />
 			<label htmlFor="password">Password</label>
-			<input
-				type="text"
-				name="password"
-				id="password"
-				value={userData.password}
-				onChange={handleOwnerChange}
-				required
-			/>
+			<input type="text" name="password" id="password" required />
 
-			<h1
-				onClick={e => {
-					handleSubmit(userData.email, userData.password);
-				}}
-			>
-				Login
-			</h1>
+
+			<button type="submit">Logga in</button>
 		</StyledSignIn>
 	);
 };
 export default SignIn;
 
-// export default withRouter(SignIn)

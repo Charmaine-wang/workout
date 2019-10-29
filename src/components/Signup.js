@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import firebase, { auth, firestore } from "../firebase";
+import firebase from "../firebase";
 import { collectIdsAndDocs } from "./Utilities";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 
 const StyledSignup = styled.form`
 	height: 100%;
@@ -10,8 +12,10 @@ const StyledSignup = styled.form`
 `;
 
 const Signup = (props) => {
+	const [user] = useAuthState(firebase.auth());
+
 	const [userState, setUserState] = useState({
-		name: "",
+		displayName: "",
 		email: "",
 		password: ""
 	});
@@ -23,17 +27,16 @@ const Signup = (props) => {
 			[e.target.name]: e.target.value
 		});
 	};
-
+// console.log(user);
 
 	const handleSubmit = (email, password, username) => {
 		// toggleLoading(true);
 
 		let user;
 
-
-console.log(email, password, username)
-
-auth
+		console.log(firebase.firestore.collection("users"));
+firebase
+			.auth()
 			.createUserWithEmailAndPassword(email, password)
 			.then(() => {
 				user = firebase.auth().currentUser;
@@ -45,10 +48,9 @@ auth
 				});
 			})
 			.then(() => {
-firestore.collection("users").add({email, password, username});
+			firebase.firestore.collection("users").add({ email, password, username });
 			})
 			.catch(function(error) {
-
 				const errorCode = error.code;
 				const errorMessage = error.message;
 
@@ -56,6 +58,9 @@ firestore.collection("users").add({email, password, username});
 			});
 	};
 
+	if(user){
+		return (window.location.href = "/");
+	}
 	return (
 		<StyledSignup>
 			<label htmlFor="name">Name</label>
@@ -86,7 +91,7 @@ firestore.collection("users").add({email, password, username});
 			<input
 				type="button"
 				value="sign up"
-				onClick={() => handleSubmit(userState.email, userState.password, userState.name)}
+				onClick={() => handleSubmit(userState.email, userState.password, userState.displayName)}
 			/>
 		</StyledSignup>
 	);
