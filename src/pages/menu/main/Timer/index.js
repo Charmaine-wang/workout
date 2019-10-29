@@ -44,7 +44,6 @@ const StyledTimer = styled.div`
 const ChoiceWrapper = styled.div`
 	width: 100%;
 	height: calc(100vh - 216px - 54px);
-	/* margin-top: 216px; */
 	display: flex;
 	flex-direction: column;
 	> div {
@@ -65,7 +64,7 @@ const ChoiceWrapper = styled.div`
 			padding: 0px 26px;
 		}
 		> img {
-			width: 130px;
+			width: 16vh;
 			opacity: 0.12;
 		}
 	}
@@ -80,13 +79,13 @@ const PageTimer = () => {
 
 	return (
 		<StyledTimer>
+			<div/>
+			<div>
+				<p>CHOOSE MODE</p>
 				<div/>
-				<div>
-					<p>CHOOSE MODE</p>
-					<div/>
-				</div>
-				<TopIcons iconSrc='images/timer.png'/>
-				<img src="images/timerBg.png" alt="choice background" />
+			</div>
+			<TopIcons iconSrc='images/timer.png'/>
+			<img src="images/timerBg.png" alt="choice background" />
 
 			<ChoiceWrapper>
 				<div>
