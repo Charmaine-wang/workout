@@ -12,7 +12,6 @@ const StyledButton = styled.button`
   text-decoration: none;
   outline: 0;
   -webkit-tap-highlight-color: transparent;
-  /* transition: box-shadow .3s ease; */
 	font-weight: 300;
 	margin: ${props => props.margin ? props.margin : '0px'};
 	background-color: ${props => props.bgColor ? props.bgColor : 'rgba(0, 0, 0, 1)'};

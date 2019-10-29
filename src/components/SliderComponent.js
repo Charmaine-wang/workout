@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import CardSlider from "./CardSlider";
+import { useAuthState } from "react-firebase-hooks/auth";
+import firebase from '../firebase'
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -15,12 +16,10 @@ const StyledSliderComponent = styled.div`
 	& > .fixed-container {
 		height: 370px;
 		& > div > div {
-			/* overflow: scroll; */
 			::-webkit-scrollbar {
 				display: none;
 			}
 			& > div {
-				/* margin: 0 0.5% 0 0; */
 			}
 		}
 	}
@@ -40,13 +39,11 @@ const StyledSliderComponent = styled.div`
 	div > div > .slick-list {
 		height: 370px;
 		width: 100%;
-		/* padding: 0 20% 0 0; */
 		& > div > div > div > div {
 			height: 370px;
 		}
 	}
 `;
-
 
 const WelcomingWrapper = styled.p`
 	margin-top: 4vh;
@@ -68,6 +65,9 @@ const WelcomingWrapper = styled.p`
 
 
 const SliderComponent = () => {
+
+	const [user, isLoading] = useAuthState(firebase.auth());
+
   var settings = {
 		infinite: true,
 		speed: 500,
@@ -103,7 +103,7 @@ const SliderComponent = () => {
 				</div>
 			</StyledSliderComponent>
 			<WelcomingWrapper>
-				<p> Hi Charmaine </p>
+				<p> Hi {user.email} </p>
 				<p> Time for workout </p>
 			</WelcomingWrapper>
 		</Wrapper>

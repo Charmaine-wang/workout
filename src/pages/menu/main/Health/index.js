@@ -19,8 +19,6 @@ const PageHealth = () => {
 	return (
 		<StyledHealth>
 			<TopIcons iconSrc='images/heart.png'/>
-
-			{/* {isAuth && <h2>Welcome</h2>} */}
 			<h1>Health</h1>
 		</StyledHealth>
 	);

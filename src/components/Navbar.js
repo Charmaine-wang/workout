@@ -24,14 +24,6 @@ const StyledNavbar = styled.div`
 	}
 `;
 
-const MainSVG = styled.svg`
-	/* position: absolute;
-	border: ridge rgb(127, 127, 127) 10vh;
-	top: 0;
-	left: 0;
-	background: rgb(243, 243, 243); */
-`;
-
 const Navbar = () => {
   let [size, setSize] = useState(10);
 	const margin = size * 2;
@@ -58,7 +50,6 @@ const Navbar = () => {
 		console.log(size);
 	}, [reset]);
 
-	// <NavLink to="/timer"> TIMER </NavLink>
 	return (
 		<StyledNavbar>
 

@@ -8,10 +8,9 @@ const StyledSettings = styled.div`
 `;
 
 const PageSettings = () => {
-	// const {isAuth} = useContext(UserContext);
 
 	useEffect(() => {
-		// console.log(isAuth);
+
 	}, []);
 
 	return (

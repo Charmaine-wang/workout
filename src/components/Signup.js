@@ -42,7 +42,7 @@ const StyledSignup = styled.form`
 			width: 20px;
 			position: absolute;
 			margin: 18px 0 0 14px;
-			/* position: absolute; */
+
 		}
 
 		> input:-webkit-autofill,
@@ -108,13 +108,9 @@ const Signup = (props) => {
 			[e.target.name]: e.target.value
 		});
 	};
-	// console.log(user);
 
 	const handleSubmit = (email, password, username) => {
-		// toggleLoading(true);
-
 		let user;
-
 
 		firebase
 			.auth()
@@ -196,46 +192,10 @@ const Signup = (props) => {
 				>
 					Sign Up
 				</Button>
-				<Link exact to={"/"}>Already have an account? <span> Login! </span></Link>
+				<Link exact to={"/login"}>Already have an account? <span> Login! </span></Link>
 			</StyledSignup>
 		</div>
 
-	);
-};
-
-
-
-// <StyledSignup>
-// 	<label htmlFor="name">Name</label>
-// 	<input
-// 		type="text"
-// 		name="name"
-// 		id="name"
-// 		value={userState.username}
-// 		onChange={e => e.target.value}
-// 	/>
-// 	<label htmlFor="email">Email</label>
-// 	<input
-// 		type="text"
-// 		name="email"
-// 		id="email"
-// 		value={userState.email}
-// 		onChange={e => e.target.value}
-// 	/>
-// 	<label htmlFor="password">Password</label>
-// 	<input
-// 		type="text"
-// 		name="password"
-// 		id="password"
-// 		value={userState.password}
-// 		onChange={e => e.target.value}
-// 	/>
-//
-// 	<input
-// 		type="button"
-// 		value="sign up"
-// 		onClick={() => handleSubmit(userState.email, userState.password, userState.name)}
-// 	/>
-// </StyledSignup>
-
+	)
+}
 export default Signup;

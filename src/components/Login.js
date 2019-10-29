@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-
 import { UserContext } from '../context'
 import { withRouter } from "react-router-dom";
 import Button from './Button';
-
 import firebase from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {Link} from 'react-router-dom'
-
-
 
 const BgBlackFade = styled.div`
 	width: 100%;
@@ -44,7 +40,6 @@ const StyledLogin = styled.form`
 			width: 20px;
 			position: absolute;
 			margin: 18px 0 0 14px;
-			/* position: absolute; */
 		}
 
 		> input:-webkit-autofill,
@@ -127,7 +122,7 @@ console.log(user);
 	};
 
   if (isLoading) {
-		return <div><h1>LOAD LOAD LOAAAADS</h1></div>;
+		return <> <BgBlackFade /><StyledLogin><h1>Du loggas snart in</h1></StyledLogin></>
 	}
 
 	if (user) {
@@ -151,7 +146,6 @@ console.log(user);
 					<img src="images/password.png" alt="Password icon" />
 					<input type="text" name="password" id="password" required />
 				</div>
-
 
 				<Button
 					type="submit"
