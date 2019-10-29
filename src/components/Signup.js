@@ -150,38 +150,41 @@ const Signup = (props) => {
 
 				<div>
 					<img src="images/running.png" alt="Password icon" />
-			<input
-				type="text"
-				name="name"
-				id="name"
-				value={userState.username}
-				onChange={handleOwnerChange}
-				required
-			/>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						placeholder="Name"
+						value={userState.username}
+						onChange={handleOwnerChange}
+						required
+					/>
 				</div>
 
 				<div>
 					<img src="images/email.png" alt="Password icon" />
-			<input
-				type="text"
-				name="email"
-				id="email"
-				value={userState.email}
-				onChange={handleOwnerChange}
-				required
-			/>
+					<input
+						type="text"
+						name="email"
+						id="email"
+						placeholder="Email"
+						value={userState.email}
+						onChange={handleOwnerChange}
+						required
+					/>
 				</div>
 
 				<div>
 					<img src="images/password.png" alt="Password icon" />
-			<input
-				type="text"
-				name="password"
-				id="password"
-				value={userState.password}
-				onChange={handleOwnerChange}
-				required
-			/>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						placeholder="Password"
+						value={userState.password}
+						onChange={handleOwnerChange}
+						required
+					/>
 				</div>
 
 				<Button
