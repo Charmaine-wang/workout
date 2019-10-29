@@ -95,7 +95,7 @@ const StyledLogin = styled.form`
 	}
 }`
 
-const SignIn = ( props ) => {
+const Login = ( props ) => {
 
   const [user, isLoading] = useAuthState(firebase.auth());
 
@@ -165,5 +165,5 @@ console.log(user);
 
 	);
 };
-export default SignIn;
+export default Login;
 

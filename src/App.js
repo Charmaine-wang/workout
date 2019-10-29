@@ -9,7 +9,7 @@ import firebase from "./firebase";
 import { collectIdsAndDocs } from "./components/Utilities";
 import { UserContext } from "./context";
 import PageSignup from "./pages/menu/Signup";
-import PageLogin from "./pages/menu/main/Login";
+import PageLogin from "./pages/menu/Login";
 
 import PageMain from "./pages/menu/main";
 import PageTimer from "./pages/menu/main/Timer";
