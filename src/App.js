@@ -86,26 +86,22 @@ useEffect(() => {
 							component={isLoggedIn ? PageMain : PageLogin}
 						/>
 						<Route
-							exact
 							path="/health"
 							component={isLoggedIn ? PageHealth : PageLogin}
 						/>
 						<Route
-							exact
 							path="/timer"
 							component={isLoggedIn ? PageTimer : PageLogin}
 						/>
 						<Route
-							exact
 							path="/moves"
 							component={isLoggedIn ? PageMoves : PageLogin}
 						/>
 						<Route
-							exact
 							path="/settings"
 							component={isLoggedIn ? PageSettings : PageLogin}
 						/>
-						<Route exact path="/signup" component={PageSignup} />
+						<Route path="/signup" component={PageSignup} />
 						{/* <Route exact path="/" component={!isLoggedIn ? PageLogin : PageMain} /> */}
 
 						<Route render={() => <h1>404</h1>} />
@@ -113,7 +109,7 @@ useEffect(() => {
 				</UserContext.Provider>
 				{/* <PageMain /> */}
 
-				<Navbar />
+				{isLoggedIn ? <Navbar /> : ""}
 			</Router>
 		</StyledApp>
 	);
