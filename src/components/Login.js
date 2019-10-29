@@ -18,7 +18,7 @@ const BgBlackFade = styled.div`
 	position: absolute;
 `;
 
-const StyledSignIn = styled.form`
+const StyledLogin = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -138,9 +138,9 @@ console.log(user);
 
 		<div>
 			<BgBlackFade />
-			<StyledSignIn {...props} className="SignIn" onSubmit={handleSubmit}>
+			<StyledLogin {...props} className="SignIn" onSubmit={handleSubmit}>
 				<img src="images/running.png" alt="Password icon" />
-				<p> Sign In </p>
+				<p> Login </p>
 
 				<div>
 					<img src="images/email.png" alt="Password icon" />
@@ -160,7 +160,7 @@ console.log(user);
 					Login
 				</Button>
 				<Link to={"/signup"}>No account? <span> Sign up now! </span></Link>
-			</StyledSignIn>
+			</StyledLogin>
 		</div>
 
 	);

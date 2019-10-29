@@ -195,7 +195,7 @@ firebase
 				>
 					Sign Up
 				</Button>
-				<Link exact to={"/"}>Already have an account? <span> Sign in! </span></Link>
+				<Link exact to={"/"}>Already have an account? <span> Login! </span></Link>
 			</StyledSignup>
 		</div>
 
