@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { auth } from "../firebase";
-import { Link } from 'react-router-dom'
+
 import { UserContext } from '../context'
 import { withRouter } from "react-router-dom";
 import Button from './Button';
+
+import firebase from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {Link} from 'react-router-dom'
+
+
 
 const BgBlackFade = styled.div`
 	width: 100%;
@@ -88,19 +93,25 @@ const StyledSignIn = styled.form`
 			color: white;
 		}
 	}
-}`;
+}`
 
 const SignIn = ( props ) => {
-const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext)
 
-  const handleSubmit = async (email, password) => {
-	auth
-	.signInWithEmailAndPassword(email, password)
-	.then(() => {
-				console.log("wooop Loggedin");
-				setLoggedIn(true)
-		console.log(isLoggedIn);
-	})
+  const [user, isLoading] = useAuthState(firebase.auth());
+
+console.log(user);
+
+  const handleSubmit =  (event) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        formData.get('email'),
+        formData.get('password')
+      )
+
 	.catch(function(error) {
 
 		var errorCode = error.code;
@@ -115,7 +126,16 @@ const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext
 
 	};
 
+  if (isLoading) {
+		return <div><h1>LOAD LOAD LOAAAADS</h1></div>;
+	}
+
+	if (user) {
+		return window.location.href = "/";
+	}
+
 	return (
+
 		<div>
 			<BgBlackFade />
 			<StyledSignIn {...props} className="SignIn" onSubmit={handleSubmit}>
@@ -124,43 +144,26 @@ const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext
 
 				<div>
 					<img src="images/email.png" alt="Password icon" />
-					<input
-						type="text"
-						name="email"
-						id="email"
-						value={userData.email}
-						onChange={e => e.target.value}
-						placeholder="Email"
-						required
-					/>
+					<input type="text" name="email" id="email" required />
 				</div>
 
 				<div>
 					<img src="images/password.png" alt="Password icon" />
-					<input
-						type="password"
-						name="password"
-						id="password"
-						value={userData.password}
-						onChange={e => e.target.value}
-						placeholder="Password"
-						required
-					/>
+					<input type="text" name="password" id="password" required />
 				</div>
 
+
 				<Button
+					type="submit"
 					margin="50px 0 10px 0" btnWidth="320px" fontColor="white" bgColor="rgba(255,255,255, 0.3)" fontSize="20px"
-					onClick={e => {
-						handleSubmit(userData.email, userData.password);
-					}}
 				>
-					Sign In
+					Login
 				</Button>
 				<Link to={"/signup"}>No account? <span> Sign up now! </span></Link>
 			</StyledSignIn>
 		</div>
+
 	);
 };
 export default SignIn;
 
-// export default withRouter(SignIn)

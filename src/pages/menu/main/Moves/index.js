@@ -8,7 +8,6 @@ const StyledMoves = styled.div`
 `;
 
 const PageMoves = () => {
-	const {isAuth} = useContext(UserContext);
 
 	useEffect(() => {
 		console.log("mounted");

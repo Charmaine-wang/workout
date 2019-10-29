@@ -73,7 +73,7 @@ const ChoiceWrapper = styled.div`
 
 
 const PageTimer = () => {
-	const {isAuth} = useContext(UserContext);
+	// const {isAuth} = useContext(UserContext);
 
 	useEffect(() => {
 		console.log("mounted");

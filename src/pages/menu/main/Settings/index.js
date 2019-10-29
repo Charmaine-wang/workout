@@ -8,17 +8,17 @@ const StyledSettings = styled.div`
 `;
 
 const PageSettings = () => {
-	const {isAuth} = useContext(UserContext);
+	// const {isAuth} = useContext(UserContext);
 
 	useEffect(() => {
-		console.log(isAuth);
-	}, [isAuth]);
+		// console.log(isAuth);
+	}, []);
 
 	return (
 		<StyledSettings>
 			<TopIcons iconSrc='images/settings.png'/>
 
-			{isAuth && <h2>Welcome</h2>}
+			 <h2>Welcome</h2>
 			<h1>settings</h1>
 		</StyledSettings>
 	);
