@@ -11,7 +11,6 @@ const PageLogin = (props) => {
 	return (
 		<StyledLogin {...props}>
 			<SignIn {...props}/>
-			<Link to={"/signup"}>SIGNUP</Link>
 		</StyledLogin>
 	);
 };
