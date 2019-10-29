@@ -13,7 +13,7 @@ const BgBlackFade = styled.div`
 	position: absolute;
 `;
 
-const StyledSignIn = styled.form`
+const StyledLogin = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -90,7 +90,7 @@ const StyledSignIn = styled.form`
 	}
 }`;
 
-const SignIn = ( props ) => {
+const Login = ( props ) => {
 const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext)
 
   const handleSubmit = async (email, password) => {
@@ -118,9 +118,9 @@ const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext
 	return (
 		<div>
 			<BgBlackFade />
-			<StyledSignIn {...props} className="SignIn" onSubmit={handleSubmit}>
+			<StyledLogin {...props} className="SignIn" onSubmit={handleSubmit}>
 				<img src="images/running.png" alt="Password icon" />
-				<p> Sign In </p>
+				<p> Login </p>
 
 				<div>
 					<img src="images/email.png" alt="Password icon" />
@@ -154,13 +154,13 @@ const {userData, setUserData, isLoggedIn, setLoggedIn} =  useContext(UserContext
 						handleSubmit(userData.email, userData.password);
 					}}
 				>
-					Sign In
+					Login
 				</Button>
 				<Link to={"/signup"}>No account? <span> Sign up now! </span></Link>
-			</StyledSignIn>
+			</StyledLogin>
 		</div>
 	);
 };
-export default SignIn;
+export default Login;
 
 // export default withRouter(SignIn)

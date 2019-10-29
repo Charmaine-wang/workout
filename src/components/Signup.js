@@ -177,7 +177,7 @@ firestore.collection("users").add({email, password, username});
 				>
 					Sign Up
 				</Button>
-				<Link exact to={"/"}>Already have an account? <span> Sign in! </span></Link>
+				<Link exact to={"/"}>Already have an account? <span> Login! </span></Link>
 			</StyledSignup>
 		</div>
 	);

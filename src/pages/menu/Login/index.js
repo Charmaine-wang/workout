@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import SignIn from '../../../components/SignIn'
+import Login from '../../../components/Login';
 
 const PageLogin = (props) => {
 	console.log(props);
 	return (
 		<div>
-			<SignIn />
+			<Login />
 		</div>
 	);
 };
