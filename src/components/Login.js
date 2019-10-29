@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import Button from './Button';
 import firebase from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const BgBlackFade = styled.div`
 	width: 100%;
