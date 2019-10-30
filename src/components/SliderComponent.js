@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import CardSlider from "./CardSlider";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from '../firebase'
+import { useAuth } from "../authcontext";
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -66,7 +67,8 @@ const WelcomingWrapper = styled.p`
 
 const SliderComponent = () => {
 
-	const [user, isLoading] = useAuthState(firebase.auth());
+const { authUser, authLoading } = useAuth();
+
 
   var settings = {
 		infinite: true,
@@ -103,7 +105,7 @@ const SliderComponent = () => {
 				</div>
 			</StyledSliderComponent>
 			<WelcomingWrapper>
-				<p> Hi {user.email} </p>
+				<p> Hi {authUser.displayName} </p>
 				<p> Time for workout </p>
 			</WelcomingWrapper>
 		</Wrapper>

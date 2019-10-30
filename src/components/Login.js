@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { UserContext } from '../context'
+import { useAuth } from "../authcontext";
 import { withRouter } from "react-router-dom";
 import Button from './Button';
 import firebase from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+// import { useAuthState } from "react-firebase-hooks/auth";
 import {Link} from 'react-router-dom'
+
 
 const BgBlackFade = styled.div`
 	width: 100%;
@@ -92,9 +93,9 @@ const StyledLogin = styled.form`
 
 const Login = ( props ) => {
 
-  const [user, isLoading] = useAuthState(firebase.auth());
+  // const [user, isLoading] = useAuthState(firebase.auth());
 
-console.log(user);
+const { authUser, authLoading } = useAuth();
 
   const handleSubmit =  (event) => {
 		event.preventDefault();
@@ -121,11 +122,18 @@ console.log(user);
 
 	};
 
-  if (isLoading) {
-		return <> <BgBlackFade /><StyledLogin><h1>Du loggas snart in</h1></StyledLogin></>
+  if (authLoading) {
+		return (
+			<>
+				<BgBlackFade />
+				<StyledLogin>
+					<h1>Du loggas snart in</h1>
+				</StyledLogin>
+			</>
+		);
 	}
 
-	if (user) {
+	if (authUser) {
 		return window.location.href = "/";
 	}
 

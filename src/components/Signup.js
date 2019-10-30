@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import firebase from "../firebase";
+import firebase, {firestore} from "../firebase";
 import { collectIdsAndDocs } from "./Utilities";
 import Button from './Button';
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context'
 import { withRouter } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { log } from "util";
+import { useAuth } from "../authcontext";
 
 
 const BgBlackFade = styled.div`
@@ -94,54 +96,45 @@ const StyledSignup = styled.form`
 }`;
 
 const Signup = (props) => {
-	const [user] = useAuthState(firebase.auth());
+const {authUser} = useAuth()
 
-	const [userState, setUserState] = useState({
-		displayName: "",
-		email: "",
-		password: ""
-	});
+const handleSubmit = (event) => {
 
-	const handleOwnerChange = e => {
-		setUserState({
-			...userState,
-			[e.target.name]: e.target.value
+	event.preventDefault();
+	let userData = new FormData(event.currentTarget);
+
+	firebase
+		.auth()
+		.createUserWithEmailAndPassword(
+			userData.get("email"),
+			userData.get("password")
+		)
+		.then((res) => {
+
+						firestore
+							.collection("users")
+							.doc(res.user.uid)
+							.set({
+								displayName: userData.get("displayName"),
+								email: userData.get("email"),
+								password: userData.get("password")
+							});
+		})
+		.catch(function(error) {
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.log("errorCode", errorCode, "errorMessage", errorMessage);
 		});
-	};
+};
 
-	const handleSubmit = (email, password, username) => {
-		let user;
 
-		firebase
-			.auth()
-			.createUserWithEmailAndPassword(email, password)
-			.then(() => {
-				user = firebase.auth().currentUser;
-				user.sendEmailVerification();
-			})
-			.then(() => {
-				user.updateProfile({
-					username
-				});
-			})
-			.then(() => {
-				firebase.firestore
-					.collection("users")
-					.add({ email, password, username });
-			})
-			.catch(function(error) {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-
-				console.log("errorCode", errorCode, "errorMessage", errorMessage);
-			});
-	};
-
-	if (user) {
+	if (authUser) {
 		return (window.location.href = "/");
 	}
-	return (
 
+	// console.log(firebase.firestore("user"));
+	return (
 		<div>
 			<BgBlackFade />
 			<StyledSignup {...props} className="SignIn" onSubmit={handleSubmit}>
@@ -150,52 +143,100 @@ const Signup = (props) => {
 
 				<div>
 					<img src="images/running.png" alt="Password icon" />
-			<input
-				type="text"
-				name="name"
-				id="name"
-				value={userState.username}
-				onChange={handleOwnerChange}
-				required
-			/>
+					<input
+						type="text"
+						name="displayName"
+						id="displayName"
+					/>
 				</div>
 
 				<div>
 					<img src="images/email.png" alt="Password icon" />
-			<input
-				type="text"
-				name="email"
-				id="email"
-				value={userState.email}
-				onChange={handleOwnerChange}
-				required
-			/>
+					<input
+						type="text"
+						name="email"
+						id="email"
+					/>
 				</div>
 
 				<div>
 					<img src="images/password.png" alt="Password icon" />
-			<input
-				type="text"
-				name="password"
-				id="password"
-				value={userState.password}
-				onChange={handleOwnerChange}
-				required
-			/>
+					<input
+						type="text"
+						name="password"
+						id="password"
+					/>
 				</div>
 
 				<Button
-					margin="50px 0 10px 0" btnWidth="320px" fontColor="white" bgColor="rgba(255,255,255, 0.3)" fontSize="20px"
-					type="button"
-					value="sign up"
-					onClick={() => handleSubmit(userState.email, userState.password, userState.displayName)}
-				>
+					margin="50px 0 10px 0"
+					btnWidth="320px"
+					fontColor="white"
+					bgColor="rgba(255,255,255, 0.3)"
+					fontSize="20px"
+					type="submit"
+					>
 					Sign Up
 				</Button>
-				<Link exact to={"/login"}>Already have an account? <span> Login! </span></Link>
+				<Link exact to={"/login"}>
+					Already have an account? <span> Login! </span>
+				</Link>
 			</StyledSignup>
 		</div>
 
-	)
+		// <div>
+		// 	<BgBlackFade />
+		// 	<StyledSignup {...props} className="SignIn" onSubmit={handleSubmit}>
+		// 		<img src="images/running.png" alt="Password icon" />
+		// 		<p> Sign Up </p>
+
+		// 		<div>
+		// 			<img src="images/running.png" alt="Password icon" />
+		// 	<input
+		// 		type="text"
+		// 		name="displayName"
+		// 		id="displayName"
+		// 		value={userState.displayName}
+		// 		onChange={handleOwnerChange}
+		// 		required
+		// 	/>
+		// 		</div>
+
+		// 		<div>
+		// 			<img src="images/email.png" alt="Password icon" />
+		// 	<input
+		// 		type="text"
+		// 		name="email"
+		// 		id="email"
+		// 		value={userState.email}
+		// 		onChange={handleOwnerChange}
+		// 		required
+		// 	/>
+		// 		</div>
+
+		// 		<div>
+		// 			<img src="images/password.png" alt="Password icon" />
+		// 	<input
+		// 		type="text"
+		// 		name="password"
+		// 		id="password"
+		// 		value={userState.password}
+		// 		onChange={handleOwnerChange}
+		// 		required
+		// 	/>
+		// 		</div>
+
+		// 		<Button
+		// 			margin="50px 0 10px 0" btnWidth="320px" fontColor="white" bgColor="rgba(255,255,255, 0.3)" fontSize="20px"
+		// 			type="button"
+		// 			value="sign up"
+		// 			onClick={() => handleSubmit(userState.email, userState.password, userState.displayName)}
+		// 		>
+		// 			Sign Up
+		// 		</Button>
+		// 		<Link exact to={"/login"}>Already have an account? <span> Login! </span></Link>
+		// 	</StyledSignup>
+		// </div>
+	);
 }
 export default Signup;

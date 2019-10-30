@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Navbar from "./components/Navbar";
 import GlobalStyle from "./styles/Globalstyles";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import firebase from "./firebase";
+// import { useAuthState } from "react-firebase-hooks/auth";
+import firebase, {firestore} from "./firebase";
 import PageSignup from "./pages/menu/Signup";
 import PageLogin from "./pages/menu/Login";
 import PageMain from "./pages/menu/main";
@@ -12,6 +12,9 @@ import PageTimer from "./pages/menu/main/Timer";
 import PageHealth from "./pages/menu/main/Health";
 import PageMoves from "./pages/menu/main/Moves";
 import PageSettings from "./pages/menu/main/Settings";
+import { collectIdsAndDocs } from "./components/Utilities";
+import { useAuth } from "./authcontext";
+
 
 
 const StyledApp = styled.div`
@@ -29,9 +32,8 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-const [user, isLoading] = useAuthState(firebase.auth());
-
-console.log(user);
+const {authUser, authLoading} = useAuth();
+console.log(authUser);
 
 	return (
 		<StyledApp>
@@ -40,9 +42,9 @@ console.log(user);
 			<Router>
 				<Switch>
 
-					{!user ? (
+					{!authUser ? (
 						<>
-							<Redirect to="/login" />
+							{/* <Redirect to="/login" /> */}
 							<Route exact path="/login" component={PageLogin} />
 							<Route path="/signup" component={PageSignup} />
 						</>
@@ -59,7 +61,7 @@ console.log(user);
 					)}
 				</Switch>
 
-				{user ? <Navbar /> : ""}
+				{authUser ? <Navbar /> : ""}
 			</Router>
 		</StyledApp>
 	);

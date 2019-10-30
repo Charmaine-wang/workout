@@ -1,22 +1,12 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import styled from 'styled-components';
 import SliderComponent from '../../../components/SliderComponent'
-import firebase from '../../../firebase'
-import { useAuthState } from "react-firebase-hooks/auth";
+import firebase, {firestore} from '../../../firebase'
+
 import { withRouter, Link } from "react-router-dom";
 
+
 const PageMain = props => {
-
-const [user, isLoading] = useAuthState(firebase.auth());
-  if (isLoading) {
-		return (
-			<>
-					<h1>Du loggas snart in</h1>
-			</>
-		);
-	}
-
-	console.log(user);
 
 				return (
 					<Fragment>
