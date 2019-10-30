@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import firebase, {firestore} from "../firebase";
-import { collectIdsAndDocs } from "./Utilities";
 import Button from './Button';
 import { Link } from 'react-router-dom'
-import { UserContext } from '../context'
-import { withRouter } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { log } from "util";
 import { useAuth } from "../authcontext";
 
 
@@ -133,7 +128,6 @@ const handleSubmit = (event) => {
 		return (window.location.href = "/");
 	}
 
-	// console.log(firebase.firestore("user"));
 	return (
 		<div>
 			<BgBlackFade />
@@ -184,59 +178,6 @@ const handleSubmit = (event) => {
 			</StyledSignup>
 		</div>
 
-		// <div>
-		// 	<BgBlackFade />
-		// 	<StyledSignup {...props} className="SignIn" onSubmit={handleSubmit}>
-		// 		<img src="images/running.png" alt="Password icon" />
-		// 		<p> Sign Up </p>
-
-		// 		<div>
-		// 			<img src="images/running.png" alt="Password icon" />
-		// 	<input
-		// 		type="text"
-		// 		name="displayName"
-		// 		id="displayName"
-		// 		value={userState.displayName}
-		// 		onChange={handleOwnerChange}
-		// 		required
-		// 	/>
-		// 		</div>
-
-		// 		<div>
-		// 			<img src="images/email.png" alt="Password icon" />
-		// 	<input
-		// 		type="text"
-		// 		name="email"
-		// 		id="email"
-		// 		value={userState.email}
-		// 		onChange={handleOwnerChange}
-		// 		required
-		// 	/>
-		// 		</div>
-
-		// 		<div>
-		// 			<img src="images/password.png" alt="Password icon" />
-		// 	<input
-		// 		type="text"
-		// 		name="password"
-		// 		id="password"
-		// 		value={userState.password}
-		// 		onChange={handleOwnerChange}
-		// 		required
-		// 	/>
-		// 		</div>
-
-		// 		<Button
-		// 			margin="50px 0 10px 0" btnWidth="320px" fontColor="white" bgColor="rgba(255,255,255, 0.3)" fontSize="20px"
-		// 			type="button"
-		// 			value="sign up"
-		// 			onClick={() => handleSubmit(userState.email, userState.password, userState.displayName)}
-		// 		>
-		// 			Sign Up
-		// 		</Button>
-		// 		<Link exact to={"/login"}>Already have an account? <span> Login! </span></Link>
-		// 	</StyledSignup>
-		// </div>
 	);
 }
 export default Signup;

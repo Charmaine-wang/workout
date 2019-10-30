@@ -8,21 +8,19 @@ import { withRouter, Link } from "react-router-dom";
 
 const PageMain = props => {
 
-				return (
-					<Fragment>
-						<img src="/images/shoeImage.png" alt="shoes background" />
+	return (
+		<Fragment>
+		<img src="/images/shoeImage.png" alt="shoes background" />
 
-						<SliderComponent />
-							<button onClick={() => {
-								firebase.auth().signOut()
-								window.location.href = '/login'
-							}
-								}  >logga ut</button>
+		<SliderComponent />
+		<button onClick={() => {
+			firebase.auth().signOut()
+			window.location.href = '/login'
+		}
+	}  >logga ut</button>
 
-					</Fragment>
-				);
-			};
-
-
+	</Fragment>
+	);
+};
 
 export default withRouter(PageMain);

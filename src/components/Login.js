@@ -147,12 +147,12 @@ const { authUser, authLoading } = useAuth();
 
 				<div>
 					<img src="images/email.png" alt="Password icon" />
-					<input type="text" name="email" id="email" required />
+					<input type="text" placeholder="Email" name="email" id="email" required />
 				</div>
 
 				<div>
 					<img src="images/password.png" alt="Password icon" />
-					<input type="text" name="password" id="password" required />
+					<input type="password" placeholder="Password" name="password" id="password" required />
 				</div>
 
 				<Button
@@ -168,4 +168,3 @@ const { authUser, authLoading } = useAuth();
 	);
 };
 export default Login;
-
