@@ -4,6 +4,7 @@ import Timekeeper from '../../../../../components/Timekeeper';
 import { Route } from 'react-router-dom'
 import Activity from '../../../../../components/Activity';
 import FadedBackground from '../../../../../components/FadedBackground';
+import { Link } from "react-router-dom";
 
 const StyledPageTimekeeper = styled.div`
 	display: flex;
@@ -19,10 +20,25 @@ const StyledPageTimekeeper = styled.div`
 	}
 `;
 
+const ArrowBack = styled.div`
+	position: absolute;
+	z-index: 3;
+	padding: 15px 18px 15px 12px;
+	> a img {
+		width: 24px;
+		height: 24px;
+		opacity: 0.7;
+	}
+`;
+
 const PageTimekeeper = () => {
 	return (
 		<div>
 			<FadedBackground opacity={'0.65'} />
+			<ArrowBack>
+				<Link to={"/timer"}> <img src="/images/arrowBack.png" alt="arrow back" /> </Link>
+			</ArrowBack>
+
 			<StyledPageTimekeeper>
 				<img src="/images/dots.png" alt="dots" />
 
