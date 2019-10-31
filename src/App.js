@@ -22,14 +22,6 @@ const StyledApp = styled.div`
 	height: 100vh;
 	width: 100%;
 	background-color: black;
-	& > img {
-		position: absolute;
-		height: 100%;
-		width: 100%;
-	}
-	& > img:nth-child(3) {
-		opacity: 0.3;
-	}
 `;
 
 const App = () => {
@@ -39,7 +31,6 @@ const {authUser, authLoading} = useAuth();
 	return (
 		<StyledApp>
 			<GlobalStyle />
-			<img src="/images/backgroundFade.png" alt="faded background" />
 			<Router>
 				<Switch>
 					{!authUser ? (

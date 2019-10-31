@@ -41,8 +41,7 @@ const StyledActivity = styled.div`
 	> div:last-child {
 		display: flex;
 		flex-direction: column;
-		background-color: #000000;
-		opacity: 0.8;
+		background-color: rgba(0,0,0, 0.8);
 		margin-top: 2px;
 		> p {
 			position: absolute;
@@ -63,8 +62,7 @@ const StyledActivity = styled.div`
 		width: 100%;
 
 		> div {
-			background-color: #000000;
-			opacity: 0.8;
+			background-color: rgba(0,0,0, 0.8);
 			width: calc(50% - 1px);
 			height: 100%;
 			> p {
