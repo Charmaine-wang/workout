@@ -6,19 +6,18 @@ const StyledTimekeeper = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
-	background-color: red;
+	background: rgba(0, 0, 0, 0.9);
 	height: 270px;
 	width: 70%;
 	border-radius: 100%;
 	color: white;
-		> h1{
-			font-size: 70px;
-
-		}
-		> h3{
-			font-size: 36px;
-
-		}
+	> h1 {
+		font-size: 70px;
+	}
+	> h3 {
+	color:	rgba(255, 255, 255, 0.7);
+		font-size: 36px;
+	}
 `;
 
 const Timekeeper = () => {
