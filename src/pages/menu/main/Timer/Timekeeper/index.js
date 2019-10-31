@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import Timekeeper from '../../../../../components/Timekeeper';
 import { Route } from 'react-router-dom'
 import Activity from '../../../../../components/Activity';
+import FadedBackground from '../../../../../components/FadedBackground';
+
 const StyledPageTimekeeper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	flex-direction: column;
-	height: 100%;
+	height: 100vh;
 	width: 100%;
-	background: url("/images/backgroundFade.png");
 	padding-top: 50px;
 	> img {
 		position: absolute;
@@ -19,15 +20,16 @@ const StyledPageTimekeeper = styled.div`
 `;
 
 const PageTimekeeper = () => {
-
-
 	return (
-		<StyledPageTimekeeper>
-			<img src="/images/dots.png" alt="dots" />
+		<div>
+			<FadedBackground opacity={'0.65'} />
+			<StyledPageTimekeeper>
+				<img src="/images/dots.png" alt="dots" />
 
-			<Timekeeper />
-			<Activity />
-		</StyledPageTimekeeper>
+				<Timekeeper />
+				<Activity />
+			</StyledPageTimekeeper>
+			</div>
 	);
 };
 

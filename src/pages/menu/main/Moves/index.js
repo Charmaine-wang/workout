@@ -20,6 +20,10 @@ let options = {
 let success = (position) => {
   console.log(`Latitude : ${position.coords.latitude}`);
   console.log(`Longitude: ${position.coords.longitude}`);
+	console.log(`Speed: ${position.coords.speed}`);
+	console.log(`More or less ${position.coords.accuracy} meters.`);
+
+
   // console.log(`More or less ${position.coords.accuracy} meters.`);
 }
 

@@ -4,6 +4,7 @@ import { UserContext } from '../../../../context'
 import TopIcons from '../../../../components/TopIcons'
 import HealthComponent from '../../../../components/HealthComponent';
 import BodyComponent from '../../../../components/BodyComponent';
+import FadedBackground from '../../../../components/FadedBackground';
 
 const StyledHealth = styled.div`
 	height: calc(100vh - 54px);
@@ -11,13 +12,6 @@ const StyledHealth = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: space-between;
-`;
-
-const BgBlackFade = styled.div`
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0,0,0, 0.4);
-	position: absolute;
 `;
 
 const HealthWrapper = styled.div`
@@ -65,8 +59,8 @@ const PageHealth = () => {
 
 	return (
 		<div>
+			<FadedBackground opacity={'0.6'}/>
 			<TopIcons iconSrc='images/heart.png'/>
-			<BgBlackFade />
 			<StyledHealth>
 
 				<HealthWrapper>

@@ -7,15 +7,6 @@ import firebase from "../firebase";
 // import { useAuthState } from "react-firebase-hooks/auth";
 import {Link} from 'react-router-dom'
 
-
-
-const BgBlackFade = styled.div`
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0,0,0, 0.65);
-	position: absolute;
-`;
-
 const StyledLogin = styled.form`
 	display: flex;
 	flex-direction: column;
@@ -126,7 +117,6 @@ const { authUser, authLoading } = useAuth();
   if (authLoading) {
 		return (
 			<>
-				<BgBlackFade />
 				<StyledLogin>
 					<h1>Du loggas snart in</h1>
 				</StyledLogin>
@@ -141,7 +131,6 @@ const { authUser, authLoading } = useAuth();
 	return (
 
 		<div>
-			<BgBlackFade />
 			<StyledLogin {...props} className="SignIn" onSubmit={handleSubmit}>
 				<img src="images/running.png" alt="Password icon" />
 				<p> Login </p>

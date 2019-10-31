@@ -2,21 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { UserContext } from '../../../../context'
 import TopIcons from '../../../../components/TopIcons'
-import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
-	Redirect, Link
-} from "react-router-dom";
+import FadedBackground from '../../../../components/FadedBackground'
+
+import { Link } from "react-router-dom";
 
 const StyledTimer = styled.div`
 	> div:nth-child(1) {
-		background-color: rgba(0,0,0,0.3);
-		height: 100vh;
-		width: 100%;
-		position: absolute;
-	}
-	> div:nth-child(2) {
 		background-color: rgba(0,0,0, 0.4);
 		height: 216px;
 		width: 100%;
@@ -52,7 +43,6 @@ const ChoiceWrapper = styled.div`
 	height: calc(100vh - 216px - 54px);
 	display: flex;
 	flex-direction: column;
-
 	> div {
 		height: 100%;
 		background-color: rgba(0,0,0, 0.8);
@@ -90,38 +80,40 @@ const PageTimer = () => {
 	}, []);
 
 	return (
-		<StyledTimer>
-			<div />
-			<div>
-				<p>CHOOSE MODE</p>
-				<div />
-			</div>
-			<TopIcons iconSrc="images/timer.png" />
-			<img src="images/timerBg.png" alt="choice background" />
-
-			<ChoiceWrapper>
+		<div>
+			<FadedBackground opacity={"0.7"} />
+			<StyledTimer>
 				<div>
-					<Link to="/timer/timekeeper">
-						<img src="images/running.png" alt="choice background" />
-						<p> RUNNING </p>
-					</Link>
+					<p>CHOOSE MODE</p>
+					<div />
 				</div>
+				<TopIcons iconSrc="images/timer.png" />
+				<img src="images/timerBg.png" alt="choice background" />
 
-				<div>
-					<Link to="/timer/timekeeper">
-						<p> CYCLING </p>
-						<img src="images/cycling.png" alt="choice background" />
-					</Link>
-				</div>
+				<ChoiceWrapper>
+					<div>
+						<Link to="/timer/timekeeper">
+							<img src="images/running.png" alt="choice background" />
+							<p> RUNNING </p>
+						</Link>
+					</div>
 
-				<div>
-					<Link to="/timer/timekeeper">
-						<img src="images/walking.png" alt="choice background" />
-						<p> WALKING </p>
-					</Link>
-				</div>
-			</ChoiceWrapper>
-		</StyledTimer>
+					<div>
+						<Link to="/timer/timekeeper">
+							<p> CYCLING </p>
+							<img src="images/cycling.png" alt="choice background" />
+						</Link>
+					</div>
+
+					<div>
+						<Link to="/timer/timekeeper">
+							<img src="images/walking.png" alt="choice background" />
+							<p> WALKING </p>
+						</Link>
+					</div>
+				</ChoiceWrapper>
+			</StyledTimer>
+		</div>
 	);
 };
 

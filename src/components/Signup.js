@@ -5,14 +5,6 @@ import Button from './Button';
 import { Link } from 'react-router-dom'
 import { useAuth } from "../authcontext";
 
-
-const BgBlackFade = styled.div`
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0,0,0, 0.65);
-	position: absolute;
-`;
-
 const StyledSignup = styled.form`
 	display: flex;
 	flex-direction: column;
@@ -130,7 +122,6 @@ const handleSubmit = (event) => {
 
 	return (
 		<div>
-			<BgBlackFade />
 			<StyledSignup {...props} className="SignIn" onSubmit={handleSubmit}>
 				<img src="images/running.png" alt="Password icon" />
 				<p> Sign Up </p>
