@@ -15,7 +15,7 @@ const PageSettings = () => {
 
 	return (
 		<StyledSettings>
-			<TopIcons iconSrc='images/settings.png'/>
+			<TopIcons iconSrc='/images/settings.png'/>
 			<h1>settings</h1>
 		</StyledSettings>
 	);
