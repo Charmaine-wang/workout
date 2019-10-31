@@ -2,6 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { UserContext } from '../../../../context'
 import TopIcons from '../../../../components/TopIcons'
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect, Link
+} from "react-router-dom";
 
 const StyledTimer = styled.div`
 	> div:nth-child(1) {
@@ -46,11 +52,16 @@ const ChoiceWrapper = styled.div`
 	height: calc(100vh - 216px - 54px);
 	display: flex;
 	flex-direction: column;
+
 	> div {
+		height: 100%;
+	}
+	> div > a {
 		width: 100%;
-		height: calc(100% / 3);
-		background-color: rgba(0,0,0, 0.8);
-		border-bottom: 2px solid rgba(255,255,255, 0.1);
+		height: 100%;
+		text-decoration: none;
+		/* height: calc(100% / 3); */
+		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -79,31 +90,36 @@ const PageTimer = () => {
 
 	return (
 		<StyledTimer>
-			<div/>
+			<div />
 			<div>
 				<p>CHOOSE MODE</p>
-				<div/>
+				<div />
 			</div>
-			<TopIcons iconSrc='images/timer.png'/>
+			<TopIcons iconSrc="images/timer.png" />
 			<img src="images/timerBg.png" alt="choice background" />
 
 			<ChoiceWrapper>
-				<div>
-					<img src="images/running.png" alt="choice background" />
-					<p> RUNNING </p>
-				</div>
+					<div>
+				<Link to="/timer/timekeeper">
+						<img src="images/running.png" alt="choice background" />
+						<p> RUNNING </p>
+				</Link>
+					</div>
 
-				<div>
-					<p> CYCLING </p>
-					<img src="images/cycling.png" alt="choice background" />
-				</div>
+					<div>
+				<Link to="/timer/timekeeper">
+						<p> CYCLING </p>
+						<img src="images/cycling.png" alt="choice background" />
+				</Link>
+					</div>
 
-				<div>
-					<img src="images/walking.png" alt="choice background" />
-					<p> WALKING </p>
-				</div>
+					<div>
+				<Link to="/timer/timekeeper">
+						<img src="images/walking.png" alt="choice background" />
+						<p> WALKING </p>
+				</Link>
+					</div>
 			</ChoiceWrapper>
-
 		</StyledTimer>
 	);
 };

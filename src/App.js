@@ -7,11 +7,12 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import firebase, {firestore} from "./firebase";
 import PageSignup from "./pages/menu/Signup";
 import PageLogin from "./pages/menu/Login";
-import PageMain from "./pages/menu/main";
+import PageHome from "./pages/menu/main/Home";
 import PageTimer from "./pages/menu/main/Timer";
 import PageHealth from "./pages/menu/main/Health";
 import PageMoves from "./pages/menu/main/Moves";
 import PageSettings from "./pages/menu/main/Settings";
+import PageTimekeeper from './pages/menu/main/Timer/Timekeeper'
 import { collectIdsAndDocs } from "./components/Utilities";
 import { useAuth } from "./authcontext";
 
@@ -38,10 +39,9 @@ console.log(authUser);
 	return (
 		<StyledApp>
 			<GlobalStyle />
-			<img src="/images/backgroundFade.png" alt="faded background" />
+			{/* <img src="/images/backgroundFade.png" alt="faded background" /> */}
 			<Router>
 				<Switch>
-
 					{!authUser ? (
 						<>
 							{/* <Redirect to="/login" /> */}
@@ -50,11 +50,12 @@ console.log(authUser);
 						</>
 					) : (
 						<>
+							<Route exact path="/" component={PageHome} />
 							<Route path="/health" component={PageHealth} />
-							<Route path="/timer" component={PageTimer} />
+							<Route exact path="/timer" component={PageTimer} />
+							<Route exact path="/timer/timekeeper" component={PageTimekeeper} />
 							<Route path="/moves" component={PageMoves} />
 							<Route path="/settings" component={PageSettings} />
-							<Route path="/" component={PageMain} />
 
 							{/* <Route render={() => <h1>404</h1>} /> */}
 						</>
@@ -68,5 +69,4 @@ console.log(authUser);
 };
 
 export default App;
-
 
