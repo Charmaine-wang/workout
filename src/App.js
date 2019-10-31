@@ -27,19 +27,19 @@ const StyledApp = styled.div`
 		height: 100%;
 		width: 100%;
 	}
-	& > img:nth-child(2) {
+	& > img:nth-child(3) {
 		opacity: 0.3;
 	}
 `;
 
 const App = () => {
 const {authUser, authLoading} = useAuth();
-console.log(authUser);
+// console.log(authUser);
 
 	return (
 		<StyledApp>
 			<GlobalStyle />
-			{/* <img src="/images/backgroundFade.png" alt="faded background" /> */}
+			<img src="/images/backgroundFade.png" alt="faded background" />
 			<Router>
 				<Switch>
 					{!authUser ? (
@@ -69,4 +69,3 @@ console.log(authUser);
 };
 
 export default App;
-

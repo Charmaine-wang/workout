@@ -55,20 +55,21 @@ const ChoiceWrapper = styled.div`
 
 	> div {
 		height: 100%;
+		background-color: rgba(0,0,0, 0.8);
+
+		&:nth-child(3) a {
+			border-bottom: none;
+		}
 	}
 	> div > a {
 		width: 100%;
 		height: 100%;
 		text-decoration: none;
-		/* height: calc(100% / 3); */
 		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		&:nth-child(3) {
-			border-bottom: none;
-		}
 		> p {
 			font-size: 30px;
 			color: white;
@@ -99,26 +100,26 @@ const PageTimer = () => {
 			<img src="images/timerBg.png" alt="choice background" />
 
 			<ChoiceWrapper>
-					<div>
-				<Link to="/timer/timekeeper">
+				<div>
+					<Link to="/timer/timekeeper">
 						<img src="images/running.png" alt="choice background" />
 						<p> RUNNING </p>
-				</Link>
-					</div>
+					</Link>
+				</div>
 
-					<div>
-				<Link to="/timer/timekeeper">
+				<div>
+					<Link to="/timer/timekeeper">
 						<p> CYCLING </p>
 						<img src="images/cycling.png" alt="choice background" />
-				</Link>
-					</div>
+					</Link>
+				</div>
 
-					<div>
-				<Link to="/timer/timekeeper">
+				<div>
+					<Link to="/timer/timekeeper">
 						<img src="images/walking.png" alt="choice background" />
 						<p> WALKING </p>
-				</Link>
-					</div>
+					</Link>
+				</div>
 			</ChoiceWrapper>
 		</StyledTimer>
 	);

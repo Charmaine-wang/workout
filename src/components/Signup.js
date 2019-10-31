@@ -141,6 +141,7 @@ const handleSubmit = (event) => {
 						type="text"
 						name="displayName"
 						id="displayName"
+						placeholder="Name"
 					/>
 				</div>
 
@@ -150,15 +151,17 @@ const handleSubmit = (event) => {
 						type="text"
 						name="email"
 						id="email"
+						placeholder="Email"
 					/>
 				</div>
 
 				<div>
 					<img src="images/password.png" alt="Password icon" />
 					<input
-						type="text"
+						type="password"
 						name="password"
 						id="password"
+						placeholder="Password"
 					/>
 				</div>
 

@@ -11,7 +11,6 @@ const AuthProvider = ({ children }) => {
 		const unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if(user){
 				firestore.collection("users").doc(user.uid).get().then((extraUserData) => {
-					console.log(extraUserData.data());
 					setAuthUser({...user, ...extraUserData.data()});
 					setAuthLoading(false);
 				})

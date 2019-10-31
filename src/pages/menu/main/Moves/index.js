@@ -1,16 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { UserContext } from '../../../../context'
-import TopIcons from '../../../../components/TopIcons'
+import { UserContext } from '../../../../context';
+import TopIcons from '../../../../components/TopIcons';
 
 const StyledMoves = styled.div`
 
 `;
 
-const PageMoves = () => {
+navigator.geolocation.getCurrentPosition(function(position) {
+  console.log(position.coords.latitude, position.coords.longitude);
+});
 
+let options = {
+  enableHighAccuracy: true,
+  timeout: 100000,
+  maximumAge: 0
+};
+
+let success = (position) => {
+  console.log(`Latitude : ${position.coords.latitude}`);
+  console.log(`Longitude: ${position.coords.longitude}`);
+  // console.log(`More or less ${position.coords.accuracy} meters.`);
+}
+
+let error = (err) => {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+// STOPS WATCH
+// navigator.geolocation.clearWatch(watchID);
+
+
+const PageMoves = () => {
 	useEffect(() => {
-		console.log("mounted");
+		// console.log("mounted");
 	}, []);
 
 	return (
