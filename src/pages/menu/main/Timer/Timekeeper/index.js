@@ -10,8 +10,12 @@ const StyledPageTimekeeper = styled.div`
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	background-color: yellow;
+	background: url("/images/backgroundFade.png");
 	padding-top: 50px;
+	> img {
+		position: absolute;
+		top: 0;
+	}
 `;
 
 const PageTimekeeper = () => {
@@ -19,6 +23,7 @@ const PageTimekeeper = () => {
 
 	return (
 		<StyledPageTimekeeper>
+			<img src="/images/dots.png" alt="dots" />
 
 			<Timekeeper />
 			<Activity />
