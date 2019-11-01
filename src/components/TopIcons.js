@@ -27,7 +27,7 @@ const StyledTopIcons = styled.div`
 const TopIcons = (props) => {
 	return (
 		<StyledTopIcons>
-			<Link exact to={"/"}> <img src="images/arrowBack.png" alt="arrow back" /> </Link>
+			<Link exact to={"/"}> <img src="/images/arrowBack.png" alt="arrow back" /> </Link>
 			<img src={props.iconSrc} alt="choice icon" />
 		</StyledTopIcons>
 	);
