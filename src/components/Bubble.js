@@ -16,6 +16,10 @@ const BubbleContainer = styled.div`
 const StyledBubble = styled.div`
   width: ${props => props.diameter};
 	height: ${props => props.diameter};
+	max-width: 100px;
+	min-width: 70px;
+	max-height: 100px;
+	min-height: 70px;
 	background-color: rgba(255,255,255, 0.25);
 	border-radius: 50%;
 	display: flex;
@@ -23,10 +27,6 @@ const StyledBubble = styled.div`
 	align-items: center;
 	justify-content: center;
 
-	> img {
-		width: 22px;
-		opacity: 0.2;
-	}
 	> p:nth-child(1) {
 		font-size: 22px;
 		color: white;
@@ -40,7 +40,7 @@ const StyledBubble = styled.div`
 const Bubble = ({ ...props }) => {
   return (
 		<BubbleContainer>
-			<img src={props.icon} alt="icon" />
+			{ props.icon ? <img src={props.icon} alt="icon" /> : '' }
 	    <StyledBubble {...props}>
 				<p> {props.hourOrKm} </p>
 				<p> {props.unit} </p>

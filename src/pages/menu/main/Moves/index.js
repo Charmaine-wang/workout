@@ -37,18 +37,29 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 const StyledMoves = styled.div`
 	> div:nth-child(1) {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		width: 100%;
-		padding: 60px 20px 20px;
-		> p {
-			color: white;
+		padding: 60px 20px 38px;
+		> div {
+			display: flex;
+			transition: 0.3s;
+			flex-direction: column;
+			align-items: flex-end;
+			width: 100%;
 			&:nth-child(1) {
-				font-size: 18px;
+				height: ${props => props.isDay ? '0px' : '0px'};
+				opacity: ${props => props.isDay ? '0' : '1'};
+				margin-left: ${props => props.isDay ? '20px' : '0'};
 			}
 			&:nth-child(2) {
-				font-size: 22px;
+				height: ${props => props.isDay ? '0px' : '0px'};
+				opacity: ${props => props.isDay ? '1' : '0'};
+				margin-left: ${props => props.isDay ? '0' : '20px'};
+			}
+			> p {
+				color: white;
+				font-size: 18px;
+				> span {
+					font-size: 20px;
+				}
 			}
 		}
 	}
@@ -60,35 +71,45 @@ const StyledMoves = styled.div`
 		color: white;
 		> div {
 			width: 50%;
-			height: 50px;
-			background-color: rgba(255,255,255, 0.25);
+			height: 48px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-size: 18px;
-			/* font-size: 22px; */
-			/* font-weight: 500; */
+			&:nth-child(1) {
+				background-color: ${props => props.isDay ? 'rgba(255,255,255, 0.35)' : 'rgba(255,255,255, 0.2)'};
+				font-weight: ${props => props.isDay ? '400' : '200'};
+				font-size: ${props => props.isDay ? '22px' : '18px'};
+				transition: 0.2s;
+			}
+			&:nth-child(2) {
+				background-color: ${props => props.isDay ? 'rgba(255,255,255, 0.2)' : 'rgba(255,255,255, 0.35)'};
+				font-weight: ${props => props.isDay ? '200' : '400'};
+				font-size: ${props => props.isDay ? '18px' : '22px'};
+				transition: 0.2s;
+			}
 		}
 	}
 `;
 
 const WeekSlider = styled.div`
-	display: flex;
+	display: ${props => props.flexWeek ? 'none' : 'flex'};
 	flex-direction: row;
 	overflow-x: scroll;
+	/* width: 100vw; */
+	/* height: calc(100vh - 48px - 54px - 98px); */
 	&::-webkit-scrollbar {
     -webkit-appearance: none;
 	}
 `;
 
 const DayWrapper = styled.div`
-	display: flex;
+	display: ${props => props.flexDay ? 'flex' : 'none'};
 	flex-direction: column;
 
 	> img {
 		opacity: 0.8;
 		width: 100%;
-		height: 138px;
+		height: 130px;
 	}
 
 	> div {
@@ -100,7 +121,7 @@ const DayWrapper = styled.div`
 		background-color: rgba(0,0,0, 0.8);
 		margin-bottom: 2px;
 		width: 100%;
-		height: calc((100vh - 128px - 50px - 138px - 54px) / 3);
+		height: calc((100vh - 98px - 48px - 130px - 54px) / 3);
 
 		> p {
 			font-size: 22px;
@@ -121,100 +142,105 @@ const MapIcon = styled.img`
 	height: 30px !important;
 	position: absolute;
 	right: 16px;
-	margin-top: 96px;
+	margin-top: 90px;
 `;
 
 
-const PageMoves = () => {
+const PageMoves = (props) => {
 	useEffect(() => {
 		// console.log("mounted");
 	}, []);
+	const [isDay, setIsDay] = useState(false);
 
 	return (
-		<div>
+		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
 			<TopIcons iconSrc='/images/moves.png'/>
 
-			<StyledMoves>
+			<StyledMoves {...props} isDay={isDay}>
+
 				<div>
-					<p> Week </p>
-					<p> 42 </p>
-				</div>
-				<div>
-					<div> DAY </div> { /* Onclick här */}
-					<div> WEEK </div> { /* Onclick här */}
+					<div isWeek={isDay}>
+						<p> Week <span> 42 </span></p>
+					</div>
+					<div isWeek={isDay}>
+						<p> Wednesday <span> 18 OKT </span></p>
+					</div>
 				</div>
 
+				<div>
+					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
+					<div isWeek={isDay} onClick={() => setIsDay(false)}> WEEK </div>
+				</div>
 
 				{ /* Foreach här med varje datum, km/h, unit osv per dag */}
-				{ /* BORTKOMMENTERA FÖR WEEK
-				<WeekSlider>
 
+				<WeekSlider {...props} flexWeek={isDay} >
 					<WeekWrapper>
 						<div>
-							<p> 12 </p>
-							<p> OKT </p>
+							<p> 12 <span> OKT </span> </p>
 						</div>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-						<Bubble diameter={"100px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-						<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						<div>
+							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
+							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
+							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						</div>
 					</WeekWrapper>
 
 					<WeekWrapper>
 						<div>
-							<p> 12 </p>
-							<p> OKT </p>
+							<p> 12 <span> OKT </span> </p>
 						</div>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-						<Bubble diameter={"100px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-						<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						<div>
+							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
+							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
+							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						</div>
 					</WeekWrapper>
 
 					<WeekWrapper>
 						<div>
-							<p> 12 </p>
-							<p> OKT </p>
+							<p> 12 <span> OKT </span> </p>
 						</div>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-						<Bubble diameter={"100px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-						<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						<div>
+							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
+							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
+							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						</div>
 					</WeekWrapper>
 
 					<WeekWrapper>
 						<div>
-							<p> 12 </p>
-							<p> OKT </p>
+							<p> 12 <span> OKT </span> </p>
 						</div>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-						<Bubble diameter={"100px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-						<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						<div>
+							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
+							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
+							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						</div>
 					</WeekWrapper>
-
 				</WeekSlider>
-			 */ }
 
-				<DayWrapper>
+
+				<DayWrapper {...props} flexDay={isDay}>
 					<img src="/images/fakemap.png" alt="map" />
 					<MapIcon src="/images/location.png" alt="location icon" />
 
 					<div>
 						<p> Run </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
+						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
 						<img src="/images/running.png" alt="running icon" />
 					</div>
-
 					<div>
 						<p> Cycle </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/cycling.png'} />
+						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
 						<img src="/images/cycling.png" alt="running icon" />
 					</div>
-
 					<div>
 						<p> Walk </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/walking.png'} />
+						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
 						<img src="/images/walking.png" alt="running icon" />
 					</div>
-
 				</DayWrapper>
 
 
