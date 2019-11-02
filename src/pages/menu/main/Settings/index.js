@@ -143,7 +143,7 @@ const Signup = props => {
 						margin="10px 0 10px 0"
 						btnWidth="320px"
 						fontColor="white"
-						bgColor="rgba(255,255,255, 0.3)"
+						bgColor="rgba(255,255,255, 0.25)"
 						fontSize="20px"
 						type="submit"
 					>
@@ -153,7 +153,7 @@ const Signup = props => {
 						margin="10px 0 10px 0"
 						btnWidth="320px"
 						fontColor="white"
-						bgColor="rgba(255,255,255, 0.3)"
+						bgColor="rgba(255,255,255, 0.15)"
 						fontSize="20px"
 						type="submit"
 					>
