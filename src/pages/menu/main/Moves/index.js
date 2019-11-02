@@ -7,32 +7,34 @@ import WeekWrapper from '../../../../components/WeekWrapper';
 import Bubble from '../../../../components/Bubble';
 
 
-navigator.geolocation.getCurrentPosition(function(position) {
-  console.log(position.coords.latitude, position.coords.longitude);
-});
-
-let options = {
-  enableHighAccuracy: true,
-  timeout: 100000,
-  maximumAge: 0
-};
-
-let success = (position) => {
-  console.log(`Latitude : ${position.coords.latitude}`);
-  console.log(`Longitude: ${position.coords.longitude}`);
-	console.log(`Speed: ${position.coords.speed}`);
-	console.log(`More or less ${position.coords.accuracy} meters.`);
-  // console.log(`More or less ${position.coords.accuracy} meters.`);
-}
-
-let error = (err) => {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-navigator.geolocation.getCurrentPosition(success, error, options);
-
 // STOPS WATCH
 // navigator.geolocation.clearWatch(watchID);
 
+// function calculating distance
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  let R = 6371; // km
+  let dLat = (lat2 - lat1).toRad();
+  let dLon = (lon2 - lon1).toRad();
+  let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  let d = R * c;
+  return d;
+}
+Number.prototype.toRad = function() {
+  return this * Math.PI / 180;
+}
+
+window.onload = () => {
+	let startPos;
+	navigator.geolocation.watchPosition((position) => {
+		startPos = position;
+		let finalDistance = calculateDistance(startPos.coords.latitude, startPos.coords.longitude,
+    position.coords.latitude, position.coords.longitude);
+		console.log(finalDistance)
+	});
+};
 
 
 const StyledMoves = styled.div`
@@ -95,8 +97,6 @@ const WeekSlider = styled.div`
 	display: ${props => props.flexWeek ? 'none' : 'flex'};
 	flex-direction: row;
 	overflow-x: scroll;
-	/* width: 100vw; */
-	/* height: calc(100vh - 48px - 54px - 98px); */
 	&::-webkit-scrollbar {
     -webkit-appearance: none;
 	}
@@ -145,6 +145,13 @@ const MapIcon = styled.img`
 	margin-top: 90px;
 `;
 
+// just a test to see walked distance
+const TestKMWalked = styled.p`
+	color: white;
+	position: absolute;
+	margin-top: 50px;
+`;
+
 
 const PageMoves = (props) => {
 	useEffect(() => {
@@ -156,6 +163,7 @@ const PageMoves = (props) => {
 		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
 			<TopIcons iconSrc='/images/moves.png'/>
+			<TestKMWalked> total meters here </TestKMWalked>
 
 			<StyledMoves {...props} isDay={isDay}>
 
