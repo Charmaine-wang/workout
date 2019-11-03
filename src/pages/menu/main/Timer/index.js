@@ -5,14 +5,20 @@ import TopIcons from '../../../../components/TopIcons'
 import FadedBackground from '../../../../components/FadedBackground'
 
 import { Link } from "react-router-dom";
+import TimeKeeperComponent from '../../../../components/TimeKeeperComponent';
 
 const StyledTimer = styled.div`
+	position: absolute;
+	right: ${props => (props.cover ? "375px" : "0")};
+	transition: all 0.42s ease-in-out;
+	/* display: ${props => (props.cover ? "none" : "block")}; */
 	> div:nth-child(1) {
-		background-color: rgba(0,0,0, 0.4);
+		background-color: rgba(0, 0, 0, 0.4);
 		height: 216px;
 		width: 100%;
 		position: absolute;
 		z-index: 1;
+
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -26,7 +32,7 @@ const StyledTimer = styled.div`
 		> div {
 			width: 230px;
 			height: 5px;
-			background-color: rgba(255,255,255, 0.3);
+			background-color: rgba(255, 255, 255, 0.3);
 			border-radius: 3px;
 		}
 	}
@@ -51,10 +57,9 @@ const ChoiceWrapper = styled.div`
 			border-bottom: none;
 		}
 	}
-	> div > a {
+	> div {
 		width: 100%;
 		height: 100%;
-		text-decoration: none;
 		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 		display: flex;
 		flex-direction: row;
@@ -74,7 +79,7 @@ const ChoiceWrapper = styled.div`
 
 
 const PageTimer = () => {
-
+const [isToggled, setToggled] = useState(false);
 	useEffect(() => {
 		console.log("mounted");
 	}, []);
@@ -82,34 +87,34 @@ const PageTimer = () => {
 	return (
 		<div>
 			<FadedBackground opacity={"0.7"} />
-			<StyledTimer>
+			<TimeKeeperComponent
+				isToggled={isToggled}
+				goBack={() => setToggled(false)}
+			/>
+
+			<StyledTimer cover={isToggled}>
 				<div>
 					<p>CHOOSE MODE</p>
 					<div />
 				</div>
-				<TopIcons iconSrc="images/timer.png" />
+				<TopIcons iconSrc="images/timer.png" hideArrow={isToggled} />
 				<img src="images/timerBg.png" alt="choice background" />
+				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
 				<ChoiceWrapper>
-					<div>
-						<Link to="/timer/timekeeper">
-							<img src="images/running.png" alt="choice background" />
-							<p> RUNNING </p>
-						</Link>
+					<div onClick={() => setToggled(true)}>
+						<img src="images/running.png" alt="choice background" />
+						<p> RUNNING </p>
 					</div>
 
 					<div>
-						<Link to="/timer/timekeeper">
-							<p> CYCLING </p>
-							<img src="images/cycling.png" alt="choice background" />
-						</Link>
+						<p> CYCLING </p>
+						<img src="images/cycling.png" alt="choice background" />
 					</div>
 
 					<div>
-						<Link to="/timer/timekeeper">
-							<img src="images/walking.png" alt="choice background" />
-							<p> WALKING </p>
-						</Link>
+						<img src="images/walking.png" alt="choice background" />
+						<p> WALKING </p>
 					</div>
 				</ChoiceWrapper>
 			</StyledTimer>

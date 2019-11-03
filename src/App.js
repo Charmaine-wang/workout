@@ -12,7 +12,6 @@ import PageTimer from "./pages/menu/main/Timer";
 import PageHealth from "./pages/menu/main/Health";
 import PageMoves from "./pages/menu/main/Moves";
 import PageSettings from "./pages/menu/main/Settings";
-import PageTimekeeper from './pages/menu/main/Timer/Timekeeper'
 import { collectIdsAndDocs } from "./components/Utilities";
 import { useAuth } from "./authcontext";
 
@@ -44,7 +43,6 @@ const {authUser, authLoading} = useAuth();
 							<Route exact path="/" component={PageHome} />
 							<Route path="/health" component={PageHealth} />
 							<Route exact path="/timer" component={PageTimer} />
-							<Route exact path="/timer/timekeeper" component={PageTimekeeper} />
 							<Route path="/moves" component={PageMoves} />
 							<Route path="/settings" component={PageSettings} />
 
