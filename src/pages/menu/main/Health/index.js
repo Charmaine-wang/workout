@@ -60,7 +60,7 @@ const PageHealth = () => {
 	return (
 		<div>
 			<FadedBackground opacity={'0.6'}/>
-			<TopIcons iconSrc='images/heart.png'/>
+			<TopIcons iconSrc='/images/heart.png'/>
 			<StyledHealth>
 
 				<HealthWrapper>

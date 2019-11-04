@@ -97,23 +97,23 @@ const [isToggled, setToggled] = useState(false);
 					<p>CHOOSE MODE</p>
 					<div />
 				</div>
-				<TopIcons iconSrc="images/timer.png" hideArrow={isToggled} />
+				<TopIcons iconSrc="/images/timer.png" hideArrow={isToggled} />
 				<img src="images/timerBg.png" alt="choice background" />
 				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
 				<ChoiceWrapper>
 					<div onClick={() => setToggled(true)}>
-						<img src="images/running.png" alt="choice background" />
+						<img src="/images/running.png" alt="choice background" />
 						<p> RUNNING </p>
 					</div>
 
 					<div>
 						<p> CYCLING </p>
-						<img src="images/cycling.png" alt="choice background" />
+						<img src="/images/cycling.png" alt="choice background" />
 					</div>
 
 					<div>
-						<img src="images/walking.png" alt="choice background" />
+						<img src="/images/walking.png" alt="choice background" />
 						<p> WALKING </p>
 					</div>
 				</ChoiceWrapper>

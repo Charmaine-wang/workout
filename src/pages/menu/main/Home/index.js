@@ -31,7 +31,7 @@ const PageHome = () => {
 			<button
 				onClick={() => {
 					firebase.auth().signOut();
-					window.location.href = "/login";
+					window.location.href = "/";
 				}}
 			>
 				logga ut

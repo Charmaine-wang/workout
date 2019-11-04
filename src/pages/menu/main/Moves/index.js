@@ -11,30 +11,30 @@ import Bubble from '../../../../components/Bubble';
 // navigator.geolocation.clearWatch(watchID);
 
 // function calculating distance
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-  let R = 6371; // km
-  let dLat = (lat2 - lat1).toRad();
-  let dLon = (lon2 - lon1).toRad();
-  let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-          Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  let d = R * c;
-  return d;
-}
-Number.prototype.toRad = function() {
-  return this * Math.PI / 180;
-}
+// const calculateDistance = (lat1, lon1, lat2, lon2) => {
+//   let R = 6371; // km
+//   let dLat = (lat2 - lat1).toRad();
+//   let dLon = (lon2 - lon1).toRad();
+//   let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//           Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+//           Math.sin(dLon / 2) * Math.sin(dLon / 2);
+//   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//   let d = R * c;
+//   return d;
+// }
+// Number.prototype.toRad = function() {
+//   return this * Math.PI / 180;
+// }
 
-window.onload = () => {
-	let startPos;
-	navigator.geolocation.watchPosition((position) => {
-		startPos = position;
-		let finalDistance = calculateDistance(startPos.coords.latitude, startPos.coords.longitude,
-    position.coords.latitude, position.coords.longitude);
-		console.log(finalDistance)
-	});
-};
+// window.onload = () => {
+// 	let startPos;
+// 	navigator.geolocation.watchPosition((position) => {
+// 		startPos = position;
+// 		let finalDistance = calculateDistance(startPos.coords.latitude, startPos.coords.longitude,
+//     position.coords.latitude, position.coords.longitude);
+// 		// console.log(finalDistance)
+// 	});
+// };
 
 
 const StyledMoves = styled.div`
@@ -156,6 +156,7 @@ const TestKMWalked = styled.p`
 const PageMoves = (props) => {
 	useEffect(() => {
 		// console.log("mounted");
+
 	}, []);
 	const [isDay, setIsDay] = useState(false);
 

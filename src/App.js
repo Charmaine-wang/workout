@@ -35,7 +35,7 @@ const {authUser, authLoading} = useAuth();
 					{!authUser ? (
 						<>
 							{/* <Redirect to="/login" /> */}
-							<Route exact path="/login" component={PageLogin} />
+							<Route exact path="/" component={PageLogin} />
 							<Route path="/signup" component={PageSignup} />
 						</>
 					) : (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+
+
 const StyledActivity = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -80,20 +82,21 @@ const StyledActivity = styled.div`
 	}
 `;
 
-const Activity = () => {
-    const [myState, setmyState] = useState(null);
+const Activity = (props) => {
+		const [myState, setmyState] = useState(null);
+
 
     useEffect(() => {
-        console.log("mounted");
+
     }, []);
 
     return (
-			<StyledActivity>
+			<StyledActivity {...props}>
 				<div>
 					<div>
 						<img src="/images/km.png" alt="bajs" />
 						<p>Kilometers</p>
-						<p>4.5 km</p>
+						<p>{props.distance} km</p>
 					</div>
 					<div>
 						<img src="/images/burn.png" alt="bajs" />
