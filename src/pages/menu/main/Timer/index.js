@@ -7,8 +7,15 @@ import FadedBackground from '../../../../components/FadedBackground'
 import { Link } from "react-router-dom";
 import TimeKeeperComponent from '../../../../components/TimeKeeperComponent';
 
+const StyledPageTimer = styled.div`
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+`;
 const StyledTimer = styled.div`
 	position: absolute;
+	height: 100%;
+	overscroll-behavior-x: hidden;
 	right: ${props => (props.cover ? "375px" : "0")};
 	transition: all 0.42s ease-in-out;
 	/* display: ${props => (props.cover ? "none" : "block")}; */
@@ -85,7 +92,7 @@ const [isToggled, setToggled] = useState(false);
 	}, []);
 
 	return (
-		<div>
+		<StyledPageTimer>
 			<FadedBackground opacity={"0.7"} />
 			<TimeKeeperComponent
 				isToggled={isToggled}
@@ -118,7 +125,7 @@ const [isToggled, setToggled] = useState(false);
 					</div>
 				</ChoiceWrapper>
 			</StyledTimer>
-		</div>
+		</StyledPageTimer>
 	);
 };
 

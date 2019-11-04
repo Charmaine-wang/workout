@@ -17,12 +17,37 @@ const StyledPageHome = styled.div`
 `;
 
 const PageHome = () => {
-	const [myState, setmyState] = useState(null);
+	const [meters, setMeters] = useState({});
 
-	useEffect(() => {
-		console.log("mounted");
-	}, []);
 
+//  const usePosition = () => {
+// 	const [position, setPosition] = useState({});
+
+// 	const [error, setError] = useState(null);
+
+// 	const onChange = ({ coords }) => {
+// 		setPosition({
+// 			latitude: coords.latitude,
+// 			longitude: coords.longitude
+// 		});
+// 		setMeters(position)
+// 	};
+// 	const onError = error => {
+// 		setError(error.message);
+// 	};
+// 	useEffect(() => {
+// 		const geo = navigator.geolocation;
+// 		if (!geo) {
+// 			setError("Geolocation is not supported");
+// 			return;
+// 		}
+// 		const watcher = geo.watchPosition(onChange, onError);
+// 		return () => geo.clearWatch(watcher);
+// 	},[]);
+// 	return { ...position, error };
+// };
+// console.log(meters);
+// console.log(usePosition());
 	return (
 		<StyledPageHome>
 			<FadedBackground opacity={'1'} />
