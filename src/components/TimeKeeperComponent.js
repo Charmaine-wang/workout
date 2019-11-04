@@ -75,8 +75,9 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   let d = R * c;
   return d;
 }
-console.log(Number.prototype);
+
 Number.prototype.toRad = function() {
+	console.log(this);
   return this * Math.PI / 180;
 }
 
@@ -151,7 +152,7 @@ NavigateDistance()
 		return () => clearInterval(interval);
  }, [isActive, seconds]);
 
-console.log(finalDistanceKm);
+console.log(Number.prototype.toRad());
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled}>
 			<ArrowBack onClick={props.goBack}>
@@ -162,8 +163,13 @@ console.log(finalDistanceKm);
 			<div>
 				<img src="/images/dots.png" alt="dots" />
 
-				<Timekeeper onClick={toggleTimer} isActive={isActive ? "Pause" : "Start"} minutes={minutes} seconds={secondstimer}/>
-				<Activity distance={finalDistanceKm} />
+				<Timekeeper
+					onClick={toggleTimer}
+					isActive={isActive ? "Pause" : "Start"}
+					minutes={minutes}
+					seconds={secondstimer}
+				/>
+				<Activity distance={Number.prototype.toRad()} />
 			</div>
 		</StyledTimekeeperComponent>
 	);
