@@ -81,7 +81,7 @@ const StyledLogin = styled.form`
 			color: white;
 		}
 	}
-}`
+`
 
 const Login = ( props ) => {
 
@@ -98,7 +98,8 @@ const { authUser, authLoading } = useAuth();
       .signInWithEmailAndPassword(
         formData.get('email'),
         formData.get('password')
-      )
+			)
+
 
 	.catch(function(error) {
 
@@ -129,32 +130,49 @@ const { authUser, authLoading } = useAuth();
 	}
 
 	return (
-
 		<div>
 			<StyledLogin {...props} className="SignIn" onSubmit={handleSubmit}>
-				<img src="images/running.png" alt="Password icon" />
+				<img src="/images/running.png" alt="Password icon" />
 				<p> Login </p>
 
 				<div>
-					<img src="images/email.png" alt="Password icon" />
-					<input type="text" placeholder="Email" name="email" id="email" required />
+					<img src="/images/email.png" alt="Password icon" />
+					<input
+						type="text"
+						placeholder="Email"
+						name="email"
+						id="email"
+						required
+					/>
 				</div>
 
 				<div>
-					<img src="images/password.png" alt="Password icon" />
-					<input type="password" placeholder="Password" name="password" id="password" required />
+					<img src="/images/password.png" alt="Password icon" />
+					<input
+						type="password"
+						placeholder="Password"
+						name="password"
+						id="password"
+						required
+					/>
 				</div>
+
 
 				<Button
 					type="submit"
-					margin="50px 0 10px 0" btnWidth="320px" fontColor="white" bgColor="rgba(255,255,255, 0.3)" fontSize="20px"
+					margin="50px 0 10px 0"
+					btnWidth="320px"
+					fontColor="white"
+					bgColor="rgba(255,255,255, 0.3)"
+					fontSize="20px"
 				>
-					Login
+						Login
 				</Button>
-				<Link to={"/signup"}>No account? <span> Sign up now! </span></Link>
+				<Link to={"/signup"}>
+					No account? <span> Sign up now! </span>
+				</Link>
 			</StyledLogin>
 		</div>
-
 	);
 };
 export default Login;

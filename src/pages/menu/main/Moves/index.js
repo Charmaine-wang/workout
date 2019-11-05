@@ -118,6 +118,7 @@ const MapIcon = styled.img`
 const PageMoves = (props) => {
 	useEffect(() => {
 		// console.log("mounted");
+
 	}, []);
 	const [isDay, setIsDay] = useState(false);
 

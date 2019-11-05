@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { UserContext } from '../../../../context'
+import { useAuth } from "../../../../authcontext";
+
 import TopIcons from '../../../../components/TopIcons'
 import HealthComponent from '../../../../components/HealthComponent';
 import BodyComponent from '../../../../components/BodyComponent';
@@ -52,15 +53,21 @@ const BMIWrapper = styled.div`
 
 const PageHealth = () => {
 	// const {isAuth} = useContext(UserContext);
-
+const { authUser, authLoading } = useAuth();
+console.log(authUser);
 	useEffect(() => {
 			// console.log(isAuth);
 	}, []);
 
+	const BMI = Number(
+		(authUser.weight / Math.pow(authUser.length, 2)) * 10000
+	).toFixed(1);
+
+console.log(BMI);
 	return (
 		<div>
 			<FadedBackground opacity={'0.6'}/>
-			<TopIcons iconSrc='images/heart.png'/>
+			<TopIcons iconSrc='/images/heart.png'/>
 			<StyledHealth>
 
 				<HealthWrapper>
@@ -71,12 +78,12 @@ const PageHealth = () => {
 
 				<div>
 					<BodyWrapper>
-						<BodyComponent title={'Weight'} value={'3.5'} unit={' kg'} />
-						<BodyComponent title={'Length'} value={'570'} unit={' cm'} />
+						<BodyComponent title={'Weight'} value={authUser.weight} unit={' kg'} />
+						<BodyComponent title={'Length'} value={authUser.length} unit={' cm'} />
 					</BodyWrapper>
 					<BMIWrapper>
 						<p> BMI </p>
-						<p> 21.2 </p>
+						<p>{BMI	} </p>
 					</BMIWrapper>
 				</div>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useAuth } from '../authcontext';
 
 const StyledTimekeeper = styled.div`
 	display: flex;
@@ -20,17 +21,46 @@ const StyledTimekeeper = styled.div`
 	}
 `;
 
-const Timekeeper = () => {
-	const [myState, setmyState] = useState(null);
+const Timekeeper = (props) => {
+//  const [seconds, setSeconds] = useState(0);
+//  const [isActive, setIsActive] = useState(false);
 
-	useEffect(() => {
-		console.log("mounted");
-	}, []);
+//  const toggle = () => {
+// 		setIsActive(!isActive);
+//  }
+// // let secondstimer = ("0" + (Math.floor(seconds / 1000) % 60)).slice(-2);
+// // let centiseconds = ("0" + (Math.floor(seconds % 100)).slice(-2);
+// let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
+// let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
+// let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
+//  useEffect(() => {
+// 		let interval = null;
+// 		if (isActive) {
+// 			interval = setInterval(() => {
+// 				setSeconds(seconds => seconds + 1);
+// 			}, 1000);
+// 		} else if (!isActive && seconds !== 0) {
+// 			clearInterval(interval);
+// 		}
+// 		return () => clearInterval(interval);
+//  }, [isActive, seconds]);
 	return (
-		<StyledTimekeeper>
-			<h1>34:35</h1>
-			<h3>Pause</h3>
+		<StyledTimekeeper {...props} onClick={props.onClick}>
+			{/* <h1>{seconds}</h1> */}
+			<h1>
+				{/* {hours} :  */}
+				{props.minutes}
+				:
+				{props.seconds}
+				{/* {minutes} : {secondstimer} */}
+			</h1>
+			<h3>
+				{props.isActive}
+			{/* {isActive ? "Pause" : "Start"} */}
+			</h3>
+			{/* <h1>34:35</h1>
+			<h3>Pause</h3> */}
 		</StyledTimekeeper>
 	);
 };

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from "react-router-dom"
+import { withRouter } from "react-router";
+
 
 const StyledTopIcons = styled.div`
 	position: absolute;
 	z-index: 3;
-	display: flex;
+	display: ${props => (props.hideArrow ? "none" : "flex")};
 	flex-direction: row;
 	padding: 15px 18px 15px 12px;
 	align-items: center;
@@ -25,12 +27,18 @@ const StyledTopIcons = styled.div`
 
 
 const TopIcons = (props) => {
+
 	return (
-		<StyledTopIcons>
-			<Link exact to={"/"}> <img src="/images/arrowBack.png" alt="arrow back" /> </Link>
+		<StyledTopIcons
+			{...props}
+
+		>
+			<Link exact to={"/"}>
+				<img src="/images/arrowBack.png" alt="arrow back" />
+			</Link>
 			<img src={props.iconSrc} alt="choice icon" />
 		</StyledTopIcons>
 	);
 };
 
-export default TopIcons;
+export default withRouter(TopIcons);

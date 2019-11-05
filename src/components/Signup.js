@@ -79,8 +79,8 @@ const StyledSignup = styled.form`
 			font-weight: 400;
 			color: white;
 		}
-	}
-}`;
+
+}`
 
 const Signup = (props) => {
 const {authUser} = useAuth()
@@ -123,11 +123,11 @@ const handleSubmit = (event) => {
 	return (
 		<div>
 			<StyledSignup {...props} className="SignIn" onSubmit={handleSubmit}>
-				<img src="images/running.png" alt="Password icon" />
+				<img src="/images/running.png" alt="Password icon" />
 				<p> Sign Up </p>
 
 				<div>
-					<img src="images/running.png" alt="Password icon" />
+					<img src="/images/running.png" alt="Password icon" />
 					<input
 						type="text"
 						name="displayName"
@@ -137,7 +137,7 @@ const handleSubmit = (event) => {
 				</div>
 
 				<div>
-					<img src="images/email.png" alt="Password icon" />
+					<img src="/images/email.png" alt="Password icon" />
 					<input
 						type="text"
 						name="email"
@@ -147,7 +147,7 @@ const handleSubmit = (event) => {
 				</div>
 
 				<div>
-					<img src="images/password.png" alt="Password icon" />
+					<img src="/images/password.png" alt="Password icon" />
 					<input
 						type="password"
 						name="password"
