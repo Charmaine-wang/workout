@@ -35,14 +35,14 @@ const {authUser, authLoading} = useAuth();
 					{!authUser ? (
 						<>
 							{/* <Redirect to="/login" /> */}
-							<Route exact path="/" component={PageLogin} />
+							<Route exact="true" path="/" component={PageLogin} />
 							<Route path="/signup" component={PageSignup} />
 						</>
 					) : (
 						<>
-							<Route exact path="/" component={PageHome} />
+							<Route exact="true" path="/" component={PageHome} />
 							<Route path="/health" component={PageHealth} />
-							<Route exact path="/timer" component={PageTimer} />
+							<Route exact="true" path="/timer" component={PageTimer} />
 							<Route path="/moves" component={PageMoves} />
 							<Route path="/settings" component={PageSettings} />
 
