@@ -60,6 +60,8 @@ const [startPositionLong, setStartPositionLong] = useState();
   const [currentPositionLat, setCurrentPositionLat] = useState();
 	const [currentPositionLong, setCurrentPositionLong] = useState();
 	const [finalDistanceKm, setFinalDistanceKm] = useState();
+
+	const [updateDistance, setUpdateDistance] = useState()
 // STOPS WATCH
 // navigator.geolocation.clearWatch(watchID);
 
@@ -77,10 +79,10 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 }
 
 Number.prototype.toRad = function() {
-	console.log(this);
+	// console.log(this);
   return this * Math.PI / 180;
 }
-
+console.log(Number.prototype.toRad());
     let startLatitude;
 		let startLongitude;
 		let currentLatitude;
@@ -116,13 +118,12 @@ Number.prototype.toRad = function() {
 							currentLatitude,
 							currentLongitude
 						);
-						console.log(finalDistance);
+						console.log("FINALDISTANCE " + finalDistance);
 						console.log(currentLatitude);
 						console.log(currentLongitude);
-					console.log("hooks finaldis" + finalDistanceKm);
-					console.log("hooks lat" + currentPositionLat);
-					console.log("hooks long" + currentPositionLong);
-					return finalDistanceKm;
+					// console.log("hooks finaldis" + finalDistanceKm);
+					// console.log("hooks lat" + currentPositionLat);
+					// console.log("hooks long" + currentPositionLong);
 					});
 				}, 4000);
 
@@ -140,7 +141,7 @@ Number.prototype.toRad = function() {
  let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
  useEffect(() => {
-NavigateDistance()
+NavigateDistance();
 		let interval = null;
 		if (isActive) {
 			interval = setInterval(() => {
@@ -152,7 +153,8 @@ NavigateDistance()
 		return () => clearInterval(interval);
  }, [isActive, seconds]);
 
-console.log(Number.prototype.toRad());
+// console.log(NavigateDixstance());
+console.log(finalDistanceKm);
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled}>
 			<ArrowBack onClick={props.goBack}>
@@ -169,7 +171,7 @@ console.log(Number.prototype.toRad());
 					minutes={minutes}
 					seconds={secondstimer}
 				/>
-				<Activity distance={Number.prototype.toRad()} />
+				<Activity distance={finalDistanceKm} />
 			</div>
 		</StyledTimekeeperComponent>
 	);
