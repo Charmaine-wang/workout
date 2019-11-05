@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const StyledBodyInfo = styled.div`
 	width: calc(50vw - 1px);
 	height: 20vh;
-	background-color: rgba(0,0,0, 0.8);
+	background-color: rgba(0, 0, 0, 0.8);
 	margin-bottom: 2px;
 	padding: 8px 32px;
 	> p {
@@ -13,18 +13,26 @@ const StyledBodyInfo = styled.div`
 		color: white;
 		padding: 8px 0px 3vh;
 	}
-	> div {
+	> form {
 		display: flex;
 		flex-direction: row;
+
 		> p {
 			font-size: 36px;
 			color: white;
 			padding: 1vh 10px;
 		}
-		> p:nth-child(1) {
-			background-color: rgba(255,255,255, 0.12);
+		> input{
+			font-size: 36px;
+			color: white;
+			width: 84px;
+			height: 70px;
+			background-color: rgba(255, 255, 255, 0.12);
+			padding: 1vh 10px;
+			border: none;
 		}
-		> p:nth-child(2) {
+
+		> p:first-child {
 			padding: 1vh 8px;
 		}
 	}
@@ -33,11 +41,16 @@ const StyledBodyInfo = styled.div`
 const BodyComponent = (props) => {
 	return (
 		<StyledBodyInfo>
-			<p> {props.title} </p>
-			<div>
-				<p> {props.value} </p>
-				<p> {props.unit} </p>
-			</div>
+			<p>{props.title}</p>
+			<form {...props} onSubmit={props.onSubmit}>
+				<input
+					type={props.type}
+					name={props.name}
+					placeholder={props.placeholder}
+					id={props.id}
+				/>
+				<p>{props.unit}</p>
+			</form>
 		</StyledBodyInfo>
 	);
 };

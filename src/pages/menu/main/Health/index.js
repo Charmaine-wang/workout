@@ -54,6 +54,10 @@ const BMIWrapper = styled.div`
 const PageHealth = () => {
 	// const {isAuth} = useContext(UserContext);
 const { authUser, authLoading } = useAuth();
+
+const handleChange = () => {
+
+}
 console.log(authUser);
 	useEffect(() => {
 			// console.log(isAuth);
@@ -63,30 +67,50 @@ console.log(authUser);
 		(authUser.weight / Math.pow(authUser.length, 2)) * 10000
 	).toFixed(1);
 
-console.log(BMI);
+
 	return (
 		<div>
-			<FadedBackground opacity={'0.6'}/>
-			<TopIcons iconSrc='/images/heart.png'/>
+			<FadedBackground opacity={"0.6"} />
+			<TopIcons iconSrc="/images/heart.png" />
 			<StyledHealth>
-
 				<HealthWrapper>
-					<HealthComponent title={'Total activity today'} firstValue={'3.5' + ' h'} secondValue={'9' + ' km'} />
-					<HealthComponent title={'Calories burned'} secondValue={'570' + ' kcal'} />
-					<HealthComponent title={'Rekommended hydration'} secondValue={'6' + ' glases'} />
+					<HealthComponent
+						title={"Total activity today"}
+						firstValue={"3.5" + " h"}
+						secondValue={"9" + " km"}
+					/>
+					<HealthComponent
+						title={"Calories burned"}
+						secondValue={"570" + " kcal"}
+					/>
+					<HealthComponent
+						title={"Rekommended hydration"}
+						secondValue={"6" + " glases"}
+					/>
 				</HealthWrapper>
 
 				<div>
 					<BodyWrapper>
-						<BodyComponent title={'Weight'} value={authUser.weight} unit={' kg'} />
-						<BodyComponent title={'Length'} value={authUser.length} unit={' cm'} />
+
+						<BodyComponent
+							type="text"
+							title="Weight"
+							placeholder={authUser.weight}
+							unit={"kg"}
+						/>
+
+						<BodyComponent
+							type="text"
+							title={"Length"}
+							placeholder={authUser.length}
+							unit={"cm"}
+						/>
 					</BodyWrapper>
 					<BMIWrapper>
 						<p> BMI </p>
-						<p>{BMI	} </p>
+						<p>{BMI} </p>
 					</BMIWrapper>
 				</div>
-
 			</StyledHealth>
 		</div>
 	);

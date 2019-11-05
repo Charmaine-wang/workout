@@ -79,8 +79,8 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 }
 
 Number.prototype.toRad = function() {
-	// console.log(this);
-  return this * Math.PI / 180;
+
+  return this * Math.PI / 180 ;
 }
 console.log(Number.prototype.toRad());
     let startLatitude;
@@ -94,24 +94,20 @@ console.log(Number.prototype.toRad());
 				setStartPositionLong(position.coords.longitude);
 				startLatitude = position.coords.latitude;
 				startLongitude = position.coords.longitude;
-				console.log("start 1 " + startLatitude);
-				console.log("hooks 1 " + startPositionLat);
-				console.log("start 1 " + startLongitude);
-				console.log("hooks 2 " + startPositionLong);
 				setInterval(() => {
 			const distance =	navigator.geolocation.getCurrentPosition(position => {
 				setCurrentPositionLat(position.coords.latitude);
 				setCurrentPositionLong(position.coords.longitude)
 						currentLatitude = position.coords.latitude;
 						currentLongitude = position.coords.longitude;
-						setFinalDistanceKm(
-							calculateDistance(
-								startLatitude,
-								startLongitude,
-								currentLatitude,
-								currentLongitude
-							)
-						);
+				setFinalDistanceKm(
+					Number(calculateDistance(
+						startLatitude,
+						startLongitude,
+						currentLatitude,
+						currentLongitude
+					)).toFixed(2)
+				);
 						let finalDistance = calculateDistance(
 							startLatitude,
 							startLongitude,
@@ -119,8 +115,9 @@ console.log(Number.prototype.toRad());
 							currentLongitude
 						);
 						console.log("FINALDISTANCE " + finalDistance);
-						console.log(currentLatitude);
-						console.log(currentLongitude);
+						startLatitude = currentLatitude
+						startLongitude = currentLongitude
+						console.log("KM " + finalDistanceKm);
 					// console.log("hooks finaldis" + finalDistanceKm);
 					// console.log("hooks lat" + currentPositionLat);
 					// console.log("hooks long" + currentPositionLong);
@@ -130,7 +127,9 @@ console.log(Number.prototype.toRad());
 			});
 
 		};
+const getTotalDistance = () => {
 
+}
  const toggleTimer = () => {
 		setIsActive(!isActive);
  };
@@ -141,7 +140,7 @@ console.log(Number.prototype.toRad());
  let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
  useEffect(() => {
-NavigateDistance();
+// NavigateDistance();
 		let interval = null;
 		if (isActive) {
 			interval = setInterval(() => {
