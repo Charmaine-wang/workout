@@ -60,7 +60,7 @@ const TimeKeeperComponent = (props) => {
   const [currentPositionLat, setCurrentPositionLat] = useState();
 	const [currentPositionLong, setCurrentPositionLong] = useState();
 	const [finalDistanceKm, setFinalDistanceKm] = useState();
-
+	// const [sumDistance, setSumDistance] = useState({});
 	const [updateDistance, setUpdateDistance] = useState()
 
 // STOPS WATCH
@@ -121,15 +121,6 @@ const NavigateDistance = () => {
         )).toFixed(6)
     	);
 
-
-				// let diss = Number(calculateDistance(
-				// 	startLatitude,
-				// 	startLongitude,
-				// 	currentLatitude,
-				// 	currentLongitude
-				// )).toFixed(6)
-			// console.log(diss + " d");
-
 			startLatitude = currentLatitude;
 			startLongitude = currentLongitude;
 
@@ -148,6 +139,9 @@ const NavigateDistance = () => {
  let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
 
+// let diss;
+// let sumDistance = [];
+
 
  useEffect(() => {
 // NavigateDistance();
@@ -155,26 +149,21 @@ const NavigateDistance = () => {
 		if (isActive) {
 
 			NavigateDistance();
-			console.log(finalDistanceKm);
+
+			// diss = finalDistanceKm + 5;
+			// sumDistance.push(diss)
+			// console.log(sumDistance)
 
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
 
 			}, 1000);
+
 		} else if (!isActive && seconds !== 0) {
 			clearInterval(interval);
 		}
 		return () => clearInterval(interval);
  }, [isActive, seconds]);
-
-// console.log(NavigateDixstance());
-// console.log(finalDistanceKm);
-
-// console.log(Number(finalDistanceKm).toFixed(2));
-
-// let finalDistanceKm2 = Number(finalDistanceKm).toFixed(2);
-// console.log(finalDistanceKm2);
-
 
 
 	return (
