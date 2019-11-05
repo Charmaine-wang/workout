@@ -89,6 +89,16 @@ let currentLatitude;
 let currentLongitude;
 
 const NavigateDistance = () => {
+
+	let options = {
+	  enableHighAccuracy: true,
+	  // maximumAge: 0
+	};
+
+	function error(err) {
+	  console.warn(`ERROR(${err.code}): ${err.message}`);
+	}
+
 	navigator.geolocation.getCurrentPosition(position => {
 		setStartPositionLat(position.coords.latitude);
 		setStartPositionLong(position.coords.longitude);
@@ -125,7 +135,7 @@ const NavigateDistance = () => {
 
 			});
 		}, 1000);
-	});
+	}, error, options);
 };
 
  const toggleTimer = () => {
