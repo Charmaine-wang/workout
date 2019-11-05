@@ -129,7 +129,7 @@ const NavigateDistance = () => {
 	}, error, options);
 };
 
-}
+
  const toggleTimer = () => {
 		setIsActive(!isActive);
  };
