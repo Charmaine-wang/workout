@@ -33,7 +33,7 @@ const TopIcons = (props) => {
 			{...props}
 
 		>
-			<Link exact to={"/"}>
+			<Link exact="true" to={"/"}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</Link>
 			<img src={props.iconSrc} alt="choice icon" />
