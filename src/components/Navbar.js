@@ -28,7 +28,7 @@ const Navbar = () => {
 
 	return (
 		<StyledNavbar>
-			<Link exact to={"/"}> <img src="/images/home.png" alt="home icon" /> </Link>
+			<Link exact="true" to={"/"}> <img src="/images/home.png" alt="home icon" /> </Link>
 			<Link to={"/timer"}> <img src="/images/timer.png" alt="timer icon" /> </Link>
 			<Link to={"/moves"}> <img src="/images/moves.png" alt="moves icon" /> </Link>
 			<Link to={"/health"}> <img src="/images/heart.png" alt="heart icon" /> </Link>
