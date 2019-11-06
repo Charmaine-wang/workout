@@ -132,12 +132,13 @@ let currentLongitude;
 							currentLatitude = position.coords.latitude;
 							currentLongitude = position.coords.longitude;
 
-							const calcDist = calculateDistance(
+							const calcDist =calculateDistance(
 								startLatitude,
 								startLongitude,
 								currentLatitude,
 								currentLongitude
-							);
+							)
+
 							setFinalDistanceKm(calcDist);
 							console.log("hej du har kommit till calcdist");
 							console.log(calcDist);
@@ -193,7 +194,7 @@ let currentLongitude;
 					minutes={minutes}
 					seconds={secondstimer}
 				/>
-				<Activity distance={finalDistanceKm ? finalDistanceKm : '0.00'} />
+				<Activity distance={finalDistanceKm} />
 			</div>
 		</StyledTimekeeperComponent>
 	);
