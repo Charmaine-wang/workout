@@ -14,7 +14,7 @@ const StyledTimekeeperComponent = styled.div`
 	position: absolute;
 	top: 0;
 	width: 100%;
-	right: ${props => (props.expanded ? "0" : "-375px")};
+	right: ${props => (props.expanded ? "0" : "-100%")};
 	transition: all 0.42s ease-in-out;
 	/* background-color: red; */
 	z-index: 2;
@@ -30,6 +30,7 @@ const StyledTimekeeperComponent = styled.div`
 		> img {
 			position: absolute;
 			top: 0;
+			width: 100%;
 		}
 	}
 `;
@@ -113,6 +114,7 @@ if (navigator.geolocation){
 
 
 					if (currentLocation && prevPosition) {
+						console.log("in ifsats");
 // calcDist =5;
 						calcDist = calculateDistance(
 							prevPosition.latitude,
@@ -120,14 +122,14 @@ if (navigator.geolocation){
 							currentLocation.latitude,
 							currentLocation.longitude
 						);
-						console.log(calcDist);
+						console.log(calcDist + ' calc');
 					}
 					if (calcDist) {
 
 						setFinalDistanceKm(finalDistanceKm + calcDist);
 						console.log("har satt ny final " + finalDistanceKm);
 					}
-											setPrevPosition(currentLocation);
+					setPrevPosition(currentLocation);
 		})
 
 

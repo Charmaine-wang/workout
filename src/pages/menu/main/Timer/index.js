@@ -14,9 +14,9 @@ const StyledPageTimer = styled.div`
 `;
 const StyledTimer = styled.div`
 	position: absolute;
-	height: 100%;
+	height: 100vw;
 	overscroll-behavior-x: hidden;
-	right: ${props => (props.cover ? "375px" : "0")};
+	right: ${props => (props.cover ? "100%" : "0")};
 	transition: all 0.42s ease-in-out;
 	/* display: ${props => (props.cover ? "none" : "block")}; */
 	> div:nth-child(1) {

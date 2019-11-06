@@ -9,14 +9,14 @@ const StyledTimekeeper = styled.div`
 	align-items: center;
 	background: rgba(0, 0, 0, 0.9);
 	height: 270px;
-	width: 70%;
+	width: 270px;
 	border-radius: 100%;
 	color: white;
 	> h1 {
 		font-size: 70px;
 	}
 	> h3 {
-	color:	rgba(255, 255, 255, 0.7);
+		color: rgba(255, 255, 255, 0.7);
 		font-size: 36px;
 	}
 `;
