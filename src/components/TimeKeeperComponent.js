@@ -59,9 +59,9 @@ const TimeKeeperComponent = (props) => {
 	const [startPositionLong, setStartPositionLong] = useState();
   const [currentPositionLat, setCurrentPositionLat] = useState();
 	const [currentPositionLong, setCurrentPositionLong] = useState();
-	const [finalDistanceKm, setFinalDistanceKm] = useState();
+	let [finalDistanceKm, setFinalDistanceKm] = useState();
 
-	const [updateDistance, setUpdateDistance] = useState()
+	const [updateDistance, setUpdateDistance] = useState(0)
 
 // STOPS WATCH
 // navigator.geolocation.clearWatch(watchID);
@@ -88,50 +88,13 @@ let startLongitude;
 let currentLatitude;
 let currentLongitude;
 
-const NavigateDistance = () => {
 
-	let options = {
-	  enableHighAccuracy: true,
-	  // maximumAge: 0
-	};
-
-	function error(err) {
-	  console.warn(`ERROR(${err.code}): ${err.message}`);
-	}
-
-	navigator.geolocation.getCurrentPosition(position => {
-		setStartPositionLat(position.coords.latitude);
-		setStartPositionLong(position.coords.longitude);
-		startLatitude = position.coords.latitude;
-		startLongitude = position.coords.longitude;
-
-		setInterval(() => {
-			const distance =	navigator.geolocation.getCurrentPosition(position => {
-			setCurrentPositionLat(position.coords.latitude);
-			setCurrentPositionLong(position.coords.longitude)
-			currentLatitude = position.coords.latitude;
-			currentLongitude = position.coords.longitude;
-
-			setFinalDistanceKm(
-        Number(calculateDistance(
-          startLatitude,
-          startLongitude,
-          currentLatitude,
-          currentLongitude
-        )).toFixed(6)
-    	);
-
-			startLatitude = currentLatitude;
-			startLongitude = currentLongitude;
-
-			});
-		}, 1000);
-	}, error, options);
-};
 
 
  const toggleTimer = () => {
 		setIsActive(!isActive);
+		setFinalDistanceKm(0);
+		console.log(finalDistanceKm);
  };
  // let secondstimer = ("0" + (Math.floor(seconds / 1000) % 60)).slice(-2);
  // let centiseconds = ("0" + (Math.floor(seconds % 100)).slice(-2);
@@ -140,13 +103,66 @@ const NavigateDistance = () => {
  let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
 
-
  useEffect(() => {
 // NavigateDistance();
 		let interval = null;
 		if (isActive) {
 
-			NavigateDistance();
+		// const NavigateDistance = () => {
+			let options = {
+				enableHighAccuracy: true
+				// maximumAge: 0
+			};
+
+			function error(err) {
+				console.warn(`ERROR(${err.code}): ${err.message}`);
+			}
+
+		 navigator.geolocation.getCurrentPosition(
+				position => {
+					// setStartPositionLat(position.coords.latitude);
+					// setStartPositionLong(position.coords.longitude);
+					startLatitude = position.coords.latitude;
+					startLongitude = position.coords.longitude;
+
+				navigator.geolocation.getCurrentPosition(
+						position => {
+							// setCurrentPositionLat(position.coords.latitude);
+							// setCurrentPositionLong(position.coords.longitude);
+							currentLatitude = position.coords.latitude;
+							currentLongitude = position.coords.longitude;
+
+							const calcDist =calculateDistance(
+								startLatitude,
+								startLongitude,
+								currentLatitude,
+								currentLongitude
+							)
+
+							setFinalDistanceKm(calcDist);
+							console.log("hej du har kommit till calcdist");
+							console.log(calcDist);
+
+							// if (calcDist) {
+								console.log("säg walla " + finalDistanceKm);
+								console.log(calcDist);
+								setInterval(() => {
+									setFinalDistanceKm(finalDistanceKm += calcDist);
+								}, 1000);
+								console.log("nu har du plusat skiten  " + finalDistanceKm);
+							// }
+							// setUpdateDistance(finalDistanceKm += finalDistanceKm);
+
+							startLatitude = currentLatitude;
+							startLongitude = currentLongitude;
+
+						}
+					);
+				},
+				error,
+				options
+			);
+		// };
 			console.log(finalDistanceKm);
 
 			interval = setInterval(() => {
@@ -159,13 +175,6 @@ const NavigateDistance = () => {
 		return () => clearInterval(interval);
  }, [isActive, seconds]);
 
-// console.log(NavigateDixstance());
-// console.log(finalDistanceKm);
-
-// console.log(Number(finalDistanceKm).toFixed(2));
-
-// let finalDistanceKm2 = Number(finalDistanceKm).toFixed(2);
-// console.log(finalDistanceKm2);
 
 
 
@@ -185,7 +194,7 @@ const NavigateDistance = () => {
 					minutes={minutes}
 					seconds={secondstimer}
 				/>
-				<Activity distance={finalDistanceKm ? finalDistanceKm : '0.00'} />
+				<Activity distance={finalDistanceKm} />
 			</div>
 		</StyledTimekeeperComponent>
 	);

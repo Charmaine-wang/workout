@@ -65,7 +65,8 @@ const StyledActivity = styled.div`
 
 		> div {
 			background-color: rgba(0,0,0, 0.8);
-			width: calc(50% - 1px);
+			width: 100%;
+			/* width: calc(50% - 1px); */
 			height: 100%;
 			> p {
 			position: absolute;
@@ -98,11 +99,11 @@ const Activity = (props) => {
 						<p>Kilometers</p>
 						<p>{props.distance} km</p>
 					</div>
-					<div>
+					{/* <div>
 						<img src="/images/burn.png" alt="bajs" />
 						<p>Calories</p>
 						<p>365 kcal</p>
-					</div>
+					</div> */}
 				</div>
 				<div>
 					<img src="/images/speed.png" alt="" />
