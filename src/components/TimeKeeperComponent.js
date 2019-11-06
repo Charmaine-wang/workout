@@ -55,11 +55,10 @@ const TimeKeeperComponent = (props) => {
  const [seconds, setSeconds] = useState(0);
  const [isActive, setIsActive] = useState(false);
 
-  const [startPositionLat, setStartPositionLat] = useState();
-	const [startPositionLong, setStartPositionLong] = useState();
-  const [currentPositionLat, setCurrentPositionLat] = useState();
-	const [currentPositionLong, setCurrentPositionLong] = useState();
-	let [finalDistanceKm, setFinalDistanceKm] = useState();
+
+  const [prevPosition, setPrevPosition] = useState(null);
+
+	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
 
 	const [updateDistance, setUpdateDistance] = useState(0)
 
@@ -88,13 +87,102 @@ let startLongitude;
 let currentLatitude;
 let currentLongitude;
 
+		const NavigateDistance = () => {
+			let options = {
+				enableHighAccuracy: true
+				// maximumAge: 0
+			};
+
+			function error(err) {
+				console.warn(`ERROR(${err.code}): ${err.message}`);
+			}
+if (navigator.geolocation){
+	// const firstgeo = navigator.geolocation.getCurrentPosition(
+	// 		async position => {
+	// 			setFinalDistanceKm(0);
+	// 			console.log("nuuu bäörjag final på 0");
+	// 			startLatitude = position.coords.latitude;
+	// 			startLongitude = position.coords.longitude;
 
 
+		// let currentLocation	= null
+		navigator.geolocation.getCurrentPosition( position => {
+			const currentLocation = position.coords
+
+					let calcDist = null;
+
+
+					if (currentLocation && prevPosition) {
+// calcDist =5;
+						calcDist = calculateDistance(
+							prevPosition.latitude,
+							prevPosition.longitude,
+							currentLocation.latitude,
+							currentLocation.longitude
+						);
+						console.log(calcDist);
+					}
+					if (calcDist) {
+
+						setFinalDistanceKm(finalDistanceKm + calcDist);
+						console.log("har satt ny final " + finalDistanceKm);
+					}
+											setPrevPosition(currentLocation);
+		})
+
+
+
+			}
+
+
+	};
+		console.log(finalDistanceKm);
+// function getUserLocation() {
+
+// 		// Permissions.check("location").then(response => {
+// 			if (navigator.geolocation) {
+// 				return new Promise((resolve, reject) => {
+// 					navigator.geolocation.getCurrentPosition(
+// 						position => {
+// 							resolve({
+// 								startLatitude: position.coords.latitude,
+// 								startLongitude: position.coords.longitude
+// 							});
+// 						},
+// 						navigator.geolocation.getCurrentPosition(
+// 							position => {
+// 								resolve({
+// 									currentLatitude: position.coords.latitude,
+// 									currentLongitude: position.coords.longitude
+// 								});
+// console.log(currentLatitude);
+								// const calcDist = calculateDistance(
+								// 	startLatitude,
+								// 	startLongitude,
+								// 	currentLatitude,
+								// 	currentLongitude
+								// );
+								// if (calcDist) {
+								// 	console.log("innanför if");
+								// 	setFinalDistanceKm((finalDistanceKm += calcDist));
+								// 	console.log("har satt ny final " + finalDistanceKm);
+								// }
+// 								resolve({
+// 									startLatitude: currentLatitude,
+// 									startLongitude: currentLongitude
+// 								});
+// 							},
+// 							error => {
+// 								reject(error);
+// 							}
+// 						)
+// 					);
+// 				});
+// 			}
+// }
 
  const toggleTimer = () => {
 		setIsActive(!isActive);
-		setFinalDistanceKm(0);
-		console.log(finalDistanceKm);
  };
  // let secondstimer = ("0" + (Math.floor(seconds / 1000) % 60)).slice(-2);
  // let centiseconds = ("0" + (Math.floor(seconds % 100)).slice(-2);
@@ -104,66 +192,14 @@ let currentLongitude;
 
 
  useEffect(() => {
-// NavigateDistance();
+NavigateDistance();
+
+// getUserLocation()
+// console.log(getUserLocation());
+// console.log(NavigateDistance);
 		let interval = null;
 		if (isActive) {
 
-		// const NavigateDistance = () => {
-			let options = {
-				enableHighAccuracy: true
-				// maximumAge: 0
-			};
-
-			function error(err) {
-				console.warn(`ERROR(${err.code}): ${err.message}`);
-			}
-
-		 navigator.geolocation.getCurrentPosition(
-				position => {
-					// setStartPositionLat(position.coords.latitude);
-					// setStartPositionLong(position.coords.longitude);
-					startLatitude = position.coords.latitude;
-					startLongitude = position.coords.longitude;
-
-				navigator.geolocation.getCurrentPosition(
-						position => {
-							// setCurrentPositionLat(position.coords.latitude);
-							// setCurrentPositionLong(position.coords.longitude);
-							currentLatitude = position.coords.latitude;
-							currentLongitude = position.coords.longitude;
-
-							const calcDist =calculateDistance(
-								startLatitude,
-								startLongitude,
-								currentLatitude,
-								currentLongitude
-							)
-
-							setFinalDistanceKm(calcDist);
-							console.log("hej du har kommit till calcdist");
-							console.log(calcDist);
-
-							// if (calcDist) {
-								console.log("säg walla " + finalDistanceKm);
-								console.log(calcDist);
-								setInterval(() => {
-									setFinalDistanceKm(finalDistanceKm += calcDist);
-								}, 1000);
-								console.log("nu har du plusat skiten  " + finalDistanceKm);
-							// }
-							// setUpdateDistance(finalDistanceKm += finalDistanceKm);
-
-							startLatitude = currentLatitude;
-							startLongitude = currentLongitude;
-
-						}
-					);
-				},
-				error,
-				options
-			);
-		// };
-			console.log(finalDistanceKm);
 
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
@@ -174,7 +210,6 @@ let currentLongitude;
 		}
 		return () => clearInterval(interval);
  }, [isActive, seconds]);
-
 
 
 
@@ -194,7 +229,7 @@ let currentLongitude;
 					minutes={minutes}
 					seconds={secondstimer}
 				/>
-				<Activity distance={finalDistanceKm} />
+				<Activity distance={props.isToggled ? finalDistanceKm : '0.00'} />
 			</div>
 		</StyledTimekeeperComponent>
 	);
