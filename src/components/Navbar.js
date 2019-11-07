@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TweenMax } from "gsap";
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 const StyledNavbar = styled.div`
 	display: flex;
@@ -28,11 +28,11 @@ const Navbar = () => {
 
 	return (
 		<StyledNavbar>
-			<Link exact="true" to={"/"}> <img src="/images/home.png" alt="home icon" /> </Link>
-			<Link to={"/timer"}> <img src="/images/timer.png" alt="timer icon" /> </Link>
-			<Link to={"/moves"}> <img src="/images/moves.png" alt="moves icon" /> </Link>
-			<Link to={"/health"}> <img src="/images/heart.png" alt="heart icon" /> </Link>
-			<Link to={"/settings"}> <img src="/images/settings.png" alt="settings icon" /> </Link>
+			<NavLink exact="true" to={"/"}> <img src="/images/home.png" alt="home icon" /> </NavLink>
+			<NavLink to={"/timer"}> <img src="/images/timer.png" alt="timer icon" /> </NavLink>
+			<NavLink to={"/moves"}> <img src="/images/moves.png" alt="moves icon" /> </NavLink>
+			<NavLink to={"/health"}> <img src="/images/heart.png" alt="heart icon" /> </NavLink>
+			<NavLink to={"/settings"}> <img src="/images/settings.png" alt="settings icon" /> </NavLink>
 		</StyledNavbar>
 	);
 };

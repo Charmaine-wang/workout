@@ -7,11 +7,12 @@ const StyledTimekeeper = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
-	background: rgba(0, 0, 0, 0.9);
-	height: 270px;
-	width: 270px;
-	border-radius: 100%;
+	transition: 0.2s;
+	border-radius: 50%;
 	color: white;
+	background-color: ${props => props.startedBg ? 'rgba(0,0,0, 0.6)' : 'rgba(0,0,0, 0.9)'};
+	/* byt färg till nått nice, eller gör andra animationer */
+	border: ${props => props.startedBg ? '12px solid black' : '0px solid rgba(50,0,0, 0.1)'};
 	> h1 {
 		font-size: 70px;
 	}
@@ -19,48 +20,21 @@ const StyledTimekeeper = styled.div`
 		color: rgba(255, 255, 255, 0.7);
 		font-size: 36px;
 	}
+	width: 270px;
+	height: 270px;
+
 `;
 
+
 const Timekeeper = (props) => {
-//  const [seconds, setSeconds] = useState(0);
-//  const [isActive, setIsActive] = useState(false);
-
-//  const toggle = () => {
-// 		setIsActive(!isActive);
-//  }
-// // let secondstimer = ("0" + (Math.floor(seconds / 1000) % 60)).slice(-2);
-// // let centiseconds = ("0" + (Math.floor(seconds % 100)).slice(-2);
-// let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
-// let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
-// let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
-
-//  useEffect(() => {
-// 		let interval = null;
-// 		if (isActive) {
-// 			interval = setInterval(() => {
-// 				setSeconds(seconds => seconds + 1);
-// 			}, 1000);
-// 		} else if (!isActive && seconds !== 0) {
-// 			clearInterval(interval);
-// 		}
-// 		return () => clearInterval(interval);
-//  }, [isActive, seconds]);
 	return (
 		<StyledTimekeeper {...props} onClick={props.onClick}>
-			{/* <h1>{seconds}</h1> */}
 			<h1>
-				{/* {hours} :  */}
-				{props.minutes}
-				:
-				{props.seconds}
-				{/* {minutes} : {secondstimer} */}
+				{props.minutes}:{props.seconds}
 			</h1>
 			<h3>
 				{props.isActive}
-			{/* {isActive ? "Pause" : "Start"} */}
 			</h3>
-			{/* <h1>34:35</h1>
-			<h3>Pause</h3> */}
 		</StyledTimekeeper>
 	);
 };

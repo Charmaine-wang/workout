@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import firebase, {firestore} from "../firebase";
 import Button from './Button';
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useAuth } from "../authcontext";
 
 const StyledSignup = styled.form`
@@ -166,9 +166,9 @@ const handleSubmit = (event) => {
 					>
 					Sign Up
 				</Button>
-				<Link exact to={"/login"}>
+				<NavLink exact to={"/login"}>
 					Already have an account? <span> Login! </span>
-				</Link>
+				</NavLink>
 			</StyledSignup>
 		</div>
 
