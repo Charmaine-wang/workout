@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import firebase, { firestore } from "../../../../firebase";
 import Button from "../../../../components/Button";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../../../authcontext";
 import FadedBackground from "../../../../components/FadedBackground";
 import TopIcons from "../../../../components/TopIcons";
@@ -139,7 +138,10 @@ const Signup = props => {
 					</div>
 				</div>
 				<div>
-					<Button
+					<Button onClick={() => {
+						firebase.auth().signOut();
+							window.location.href = "/";
+						}}
 						margin="10px 0 10px 0"
 						btnWidth="320px"
 						fontColor="white"
@@ -149,6 +151,7 @@ const Signup = props => {
 					>
 						Logout
 					</Button>
+
 					<Button
 						margin="10px 0 10px 0"
 						btnWidth="320px"

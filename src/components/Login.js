@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import Button from './Button';
 import firebase from "../firebase";
 // import { useAuthState } from "react-firebase-hooks/auth";
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 const StyledLogin = styled.form`
 	display: flex;
@@ -168,9 +168,9 @@ const { authUser, authLoading } = useAuth();
 				>
 						Login
 				</Button>
-				<Link to={"/signup"}>
+				<NavLink to={"/signup"}>
 					No account? <span> Sign up now! </span>
-				</Link>
+				</NavLink>
 			</StyledLogin>
 		</div>
 	);

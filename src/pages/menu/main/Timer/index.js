@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { UserContext } from '../../../../context'
 import TopIcons from '../../../../components/TopIcons'
 import FadedBackground from '../../../../components/FadedBackground'
-
-import { Link } from "react-router-dom";
 import TimeKeeperComponent from '../../../../components/TimeKeeperComponent';
+
 
 const StyledPageTimer = styled.div`
 	width: 100%;
@@ -16,9 +15,9 @@ const StyledTimer = styled.div`
 	position: absolute;
 	height: 100vw;
 	overscroll-behavior-x: hidden;
-	right: ${props => (props.cover ? "100%" : "0")};
+	right: ${props => (props.cover ? "100vw" : "0")};
 	transition: all 0.42s ease-in-out;
-	/* display: ${props => (props.cover ? "none" : "block")}; */
+
 	> div:nth-child(1) {
 		background-color: rgba(0, 0, 0, 0.4);
 		height: 216px;
@@ -79,7 +78,7 @@ const ChoiceWrapper = styled.div`
 		}
 		> img {
 			width: 16vh;
-			opacity: 0.12;
+			opacity: 0.16;
 		}
 	}
 `;

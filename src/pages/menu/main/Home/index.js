@@ -17,21 +17,13 @@ const StyledPageHome = styled.div`
 `;
 
 const PageHome = () => {
-	const [meters, setMeters] = useState({});
+	// const [meters, setMeters] = useState({});
 
 	return (
 		<StyledPageHome>
 			<FadedBackground opacity={'1'} />
 			<img src="/images/shoeImage.png" alt="shoes background" />
 			<SliderComponent />
-			<button
-				onClick={() => {
-					firebase.auth().signOut();
-					window.location.href = "/";
-				}}
-			>
-				logga ut
-			</button>
 		</StyledPageHome>
 	);
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { withRouter } from "react-router";
 
 
@@ -33,9 +33,9 @@ const TopIcons = (props) => {
 			{...props}
 
 		>
-			<Link exact="true" to={"/"}>
+			<NavLink exact="true" to={"/"}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
-			</Link>
+			</NavLink>
 			<img src={props.iconSrc} alt="choice icon" />
 		</StyledTopIcons>
 	);
