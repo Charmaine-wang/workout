@@ -23,7 +23,7 @@ const StyledActivity = styled.div`
 			width: 155px;
 			height: 155px;
 			z-index: 0;
-			opacity: 0.1;
+			opacity: 0.15;
 		}
 
 		> div {
@@ -36,7 +36,7 @@ const StyledActivity = styled.div`
 				position: absolute;
 				width: 130px;
 				height: 130px;
-				opacity: 0.1;
+				opacity: 0.15;
 			}
 		}
 	}
@@ -65,8 +65,7 @@ const StyledActivity = styled.div`
 
 		> div {
 			background-color: rgba(0,0,0, 0.8);
-			width: 100%;
-			/* width: calc(50% - 1px); */
+			width: calc(50% - 1px);
 			height: 100%;
 			> p {
 			position: absolute;
@@ -99,16 +98,16 @@ const Activity = (props) => {
 						<p>Kilometers</p>
 						<p>{props.distance} km</p>
 					</div>
-					{/* <div>
+					<div>
 						<img src="/images/burn.png" alt="bajs" />
-						<p>Calories</p>
-						<p>365 kcal</p>
-					</div> */}
+						<p>Calories Burned</p>
+						<p>{props.caloriesBurned} kcal</p>
+					</div>
 				</div>
 				<div>
 					<img src="/images/speed.png" alt="" />
 					<p>Average speed</p>
-					<p>6.2 km/h</p>
+					<p>{props.averageSpeed} km/h</p>
 				</div>
 			</StyledActivity>
 		);

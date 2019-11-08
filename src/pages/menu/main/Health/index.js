@@ -91,19 +91,21 @@ console.log(authUser);
 
 				<div>
 					<BodyWrapper>
-
 						<BodyComponent
 							type="text"
 							title="Weight"
 							placeholder={authUser.weight}
+							value={authUser.weight}
 							unit={"kg"}
+							onChange=""
 						/>
-
 						<BodyComponent
 							type="text"
 							title={"Length"}
 							placeholder={authUser.length}
+							value={authUser.length}
 							unit={"cm"}
+							onChange=""
 						/>
 					</BodyWrapper>
 					<BMIWrapper>
