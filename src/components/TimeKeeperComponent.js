@@ -15,7 +15,7 @@ const StyledTimekeeperComponent = styled.div`
 	top: 0;
 	width: 100%;
 	right: ${props => (props.expanded ? "0" : "-100%")};
-	transition: all 0.42s ease-in-out;
+	transition: all 0.35s ease-in-out;
 	/* background-color: red; */
 	z-index: 2;
 

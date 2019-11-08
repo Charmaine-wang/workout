@@ -14,10 +14,10 @@ const StyledPageTimer = styled.div`
 `;
 const StyledTimer = styled.div`
 	position: absolute;
-	height: 100vw;
+	/* height: 100vw; */
 	overscroll-behavior-x: hidden;
 	right: ${props => (props.cover ? "100%" : "0")};
-	transition: all 0.42s ease-in-out;
+	transition: all 0.35s ease-in-out;
 	/* display: ${props => (props.cover ? "none" : "block")}; */
 	> div:nth-child(1) {
 		background-color: rgba(0, 0, 0, 0.4);
