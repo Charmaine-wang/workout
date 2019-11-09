@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useAuth } from "../../../../authcontext";
+import firebase, {firestore} from "../../../../firebase";
 
 import TopIcons from '../../../../components/TopIcons'
 import HealthComponent from '../../../../components/HealthComponent';
 import BodyComponent from '../../../../components/BodyComponent';
 import FadedBackground from '../../../../components/FadedBackground';
+import { auth } from 'firebase';
 
 const StyledHealth = styled.div`
 	height: calc(100vh - 54px);
@@ -54,8 +56,23 @@ const BMIWrapper = styled.div`
 const PageHealth = () => {
 	// const {isAuth} = useContext(UserContext);
 const { authUser, authLoading } = useAuth();
+const { userWeight, setUserWeight } = useState();
+const { userLength, setUserLength } = useState();
+console.log(authUser);
 
-const handleChange = () => {
+const handleChange = (event) => {
+		event.preventDefault();
+		const userData = new FormData(event.currentTarget);
+			console.log(userData);
+		firestore
+			.collection("users")
+			.doc(authUser.uid)
+			.update({
+				weight: userData.get("weight"),
+				length: userData.get("length")
+				// weight: 0,
+				// length: 0
+			});
 
 }
 console.log(authUser);
@@ -90,24 +107,9 @@ console.log(authUser);
 				</HealthWrapper>
 
 				<div>
-					<BodyWrapper>
-						<BodyComponent
-							type="text"
-							title="Weight"
-							placeholder={authUser.weight}
-							value={authUser.weight}
-							unit={"kg"}
-							onChange=""
-						/>
-						<BodyComponent
-							type="text"
-							title={"Length"}
-							placeholder={authUser.length}
-							value={authUser.length}
-							unit={"cm"}
-							onChange=""
-						/>
-					</BodyWrapper>
+					{/* <BodyWrapper> */}
+					<BodyComponent onSubmit={handleChange} />
+
 					<BMIWrapper>
 						<p> BMI </p>
 						<p>{BMI} </p>

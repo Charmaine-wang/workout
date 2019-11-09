@@ -104,7 +104,9 @@ const handleSubmit = (event) => {
 							.set({
 								displayName: userData.get("displayName"),
 								email: userData.get("email"),
-								password: userData.get("password")
+								password: userData.get("password"),
+								// weight: 0,
+								// length: 0
 							});
 		})
 		.catch(function(error) {
@@ -166,7 +168,7 @@ const handleSubmit = (event) => {
 					>
 					Sign Up
 				</Button>
-				<NavLink exact to={"/login"}>
+				<NavLink exact to={"/"}>
 					Already have an account? <span> Login! </span>
 				</NavLink>
 			</StyledSignup>

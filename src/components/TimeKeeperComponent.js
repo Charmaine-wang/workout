@@ -5,7 +5,7 @@ import { useAuth } from "../authcontext";
 import { Route } from "react-router-dom";
 import Activity from "./Activity";
 import FadedBackground from "./FadedBackground";
-
+import firebase, { firestore } from "../firebase";
 
 const StyledTimekeeperComponent = styled.div`
 	position: absolute;
@@ -111,50 +111,6 @@ const TimeKeeperComponent = (props) => {
 		})
 	}
 };
-// console.log(finalDistanceKm);
-// function getUserLocation() {
-
-// 		// Permissions.check("location").then(response => {
-// 			if (navigator.geolocation) {
-// 				return new Promise((resolve, reject) => {
-// 					navigator.geolocation.getCurrentPosition(
-// 						position => {
-// 							resolve({
-// 								startLatitude: position.coords.latitude,
-// 								startLongitude: position.coords.longitude
-// 							});
-// 						},
-// 						navigator.geolocation.getCurrentPosition(
-// 							position => {
-// 								resolve({
-// 									currentLatitude: position.coords.latitude,
-// 									currentLongitude: position.coords.longitude
-// 								});
-// console.log(currentLatitude);
-								// const calcDist = calculateDistance(
-								// 	startLatitude,
-								// 	startLongitude,
-								// 	currentLatitude,
-								// 	currentLongitude
-								// );
-								// if (calcDist) {
-								// 	console.log("innanför if");
-								// 	setFinalDistanceKm((finalDistanceKm += calcDist));
-								// 	console.log("har satt ny final " + finalDistanceKm);
-								// }
-// 								resolve({
-// 									startLatitude: currentLatitude,
-// 									startLongitude: currentLongitude
-// 								});
-// 							},
-// 							error => {
-// 								reject(error);
-// 							}
-// 						)
-// 					);
-// 				});
-// 			}
-// }
 
 	const toggleTimer = () => {
 		setIsActive(!isActive);
@@ -164,6 +120,22 @@ const TimeKeeperComponent = (props) => {
 	let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
+
+	const handleChange = event => {
+		event.preventDefault();
+
+		firestore
+			.collection("users")
+			.doc(authUser.uid)
+			.collection("activity")
+			.add({
+				activitytime: { minutes, seconds },
+				kcal: caloriesBurned,
+				distance: totalDistanceRounded
+				// weight: 0,
+				// length: 0
+			});
+	};
 
 	useEffect(() => {
 		NavigateDistance();
@@ -205,9 +177,9 @@ const TimeKeeperComponent = (props) => {
 	//FORMULA Total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
-
+console.log(authUser);
 	return (
-		<StyledTimekeeperComponent expanded={props.isToggled}>
+		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && handleChange}>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
