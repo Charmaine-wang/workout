@@ -55,6 +55,7 @@ const TimeKeeperComponent = (props) => {
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
 	const [updateDistance, setUpdateDistance] = useState(0)
 
+
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
 	  let R = 6371; // km
@@ -179,9 +180,10 @@ const TimeKeeperComponent = (props) => {
 		averageSpeed = '0.0';
 	}
 
+
 	// calories burned during training session
-	let activityMET; // detta ska vara siffran som motsvarar träningstyp för att räkna kalorier.
-	let activityType = "running"; // typ av aktivitet user klickat i
+	let activityMET;
+	let activityType = props.isActivity; // choosen activity type
 
 	if (activityType == "running") {
 		activityMET = 9.8; // about 9.8 MET value when running
@@ -195,7 +197,7 @@ const TimeKeeperComponent = (props) => {
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
 
-	console.log(authUser);
+	// console.log(authUser);
 
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && handleChange}>

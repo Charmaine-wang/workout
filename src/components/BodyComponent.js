@@ -13,7 +13,7 @@ const StyledBodyInfo = styled.form`
 		width: 50vw;
 		height: 20vh;
 		background-color: rgba(0, 0, 0, 0.8);
-		margin-bottom: 2px;
+		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 		padding: 8px 32px;
 		> p {
 			font-size: 22px;

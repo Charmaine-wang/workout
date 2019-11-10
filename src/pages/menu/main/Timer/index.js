@@ -20,7 +20,7 @@ const StyledTimer = styled.div`
 
 	> div:nth-child(1) {
 		background-color: rgba(0, 0, 0, 0.4);
-		height: 216px;
+		height: 196px;
 		width: 100%;
 		position: absolute;
 		z-index: 1;
@@ -44,7 +44,7 @@ const StyledTimer = styled.div`
 	}
 	> img {
 		width: 100%;
-		height: 216px;
+		height: 196px;
 		opacity: 1;
 		margin-bottom: -3px;
 	}
@@ -52,7 +52,7 @@ const StyledTimer = styled.div`
 
 const ChoiceWrapper = styled.div`
 	width: 100%;
-	height: calc(100vh - 216px - 54px);
+	height: calc(100vh - 196px - 54px);
 	display: flex;
 	flex-direction: column;
 	> div {
@@ -87,11 +87,7 @@ const ChoiceWrapper = styled.div`
 
 const PageTimer = (props) => {
 const [isToggled, setToggled] = useState(false);
-
-// const [isRunning, setRunning] = useState(false);
-// const [isCycling, setCycling] = useState(false);
-// const [isWalking, setWalking] = useState(false);
-
+const [isActivity, setActivity] = useState('none');
 
 	return (
 		<StyledPageTimer>
@@ -99,6 +95,7 @@ const [isToggled, setToggled] = useState(false);
 			<TimeKeeperComponent
 				isToggled={isToggled}
 				goBack={() => setToggled(false)}
+				isActivity={isActivity}
 			/>
 
 			<StyledTimer cover={isToggled}>
@@ -108,20 +105,19 @@ const [isToggled, setToggled] = useState(false);
 				</div>
 				<TopIcons iconSrc="/images/timer.png" />
 				<img src="images/timerBg.png" alt="choice background" />
-				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
-				<ChoiceWrapper>
-					<div onClick={() => setToggled(true)}>
+				<ChoiceWrapper onClick={() => setToggled(true)}>
+					<div onClick={() => setActivity("running")}>
 						<img src="/images/running.png" alt="choice background" />
 						<p> RUNNING </p>
 					</div>
 
-					<div onClick={() => setToggled(true)}>
+					<div onClick={() => setActivity("cycling")}>
 						<p> CYCLING </p>
 						<img src="/images/cycling.png" alt="choice background" />
 					</div>
 
-					<div onClick={() => setToggled(true)}>
+					<div onClick={() => setActivity("walking")}>
 						<img src="/images/walking.png" alt="choice background" />
 						<p> WALKING </p>
 					</div>
