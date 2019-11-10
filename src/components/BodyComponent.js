@@ -10,7 +10,7 @@ const StyledBodyInfo = styled.form`
 	justify-content: space-between;
 	width: 100%;
 	> div {
-		width: calc(50vw - 1px);
+		width: 50vw;
 		height: 20vh;
 		background-color: rgba(0, 0, 0, 0.8);
 		margin-bottom: 2px;
@@ -31,7 +31,7 @@ const StyledBodyInfo = styled.form`
 			> p {
 				font-size: 36px;
 				color: white;
-				padding: 1vh 10px;
+				padding: 1.5vh 10px;
 			}
 			> input {
 				font-size: 36px;
@@ -76,6 +76,7 @@ const { authUser, authLoading } = useAuth();
 						name="weight"
 						placeholder={authUser.weight}
 						id="weight"
+						//value={"" ? authUser.weight : authUser.weight}
 					/>
 					<p>kg</p>
 				</div>
@@ -89,7 +90,7 @@ const { authUser, authLoading } = useAuth();
 						name="length"
 						placeholder={authUser.length}
 						id="length"
-						// value={authUser.length}
+						//value={authUser.length}
 					/>
 					<p>cm</p>
 				</div>

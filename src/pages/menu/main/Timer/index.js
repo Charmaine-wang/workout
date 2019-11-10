@@ -13,7 +13,7 @@ const StyledPageTimer = styled.div`
 `;
 const StyledTimer = styled.div`
 	position: absolute;
-	height: 100vw;
+	height: 100%;
 	overscroll-behavior-x: hidden;
 	right: ${props => (props.cover ? "100vw" : "0")};
 	transition: all 0.42s ease-in-out;
@@ -58,10 +58,6 @@ const ChoiceWrapper = styled.div`
 	> div {
 		height: 100%;
 		background-color: rgba(0,0,0, 0.8);
-
-		&:nth-child(3) a {
-			border-bottom: none;
-		}
 	}
 	> div {
 		width: 100%;
@@ -71,6 +67,11 @@ const ChoiceWrapper = styled.div`
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
+
+		&:nth-child(3) {
+			border-bottom: none;
+		}
+
 		> p {
 			font-size: 30px;
 			color: white;
@@ -84,11 +85,13 @@ const ChoiceWrapper = styled.div`
 `;
 
 
-const PageTimer = () => {
+const PageTimer = (props) => {
 const [isToggled, setToggled] = useState(false);
-	useEffect(() => {
-		console.log("mounted");
-	}, []);
+
+// const [isRunning, setRunning] = useState(false);
+// const [isCycling, setCycling] = useState(false);
+// const [isWalking, setWalking] = useState(false);
+
 
 	return (
 		<StyledPageTimer>
@@ -103,7 +106,7 @@ const [isToggled, setToggled] = useState(false);
 					<p>CHOOSE MODE</p>
 					<div />
 				</div>
-				<TopIcons iconSrc="/images/timer.png" hideArrow={isToggled} />
+				<TopIcons iconSrc="/images/timer.png" />
 				<img src="images/timerBg.png" alt="choice background" />
 				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
@@ -113,12 +116,12 @@ const [isToggled, setToggled] = useState(false);
 						<p> RUNNING </p>
 					</div>
 
-					<div>
+					<div onClick={() => setToggled(true)}>
 						<p> CYCLING </p>
 						<img src="/images/cycling.png" alt="choice background" />
 					</div>
 
-					<div>
+					<div onClick={() => setToggled(true)}>
 						<img src="/images/walking.png" alt="choice background" />
 						<p> WALKING </p>
 					</div>

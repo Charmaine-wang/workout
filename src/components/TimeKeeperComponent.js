@@ -87,7 +87,6 @@ const TimeKeeperComponent = (props) => {
 		}
 
 		if (navigator.geolocation) {
-		// let currentLocation	= null
 			navigator.geolocation.getCurrentPosition( position => {
 			const currentLocation = position.coords
 			let calcDist = null;
@@ -102,7 +101,6 @@ const TimeKeeperComponent = (props) => {
 			}
 
 			if (calcDist) {
-				// console.log(finalDistanceKm);
 				let totalDistance = finalDistanceKm + calcDist;
 				setFinalDistanceKm(totalDistance);
 				console.log("har satt ny final " + totalDistance);
@@ -121,6 +119,7 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
+	// insert workout in database
 	const handleChange = event => {
 		event.preventDefault();
 
@@ -136,6 +135,24 @@ const TimeKeeperComponent = (props) => {
 				// length: 0
 			});
 	};
+
+
+	// kanske nått sånthär för att ta ut data?
+	// const [workout, setWorkout] = useState([]);
+	// const fetchWorkout = () => {
+  //   firebase
+  //     .collection('activity')
+  //     .where('users', '==', authUser.uid)
+  //     .get()
+  //     .then(workout => {
+  //       const data = [];
+  //       workout.forEach(doc => {
+  //         data.push({ id: doc.id, ...doc.data() });
+  //       });
+  //       setWorkout(data);
+  //     });
+  // };
+
 
 	useEffect(() => {
 		NavigateDistance();
@@ -156,9 +173,9 @@ const TimeKeeperComponent = (props) => {
 	let totalDistanceRounded = Number(finalDistanceKm).toFixed(2);
 
 	// average speed in km per hour
-	let averageSpeed = Number(totalDistanceRounded * 3.6 / seconds).toFixed(1);
+	let averageSpeed = Number(totalDistanceRounded / seconds * 60 * 60).toFixed(1);
 
-	if(averageSpeed == 'NaN' ) {
+	if(averageSpeed == 'NaN' || averageSpeed == 'Infinity') {
 		averageSpeed = '0.0';
 	}
 
@@ -177,14 +194,16 @@ const TimeKeeperComponent = (props) => {
 	//FORMULA Total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
-console.log(authUser);
+
+	console.log(authUser);
+
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && handleChange}>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
 
-			<FadedBackground opacity={"0.6"} />
+			<FadedBackground opacity={"0.55"} />
 			<div>
 				<img src="/images/dots.png" alt="dots" />
 
