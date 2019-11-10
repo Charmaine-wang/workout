@@ -23,7 +23,7 @@ const StyledActivity = styled.div`
 			width: 155px;
 			height: 155px;
 			z-index: 0;
-			opacity: 0.15;
+			opacity: 0.12;
 		}
 
 		> div {
@@ -36,7 +36,7 @@ const StyledActivity = styled.div`
 				position: absolute;
 				width: 130px;
 				height: 130px;
-				opacity: 0.15;
+				opacity: 0.12;
 			}
 		}
 	}

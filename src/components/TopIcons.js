@@ -27,12 +27,8 @@ const StyledTopIcons = styled.div`
 
 
 const TopIcons = (props) => {
-
 	return (
-		<StyledTopIcons
-			{...props}
-
-		>
+		<StyledTopIcons {...props}>
 			<NavLink exact="true" to={"/"}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</NavLink>
