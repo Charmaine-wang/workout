@@ -54,36 +54,29 @@ const BMIWrapper = styled.div`
 `;
 
 const PageHealth = () => {
-	// const {isAuth} = useContext(UserContext);
 const { authUser, authLoading } = useAuth();
+
 const { userWeight, setUserWeight } = useState();
 const { userLength, setUserLength } = useState();
-console.log(authUser);
 
 const handleChange = (event) => {
-		event.preventDefault();
-		const userData = new FormData(event.currentTarget);
-			console.log(userData);
-		firestore
-			.collection("users")
-			.doc(authUser.uid)
-			.update({
-				weight: userData.get("weight"),
-				length: userData.get("length")
-				// weight: 0,
-				// length: 0
-			});
-
+	event.preventDefault();
+	const userData = new FormData(event.currentTarget);
+	console.log(event.currentTarget)
+	firestore
+	.collection("users")
+	.doc(authUser.uid)
+	.update({
+		length: userData.get("length"),
+		weight: userData.get("weight")
+	});
 }
-console.log(authUser);
-	useEffect(() => {
-			// console.log(isAuth);
-	}, []);
+
+	// console.log(authUser);
 
 	const BMI = Number(
 		(authUser.weight / Math.pow(authUser.length, 2)) * 10000
 	).toFixed(1);
-
 
 	return (
 		<div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Timekeeper from "./Timekeeper";
+import StopTimer from "./StopTimer";
 import { useAuth } from "../authcontext";
 import { Route } from "react-router-dom";
 import Activity from "./Activity";
@@ -180,7 +181,6 @@ const TimeKeeperComponent = (props) => {
 		averageSpeed = '0.0';
 	}
 
-
 	// calories burned during training session
 	let activityMET;
 	let activityType = props.isActivity; // choosen activity type
@@ -216,6 +216,9 @@ const TimeKeeperComponent = (props) => {
 					seconds={secondstimer}
 					startedBg={startedBg}
 				/>
+
+				<StopTimer />
+
 				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
 			</div>
 		</StyledTimekeeperComponent>
