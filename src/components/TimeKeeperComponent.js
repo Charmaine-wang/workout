@@ -120,8 +120,27 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  
+  const date = new Date()
+	const workoutMonth = monthNames[date.getMonth()]
+	const workoutDay = date.toDateString();
 
 	const fetchWorkout = event => {
+		setIsActive(false);
 		firebase
 			.firestore()
 			.collection("users")
@@ -132,7 +151,9 @@ const TimeKeeperComponent = (props) => {
 			   type: props.getActivity,
 			   activitytime: { minutes, seconds },
 			   kcal: caloriesBurned,
-			   distance: totalDistanceRounded
+			   distance: totalDistanceRounded,
+         month: workoutMonth,
+         day: workoutDay
 			});
 	};
 
