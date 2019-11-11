@@ -20,8 +20,8 @@ const StyledTimekeeper = styled.div`
 		color: rgba(255, 255, 255, 0.7);
 		font-size: 36px;
 	}
-	width: 270px;
-	height: 270px;
+	width: 250px;
+	height: 250px;
 
 `;
 

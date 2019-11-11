@@ -92,31 +92,14 @@ const PageTimer = (props) => {
 const [isToggled, setToggled] = useState(false);
 const [activity, setActivity] = useState("");
 
-const [workout, setWorkout] = useState([]);
-// const [isCycling, setCycling] = useState(false);
-// const [isWalking, setWalking] = useState(false);
-	const fetchWorkout = event => {
-		event.preventDefault();
-		firestore
-			.collectio(`user/${authUser.uid}/activity`)
-			.where("users", "==", authUser.uid)
-			.get()
-			.then(workout => {
-				const data = [];
-				workout.forEach(doc => {
-					data.push({ id: doc.id, ...doc.data() });
-				});
-				setWorkout(data);
-			});
-	};
-console.log(activity);
-
+console.log(props);
 	return (
 		<StyledPageTimer>
 			<FadedBackground opacity={"0.7"} />
 			<TimeKeeperComponent
 				isToggled={isToggled}
 				goBack={() => setToggled(false)}
+				getActivity={activity}
 			/>
 
 			<StyledTimer cover={isToggled}>
@@ -130,6 +113,7 @@ console.log(activity);
 
 				<ChoiceWrapper>
 					<div onClick={() => {
+
 						setToggled(true)
 						setActivity("running")
 					}}>

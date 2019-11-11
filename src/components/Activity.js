@@ -44,7 +44,7 @@ const StyledActivity = styled.div`
 		display: flex;
 		flex-direction: column;
 		background-color: rgba(0,0,0, 0.8);
-		margin-top: 2px;
+		border-top: 2px solid rgba(255, 255, 255, 0.1);
 		> p {
 			position: absolute;
 			top: 15%;
@@ -65,7 +65,8 @@ const StyledActivity = styled.div`
 
 		> div {
 			background-color: rgba(0,0,0, 0.8);
-			width: calc(50% - 1px);
+			width: calc(50%);
+			border-right: 2px solid rgba(255, 255, 255, 0.1);
 			height: 100%;
 			> p {
 			position: absolute;
@@ -106,7 +107,7 @@ const Activity = (props) => {
 				</div>
 				<div>
 					<img src="/images/speed.png" alt="" />
-					<p>Average speed</p>
+					<p>Average Speed</p>
 					<p>{props.averageSpeed} km/h</p>
 				</div>
 			</StyledActivity>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Timekeeper from "./Timekeeper";
+import StopTimer from "./StopTimer";
 import { useAuth } from "../authcontext";
 import { Route } from "react-router-dom";
 import Activity from "./Activity";
 import FadedBackground from "./FadedBackground";
-import firebase, { firestore } from "../firebase";
+import firebase from "../firebase";
 
 const StyledTimekeeperComponent = styled.div`
 	position: absolute;
@@ -54,6 +55,7 @@ const TimeKeeperComponent = (props) => {
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
 	const [updateDistance, setUpdateDistance] = useState(0)
+
 
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -121,52 +123,39 @@ const TimeKeeperComponent = (props) => {
 
 	const [workout, setWorkout] = useState([]);
 	// insert workout in database
-	const fetchWorkout = event => {
-		event.preventDefault();
-		firestore
-			.collectio(`user/${authUser.uid}/activity`)
-			.where("users", "==", authUser.uid)
-			.get()
-			.then(workout => {
-				const data = [];
-				workout.forEach(doc => {
-					data.push({ id: doc.id, ...doc.data() });
-				});
-				setWorkout(data);
-			});
-	};
-	// const handleChange = event => {
+	// const fetchWorkout = event => {
 	// 	event.preventDefault();
-
 	// 	firestore
-	// 		.collection("users")
-	// 		.doc(authUser.uid)
-	// 		.collection("activity")
-	// 		.add({
-	// 			activitytime: { minutes, seconds },
-	// 			kcal: caloriesBurned,
-	// 			distance: totalDistanceRounded
-	// 			// weight: 0,
-	// 			// length: 0
+	// 		.collectio(`user/${authUser.uid}/activity`)
+	// 		.where("users", "==", authUser.uid)
+	// 		.get()
+	// 		.then(workout => {
+	// 			const data = [];
+	// 			workout.forEach(doc => {
+	// 				data.push({ id: doc.id, ...doc.data() });
+	// 			});
+	// 			setWorkout(data);
 	// 		});
 	// };
+	let activityid = Date.now();
 
+	const fetchWorkout = event => {
+		console.log(firebase);
+		firebase
+			.firestore()
+			// .collection(`users/${authUser.uid}/activity/props.getActivity`)
+			.collection("users")
+			.doc(authUser.uid)
+			.collection("activities")
+			.doc()
+			.set({
+				type: props.getActivity,
+				activitytime: { minutes, seconds },
+				kcal: caloriesBurned,
+				distance: totalDistanceRounded
+			});
 
-	// kanske nått sånthär för att ta ut data?
-	// const [workout, setWorkout] = useState([]);
-	// const fetchWorkout = () => {
-  //   firebase
-  //     .collection('activity')
-  //     .where('users', '==', authUser.uid)
-  //     .get()
-  //     .then(workout => {
-  //       const data = [];
-  //       workout.forEach(doc => {
-  //         data.push({ id: doc.id, ...doc.data() });
-  //       });
-  //       setWorkout(data);
-  //     });
-  // };
+	};
 
 
 	useEffect(() => {
@@ -195,8 +184,8 @@ const TimeKeeperComponent = (props) => {
 	}
 
 	// calories burned during training session
-	let activityMET; // detta ska vara siffran som motsvarar träningstyp för att räkna kalorier.
-	let activityType = "running"; // typ av aktivitet user klickat i
+	let activityMET;
+	let activityType = props.isActivity; // choosen activity type
 
 	if (activityType == "running") {
 		activityMET = 9.8; // about 9.8 MET value when running
@@ -210,10 +199,13 @@ const TimeKeeperComponent = (props) => {
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
 
-	console.log(fetchWorkout);
+	// console.log(authUser);
 
 	return (
-		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && fetchWorkout}>
+		<StyledTimekeeperComponent
+			expanded={props.isToggled}
+			onSubmit={fetchWorkout}
+		>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
@@ -229,7 +221,14 @@ const TimeKeeperComponent = (props) => {
 					seconds={secondstimer}
 					startedBg={startedBg}
 				/>
-				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
+
+				<StopTimer onClick={fetchWorkout} />
+
+				<Activity
+					distance={totalDistanceRounded}
+					averageSpeed={averageSpeed}
+					caloriesBurned={caloriesBurned}
+				/>
 			</div>
 		</StyledTimekeeperComponent>
 	);

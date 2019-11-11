@@ -13,8 +13,8 @@ const StyledBodyInfo = styled.form`
 		width: 50vw;
 		height: 20vh;
 		background-color: rgba(0, 0, 0, 0.8);
-		margin-bottom: 2px;
-		padding: 8px 32px;
+		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+		padding: 8px 22px;
 		> p {
 			font-size: 22px;
 			opacity: 0.7;
@@ -29,9 +29,9 @@ const StyledBodyInfo = styled.form`
 			}
 
 			> p {
-				font-size: 36px;
+				font-size: 32px;
 				color: white;
-				padding: 1.5vh 10px;
+				padding: 2vh 8px;
 			}
 			> input {
 				font-size: 36px;
@@ -66,46 +66,64 @@ const { authUser, authLoading } = useAuth();
 	// 			// length: 0
 	// 		});
 	// };
+
+
+	// assåååå herregud kan de fkn funka separerat??? ljfhlsijfljs
+
 	return (
-		<StyledBodyInfo {...props} onSubmit={props.onSubmit}>
+		<StyledBodyInfo {...props}>
 			<div>
 				<p>Weight</p>
+
 				<div {...props}>
-					<input
+					<input {...props} onSubmit={props.onSubmit}
 						type="text"
 						name="weight"
 						placeholder={authUser.weight}
 						id="weight"
-						//value={"" ? authUser.weight : authUser.weight}
+						required
 					/>
 					<p>kg</p>
 				</div>
+
+				<Button
+					margin="0 0 0 0"
+					id="length"
+					btnWidth="100px"
+					fontColor="white"
+					bgColor="rgba(255,255,255, 0.3)"
+					fontSize="20px"
+					type="submit"
+				>
+					length
+				</Button>
 			</div>
 
 			<div>
 				<p>Length</p>
 				<div {...props}>
-					<input
+					<input {...props} onSubmit={props.onSubmit}
 						type="text"
 						name="length"
 						placeholder={authUser.length}
 						id="length"
-						//value={authUser.length}
+						required
 					/>
 					<p>cm</p>
 				</div>
-			</div>
 
-			<Button
-				margin="50px 0 10px 0"
-				btnWidth="320px"
-				fontColor="white"
-				bgColor="rgba(255,255,255, 0.3)"
-				fontSize="20px"
-				type="submit"
-			>
-				Change
-			</Button>
+				<Button
+					margin="0 0 0 0"
+					id="weight"
+					btnWidth="100px"
+					fontColor="white"
+					bgColor="rgba(255,255,255, 0.3)"
+					fontSize="20px"
+					type="submit"
+				>
+					weight
+				</Button>
+			</div>
 		</StyledBodyInfo>
 	);
 };
