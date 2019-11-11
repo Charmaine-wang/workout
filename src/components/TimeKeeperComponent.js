@@ -6,7 +6,7 @@ import { useAuth } from "../authcontext";
 import { Route } from "react-router-dom";
 import Activity from "./Activity";
 import FadedBackground from "./FadedBackground";
-import firebase from "../firebase";
+import firebase, { firestore } from "../firebase";
 
 const StyledTimekeeperComponent = styled.div`
 	position: absolute;
@@ -53,24 +53,25 @@ const TimeKeeperComponent = (props) => {
 	const [startedBg, setStartedBg] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
+	const [updateDistance, setUpdateDistance] = useState(0)
 
 
+	// function calculating distance
+	const calculateDistance = (lat1, lon1, lat2, lon2) => {
+	  let R = 6371;
+	  let dLat = toRad(lat2 - lat1);
+	  let dLon = toRad(lon2 - lon1);
+	  let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+	          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+	          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+	  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	  let d = R * c;
+	  return d;
+	}
 
-    // function calculating distance
-    const calculateDistance = (lat1, lon1, lat2, lon2) => {
-      let R = 6371;
-      let dLat = toRad(lat2 - lat1);
-      let dLon = toRad(lon2 - lon1);
-      let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      let d = R * c;
-      return d;
-    }
-    function toRad(Value) {
-    return Value * Math.PI / 180;
-    }
+	const toRad = (Value) => {
+  	return Value * Math.PI / 180;
+	}
 
 	let startLatitude;
 	let startLongitude;
@@ -82,7 +83,7 @@ const TimeKeeperComponent = (props) => {
 			enableHighAccuracy: true
 		};
 
-		function error(err) {
+		const error = (err) => {
 			console.warn(`ERROR(${err.code}): ${err.message}`);
 		}
 
@@ -119,22 +120,22 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
-	const [workout, setWorkout] = useState([]);
-const monthNames = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December"
-];
-const date = new Date()
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  
+  const date = new Date()
 	const workoutMonth = monthNames[date.getMonth()]
 	const workoutDay = date.toDateString();
 
@@ -142,20 +143,18 @@ const date = new Date()
 		setIsActive(false);
 		firebase
 			.firestore()
-			// .collection(`users/${authUser.uid}/activity/props.getActivity`)
 			.collection("users")
 			.doc(authUser.uid)
 			.collection("activities")
 			.doc()
 			.set({
-				type: props.getActivity,
-				month: workoutMonth,
-				day: workoutDay,
-				activitytime: { minutes, seconds },
-				kcal: caloriesBurned,
-				distance: totalDistanceRounded
+			   type: props.getActivity,
+			   activitytime: { minutes, seconds },
+			   kcal: caloriesBurned,
+			   distance: totalDistanceRounded,
+         month: workoutMonth,
+         day: workoutDay
 			});
-
 	};
 
 
@@ -188,24 +187,27 @@ const date = new Date()
 	let activityMET;
 	let activityType = props.getActivity; // choosen activity type
 
+
+//if walking elr running räkna på km istället, else blir cycklign ta andra värden
 	if (activityType == "running") {
 		activityMET = 9.8; // about 9.8 MET value when running
-	} else if (activityType == "cycling") {
-		activityMET = 9.5; // about 3.8 MET value when cycling
 	} else if (activityType == "walking") {
 		activityMET = 3.8; // about 3.8 MET value when walking
+	} else if (activityType == "cycling") {
+		activityMET = 9.5; // about 3.8 MET value when cycling
 	}
 
 	//FORMULA Total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
 
-	// console.log(authUser);
+
+	// insert activity session
+
+
 
 	return (
-		<StyledTimekeeperComponent
-			expanded={props.isToggled}
-		>
+		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
@@ -222,13 +224,9 @@ const date = new Date()
 					startedBg={startedBg}
 				/>
 
-				<StopTimer onClick={fetchWorkout} />
+				<StopTimer onClick={() => fetchWorkout()}/>
 
-				<Activity
-					distance={totalDistanceRounded}
-					averageSpeed={averageSpeed}
-					caloriesBurned={caloriesBurned}
-				/>
+				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
 			</div>
 		</StyledTimekeeperComponent>
 	);

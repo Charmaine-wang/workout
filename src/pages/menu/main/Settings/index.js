@@ -4,7 +4,7 @@ import firebase, { firestore } from "../../../../firebase";
 import Button from "../../../../components/Button";
 import { useAuth } from "../../../../authcontext";
 import FadedBackground from "../../../../components/FadedBackground";
-import TopIcons from "../../../../components/TopIcons";
+import ArrowBack from "../../../../components/ArrowBack";
 
 const StyledSignup = styled.form`
 	display: flex;
@@ -101,7 +101,7 @@ const Signup = props => {
 	return (
 		<div>
 			<FadedBackground opacity="0.3" />
-			<TopIcons iconSrc="/images/settings.png" />
+			<ArrowBack />
 			<StyledSignup {...props} className="SignIn" onSubmit={handleSubmit}>
 				<div>
 					<div>

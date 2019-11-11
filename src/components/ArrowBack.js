@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 import { withRouter } from "react-router";
 
 
-const StyledTopIcons = styled.div`
+const StyledArrowBack = styled.div`
 	position: absolute;
 	z-index: 3;
 	display: ${props => (props.hideArrow ? "none" : "flex")};
@@ -19,22 +19,17 @@ const StyledTopIcons = styled.div`
 		height: 24px;
 		opacity: 0.7;
 	}
-	> img {
-		width: 32px;
-		opacity: 0.7;
-	}
+
 `;
 
-
-const TopIcons = (props) => {
+const ArrowBack = (props) => {
 	return (
-		<StyledTopIcons {...props}>
+		<StyledArrowBack {...props}>
 			<NavLink exact="true" to={"/"}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</NavLink>
-			<img src={props.iconSrc} alt="choice icon" />
-		</StyledTopIcons>
+		</StyledArrowBack>
 	);
 };
 
-export default withRouter(TopIcons);
+export default ArrowBack;

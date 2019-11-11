@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { UserContext } from '../../../../context';
-import TopIcons from '../../../../components/TopIcons';
+import ArrowBack from '../../../../components/ArrowBack';
 import FadedBackground from '../../../../components/FadedBackground';
 import WeekWrapper from '../../../../components/WeekWrapper';
 import Bubble from '../../../../components/Bubble';
@@ -125,7 +125,7 @@ const PageMoves = (props) => {
 	return (
 		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
-			<TopIcons iconSrc='/images/moves.png'/>
+			<ArrowBack />
 
 			<StyledMoves {...props} isDay={isDay}>
 

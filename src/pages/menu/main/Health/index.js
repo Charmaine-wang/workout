@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useAuth } from "../../../../authcontext";
 import firebase, {firestore} from "../../../../firebase";
 
-import TopIcons from '../../../../components/TopIcons'
+import ArrowBack from '../../../../components/ArrowBack'
 import HealthComponent from '../../../../components/HealthComponent';
 import BodyComponent from '../../../../components/BodyComponent';
 import FadedBackground from '../../../../components/FadedBackground';
@@ -81,7 +81,7 @@ const handleChange = (event) => {
 	return (
 		<div>
 			<FadedBackground opacity={"0.6"} />
-			<TopIcons iconSrc="/images/heart.png" />
+			<ArrowBack />
 			<StyledHealth>
 				<HealthWrapper>
 					<HealthComponent

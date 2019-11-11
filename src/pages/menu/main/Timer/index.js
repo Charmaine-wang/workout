@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../../authcontext'
-import TopIcons from '../../../../components/TopIcons'
+import ArrowBack from '../../../../components/ArrowBack'
 import FadedBackground from '../../../../components/FadedBackground'
 import TimeKeeperComponent from '../../../../components/TimeKeeperComponent';
 import firebase, { firestore } from '../../../../firebase'
@@ -107,7 +107,7 @@ console.log(props);
 					<p>CHOOSE MODE</p>
 					<div />
 				</div>
-				<TopIcons iconSrc="/images/timer.png" />
+				<ArrowBack />
 				<img src="images/timerBg.png" alt="choice background" />
 				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
