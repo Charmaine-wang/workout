@@ -56,29 +56,28 @@ const TimeKeeperComponent = (props) => {
 
 
 
-	// function calculating distance
-	const calculateDistance = (lat1, lon1, lat2, lon2) => {
-	  let R = 6371; // km
-	  let dLat = (lat2 - lat1).toRad();
-	  let dLon = (lon2 - lon1).toRad();
-	  let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-	          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-	          Math.sin(dLon / 2) * Math.sin(dLon / 2);
-	  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	  let d = R * c;
-	  return d;
-	}
-
-	Number.prototype.toRad = function() {
-	  return this * Math.PI / 180;
-	}
+    // function calculating distance
+    const calculateDistance = (lat1, lon1, lat2, lon2) => {
+      let R = 6371;
+      let dLat = toRad(lat2 - lat1);
+      let dLon = toRad(lon2 - lon1);
+      let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      let d = R * c;
+      return d;
+    }
+    function toRad(Value) {
+    return Value * Math.PI / 180;
+    }
 
 	let startLatitude;
 	let startLongitude;
 	let currentLatitude;
 	let currentLongitude;
 
-	const NavigateDistance = () => {
+	const navigateDistance = () => {
 		let options = {
 			enableHighAccuracy: true
 		};
@@ -122,6 +121,10 @@ const TimeKeeperComponent = (props) => {
 
 	const [workout, setWorkout] = useState([]);
 
+const date = new Date()
+	const workoutMonth = date.getMonth()
+	const workoutDay = date.getDay()
+
 	const fetchWorkout = event => {
 		toggleTimer()
 		firebase
@@ -133,6 +136,8 @@ const TimeKeeperComponent = (props) => {
 			.doc()
 			.set({
 				type: props.getActivity,
+				month: workoutMonth,
+				day: workoutDay,
 				activitytime: { minutes, seconds },
 				kcal: caloriesBurned,
 				distance: totalDistanceRounded
@@ -142,7 +147,7 @@ const TimeKeeperComponent = (props) => {
 
 
 	useEffect(() => {
-		NavigateDistance();
+		navigateDistance();
 
 		let interval = null;
 		if (isActive) {
@@ -168,7 +173,7 @@ const TimeKeeperComponent = (props) => {
 
 	// calories burned during training session
 	let activityMET;
-	let activityType = props.isActivity; // choosen activity type
+	let activityType = props.getActivity; // choosen activity type
 
 	if (activityType == "running") {
 		activityMET = 9.8; // about 9.8 MET value when running
