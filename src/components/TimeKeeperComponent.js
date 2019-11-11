@@ -120,13 +120,26 @@ const TimeKeeperComponent = (props) => {
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
 	const [workout, setWorkout] = useState([]);
-
+const monthNames = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
+];
 const date = new Date()
-	const workoutMonth = date.getMonth()
-	const workoutDay = date.getDay()
+	const workoutMonth = monthNames[date.getMonth()]
+	const workoutDay = date.toDateString();
 
 	const fetchWorkout = event => {
-		toggleTimer()
+		setIsActive(false);
 		firebase
 			.firestore()
 			// .collection(`users/${authUser.uid}/activity/props.getActivity`)
