@@ -48,13 +48,12 @@ const ArrowBack = styled.span`
 
 const TimeKeeperComponent = (props) => {
 	const { authUser, authLoading } = useAuth();
-	// const [isToggled, setToggled] = useState(false);
  	const [seconds, setSeconds] = useState(0);
  	const [isActive, setIsActive] = useState(false);
 	const [startedBg, setStartedBg] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
-	const [updateDistance, setUpdateDistance] = useState(0)
+
 
 
 	// function calculating distance
@@ -122,25 +121,9 @@ const TimeKeeperComponent = (props) => {
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
 	const [workout, setWorkout] = useState([]);
-	// insert workout in database
-	// const fetchWorkout = event => {
-	// 	event.preventDefault();
-	// 	firestore
-	// 		.collectio(`user/${authUser.uid}/activity`)
-	// 		.where("users", "==", authUser.uid)
-	// 		.get()
-	// 		.then(workout => {
-	// 			const data = [];
-	// 			workout.forEach(doc => {
-	// 				data.push({ id: doc.id, ...doc.data() });
-	// 			});
-	// 			setWorkout(data);
-	// 		});
-	// };
-	let activityid = Date.now();
 
 	const fetchWorkout = event => {
-		console.log(firebase);
+		toggleTimer()
 		firebase
 			.firestore()
 			// .collection(`users/${authUser.uid}/activity/props.getActivity`)
@@ -204,7 +187,6 @@ const TimeKeeperComponent = (props) => {
 	return (
 		<StyledTimekeeperComponent
 			expanded={props.isToggled}
-			onSubmit={fetchWorkout}
 		>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
