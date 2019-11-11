@@ -119,22 +119,37 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
+	const [workout, setWorkout] = useState([]);
 	// insert workout in database
-	const handleChange = event => {
+	const fetchWorkout = event => {
 		event.preventDefault();
-
 		firestore
-			.collection("users")
-			.doc(authUser.uid)
-			.collection("activity")
-			.add({
-				activitytime: { minutes, seconds },
-				kcal: caloriesBurned,
-				distance: totalDistanceRounded
-				// weight: 0,
-				// length: 0
+			.collectio(`user/${authUser.uid}/activity`)
+			.where("users", "==", authUser.uid)
+			.get()
+			.then(workout => {
+				const data = [];
+				workout.forEach(doc => {
+					data.push({ id: doc.id, ...doc.data() });
+				});
+				setWorkout(data);
 			});
 	};
+	// const handleChange = event => {
+	// 	event.preventDefault();
+
+	// 	firestore
+	// 		.collection("users")
+	// 		.doc(authUser.uid)
+	// 		.collection("activity")
+	// 		.add({
+	// 			activitytime: { minutes, seconds },
+	// 			kcal: caloriesBurned,
+	// 			distance: totalDistanceRounded
+	// 			// weight: 0,
+	// 			// length: 0
+	// 		});
+	// };
 
 
 	// kanske nått sånthär för att ta ut data?
@@ -195,10 +210,10 @@ const TimeKeeperComponent = (props) => {
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
 
-	console.log(authUser);
+	console.log(fetchWorkout);
 
 	return (
-		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && handleChange}>
+		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && fetchWorkout}>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>

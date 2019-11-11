@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { UserContext } from '../../../../context'
+import { useAuth } from '../../../../authcontext'
 import TopIcons from '../../../../components/TopIcons'
 import FadedBackground from '../../../../components/FadedBackground'
 import TimeKeeperComponent from '../../../../components/TimeKeeperComponent';
+import firebase, { firestore } from '../../../../firebase'
 
 
 const StyledPageTimer = styled.div`
@@ -86,12 +87,29 @@ const ChoiceWrapper = styled.div`
 
 
 const PageTimer = (props) => {
-const [isToggled, setToggled] = useState(false);
+	const { authUser, authLoading } = useAuth();
 
-// const [isRunning, setRunning] = useState(false);
+const [isToggled, setToggled] = useState(false);
+const [activity, setActivity] = useState("");
+
+const [workout, setWorkout] = useState([]);
 // const [isCycling, setCycling] = useState(false);
 // const [isWalking, setWalking] = useState(false);
-
+	const fetchWorkout = event => {
+		event.preventDefault();
+		firestore
+			.collectio(`user/${authUser.uid}/activity`)
+			.where("users", "==", authUser.uid)
+			.get()
+			.then(workout => {
+				const data = [];
+				workout.forEach(doc => {
+					data.push({ id: doc.id, ...doc.data() });
+				});
+				setWorkout(data);
+			});
+	};
+console.log(activity);
 
 	return (
 		<StyledPageTimer>
@@ -111,17 +129,26 @@ const [isToggled, setToggled] = useState(false);
 				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
 				<ChoiceWrapper>
-					<div onClick={() => setToggled(true)}>
+					<div onClick={() => {
+						setToggled(true)
+						setActivity("running")
+					}}>
 						<img src="/images/running.png" alt="choice background" />
 						<p> RUNNING </p>
 					</div>
 
-					<div onClick={() => setToggled(true)}>
+					<div onClick={() => {
+						setToggled(true)
+						setActivity("cycling");
+					}}>
 						<p> CYCLING </p>
 						<img src="/images/cycling.png" alt="choice background" />
 					</div>
 
-					<div onClick={() => setToggled(true)}>
+					<div onClick={() => {
+						setToggled(true)
+						setActivity("walking")
+					}}>
 						<img src="/images/walking.png" alt="choice background" />
 						<p> WALKING </p>
 					</div>
