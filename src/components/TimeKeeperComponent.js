@@ -48,7 +48,6 @@ const ArrowBack = styled.span`
 
 const TimeKeeperComponent = (props) => {
 	const { authUser, authLoading } = useAuth();
-	// const [isToggled, setToggled] = useState(false);
  	const [seconds, setSeconds] = useState(0);
  	const [isActive, setIsActive] = useState(false);
 	const [startedBg, setStartedBg] = useState(false);
@@ -59,20 +58,28 @@ const TimeKeeperComponent = (props) => {
 
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
-	  let R = 6371; // km
-	  let dLat = (lat2 - lat1).toRad();
-	  let dLon = (lon2 - lon1).toRad();
+	  let R = 6371;
+	  let dLat = toRad(lat2 - lat1);
+	  let dLon = toRad(lon2 - lon1);
 	  let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-	          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+	          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
 	          Math.sin(dLon / 2) * Math.sin(dLon / 2);
 	  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	  let d = R * c;
 	  return d;
 	}
 
-	Number.prototype.toRad = function() {
-	  return this * Math.PI / 180;
-	}
+	// const toRad = () => {
+	//   return this * Math.PI / 180;
+	// }
+	//
+	// Number.prototype.toRad = function() {
+	//   return this * Math.PI / 180;
+ 	// }
+
+		function toRad(Value) {
+    	return Value * Math.PI / 180;
+		}
 
 	let startLatitude;
 	let startLongitude;
@@ -84,7 +91,7 @@ const TimeKeeperComponent = (props) => {
 			enableHighAccuracy: true
 		};
 
-		function error(err) {
+		const error = (err) => {
 			console.warn(`ERROR(${err.code}): ${err.message}`);
 		}
 
@@ -121,39 +128,23 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
-	// insert workout in database
-	const handleChange = event => {
-		event.preventDefault();
 
-		firestore
+	const fetchWorkout = event => {
+		console.log(firebase);
+		firebase
+			.firestore()
+			// .collection(`users/${authUser.uid}/activity/props.getActivity`)
 			.collection("users")
 			.doc(authUser.uid)
-			.collection("activity")
-			.add({
-				activitytime: { minutes, seconds },
-				kcal: caloriesBurned,
-				distance: totalDistanceRounded
-				// weight: 0,
-				// length: 0
+			.collection("activities")
+			.doc()
+			.set({
+			   type: props.isActivity,
+			   activitytime: { minutes, seconds },
+			   kcal: caloriesBurned,
+			   distance: totalDistanceRounded
 			});
 	};
-
-
-	// kanske nått sånthär för att ta ut data?
-	// const [workout, setWorkout] = useState([]);
-	// const fetchWorkout = () => {
-  //   firebase
-  //     .collection('activity')
-  //     .where('users', '==', authUser.uid)
-  //     .get()
-  //     .then(workout => {
-  //       const data = [];
-  //       workout.forEach(doc => {
-  //         data.push({ id: doc.id, ...doc.data() });
-  //       });
-  //       setWorkout(data);
-  //     });
-  // };
 
 
 	useEffect(() => {
@@ -197,10 +188,13 @@ const TimeKeeperComponent = (props) => {
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
 
-	// console.log(authUser);
+
+	// insert activity session
+
+
 
 	return (
-		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive && handleChange}>
+		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 			<ArrowBack onClick={props.goBack}>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
@@ -217,7 +211,7 @@ const TimeKeeperComponent = (props) => {
 					startedBg={startedBg}
 				/>
 
-				<StopTimer />
+				<StopTimer onClick={() => fetchWorkout()}/>
 
 				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
 			</div>
