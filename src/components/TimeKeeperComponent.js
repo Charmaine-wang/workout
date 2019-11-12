@@ -55,7 +55,7 @@ const TimeKeeperComponent = (props) => {
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
 	const [updateDistance, setUpdateDistance] = useState(0)
 
-
+// let interval = null;
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
 	  let R = 6371;
@@ -134,13 +134,14 @@ const TimeKeeperComponent = (props) => {
     "November",
     "December"
   ];
-  
+
   const date = new Date()
 	const workoutMonth = monthNames[date.getMonth()]
 	const workoutDay = date.toDateString();
 
 	const fetchWorkout = event => {
 		setIsActive(false);
+setSeconds(0)
 		firebase
 			.firestore()
 			.collection("users")
@@ -157,12 +158,13 @@ const TimeKeeperComponent = (props) => {
 			});
 	};
 
-
+// let interval = null;
 	useEffect(() => {
 		navigateDistance();
 
-		let interval = null;
+	let interval = null;
 		if (isActive) {
+
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
 			}, 1000);
@@ -171,6 +173,7 @@ const TimeKeeperComponent = (props) => {
 		}
 		return () => clearInterval(interval);
 	}, [isActive, seconds]);
+
 
 
 	// round final distance to 2 decimals in km
@@ -208,7 +211,11 @@ const TimeKeeperComponent = (props) => {
 
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
-			<ArrowBack onClick={props.goBack}>
+			<ArrowBack {...props} onClick={() => {
+				fetchWorkout()
+			 	props.goBack()
+			}
+			 }>
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
 

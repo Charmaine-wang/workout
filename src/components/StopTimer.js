@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useAuth } from '../authcontext';
 
 const StyledStopTimer = styled.div`
-	display: flex;
+	display: ${props => props.showStopBtn ? "none" : "flex"};
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
