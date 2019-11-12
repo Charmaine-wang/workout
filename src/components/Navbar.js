@@ -12,9 +12,10 @@ const StyledNavbar = styled.div`
 	position: absolute;
 	height: 54px;
 	top: calc(100% - 54px);
-	background: rgba(0,0,0, 0.4);
+	background: rgba(0, 0, 0, 0.4);
 	& > a img {
 		height: 24px;
+		/* transform: scale(0.8); */
 	}
 	& > a:nth-child(2) img {
 		height: 30px;
@@ -22,6 +23,18 @@ const StyledNavbar = styled.div`
 	& > a:nth-child(5) img {
 		height: 26px;
 	}
+	& > a img:hover,
+	a img:active {
+		transform: scale(1.2);
+		top: 12px;
+		/* border-bottom: 1px solid white; */
+	}
+	& > a:hover,
+	a:active {
+		height: 50px;
+		border-bottom: 1px solid white;
+	}
+
 `;
 
 const Navbar = () => {

@@ -212,7 +212,7 @@ setSeconds(0)
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 			<ArrowBack {...props} onClick={() => {
-				fetchWorkout()
+				totalDistanceRounded >= 0.01 && fetchWorkout()
 			 	props.goBack()
 			}
 			 }>
@@ -231,7 +231,7 @@ setSeconds(0)
 					startedBg={startedBg}
 				/>
 
-				<StopTimer onClick={() => fetchWorkout()}/>
+				<StopTimer onClick={() => fetchWorkout()} showStopBtn={totalDistanceRounded >= 0.01} />
 
 				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
 			</div>
