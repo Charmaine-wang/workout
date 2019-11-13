@@ -134,10 +134,30 @@ const TimeKeeperComponent = (props) => {
     "November",
     "December"
   ];
-  
+
+	const days = [
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+		"Sunday"
+	];
+
   const date = new Date()
+
+	const monthDate = date.getDate()
+	console.log(monthDate)
+
 	const workoutMonth = monthNames[date.getMonth()]
-	const workoutDay = date.toDateString();
+	console.log(workoutMonth)
+
+	const workoutDay = days[date.getDay()]
+	console.log(workoutDay)
+
+	const workoutDate = date.toDateString();
+	console.log(workoutDate)
 
 	const fetchWorkout = event => {
 		setIsActive(false);
@@ -153,7 +173,7 @@ const TimeKeeperComponent = (props) => {
 			   kcal: caloriesBurned,
 			   distance: totalDistanceRounded,
          month: workoutMonth,
-         day: workoutDay
+         day: workoutDate
 			});
 	};
 

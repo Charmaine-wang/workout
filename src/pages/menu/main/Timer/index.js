@@ -4,7 +4,7 @@ import { useAuth } from '../../../../authcontext'
 import ArrowBack from '../../../../components/ArrowBack'
 import FadedBackground from '../../../../components/FadedBackground'
 import TimeKeeperComponent from '../../../../components/TimeKeeperComponent';
-import firebase, { firestore } from '../../../../firebase'
+// import firebase, { firestore } from '../../../../firebase'
 
 
 const StyledPageTimer = styled.div`

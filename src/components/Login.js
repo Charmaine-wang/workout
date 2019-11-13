@@ -94,25 +94,21 @@ const { authUser, authLoading } = useAuth();
 		const formData = new FormData(event.currentTarget);
 
     firebase
-      .auth()
-      .signInWithEmailAndPassword(
-        formData.get('email'),
-        formData.get('password')
-			)
-
-
-	.catch(function(error) {
-
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		if (errorCode === "auth/wrong-password") {
-			alert("Wrong password.");
-		} else {
-			alert(errorMessage);
-		}
-		console.log(error);
-	});
-
+    .auth()
+    .signInWithEmailAndPassword(
+      formData.get('email'),
+      formData.get('password')
+		)
+		.catch(function(error) {
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			if (errorCode === "auth/wrong-password") {
+				alert("Wrong password.");
+			} else {
+				alert(errorMessage);
+			}
+			console.log(error);
+		});
 	};
 
   if (authLoading) {

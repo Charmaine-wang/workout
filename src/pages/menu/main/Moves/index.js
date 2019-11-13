@@ -5,11 +5,13 @@ import ArrowBack from '../../../../components/ArrowBack';
 import FadedBackground from '../../../../components/FadedBackground';
 import WeekWrapper from '../../../../components/WeekWrapper';
 import Bubble from '../../../../components/Bubble';
+import firebase, { firestore } from "../../../../firebase";
+import { useAuth } from "../../../../authcontext";
 
 
 const StyledMoves = styled.div`
 	> div:nth-child(1) {
-		padding: 60px 20px 38px;
+		padding: 18px 20px 40px;
 		> div {
 			display: flex;
 			transition: 0.3s;
@@ -87,11 +89,10 @@ const DayWrapper = styled.div`
 		align-items: center;
 		justify-content: space-around;
 		flex-direction: row;
-
 		background-color: rgba(0,0,0, 0.8);
 		margin-bottom: 2px;
 		width: 100%;
-		height: calc((100vh - 98px - 48px - 130px - 54px) / 3);
+		height: calc((100vh - 58px - 48px - 130px - 54px) / 3);
 
 		> p {
 			font-size: 22px;
@@ -116,11 +117,38 @@ const MapIcon = styled.img`
 `;
 
 const PageMoves = (props) => {
-	useEffect(() => {
-		// console.log("mounted");
 
-	}, []);
+	const { authUser, authLoading } = useAuth();
 	const [isDay, setIsDay] = useState(false);
+	const [activities, setActivities] = useState([]);
+
+
+	useEffect(() => {
+    fetchActivities();
+  }, []);
+
+	// get all activities from user
+  const fetchActivities = () => {
+    firebase
+			// setLoading(true);
+      .firestore()
+			.collection("users")
+			.doc(authUser.uid)
+			.collection("activities")
+      // .where('users', '==', authUser.uid) // lägg till: and month = current month?
+      .get()
+      .then(activities => {
+        const data = [];
+        activities.forEach(doc => {
+          data.push({ id: doc.id, ...doc.data() });
+        });
+        // setLoading(false);
+				console.log(data)
+        setActivities(data);
+      });
+  };
+
+	console.log(activities)
 
 	return (
 		<div {...props}>
@@ -128,19 +156,17 @@ const PageMoves = (props) => {
 			<ArrowBack />
 
 			<StyledMoves {...props} isDay={isDay}>
-
 				<div>
 					<div isWeek={isDay}>
-						<p> Week <span> 42 </span></p>
+						<p><span> Oktober </span></p>
 					</div>
 					<div isWeek={isDay}>
 						<p> Wednesday <span> 18 OKT </span></p>
 					</div>
 				</div>
-
 				<div>
-					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
-					<div isWeek={isDay} onClick={() => setIsDay(false)}> WEEK </div>
+					<div isWeek={isDay} onClick={() => setIsDay(true)} > DAY </div>
+					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
 				</div>
 
 				{ /* Foreach här med varje datum, km/h, unit osv per dag */}
