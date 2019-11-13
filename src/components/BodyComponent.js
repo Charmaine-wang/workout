@@ -52,78 +52,57 @@ const StyledBodyInfo = styled.form`
 
 const BodyComponent = (props) => {
 const { authUser, authLoading } = useAuth();
-	// const handleChange = event => {
-	// 	event.preventDefault();
-	// 	const userData = new FormData(event.currentTarget);
-	// 	console.log(userData.weight);
-	// 	firestore
-	// 		.collection("users")
-	// 		.doc(authUser.uid)
-	// 		.update({
-	// 			weight: userData.get("weight"),
-	// 			length: userData.get("length")
-	// 			// weight: 0,
-	// 			// length: 0
-	// 		});
-	// };
 
-
-	// assåååå herregud kan de fkn funka separerat??? ljfhlsijfljs
 
 	return (
-		<StyledBodyInfo {...props}>
-			<div>
+		<StyledBodyInfo {...props}
+		//  onSubmit={props.onSubmit}
+		 >
+			{/* <div>
 				<p>Weight</p>
 
 				<div {...props}>
-					<input {...props} onSubmit={props.onSubmit}
+					<input
+						{...props}
+						onChange={props.onChangeWeight}
+						ref={props.refWeight}
 						type="text"
 						name="weight"
-						placeholder={authUser.weight}
+						placeholder={props.placeWeight}
 						id="weight"
-						required
 					/>
 					<p>kg</p>
 				</div>
-
-				<Button
-					margin="0 0 0 0"
-					id="length"
-					btnWidth="100px"
-					fontColor="white"
-					bgColor="rgba(255,255,255, 0.3)"
-					fontSize="20px"
-					type="submit"
-				>
-					length
-				</Button>
 			</div>
 
 			<div>
 				<p>Length</p>
 				<div {...props}>
-					<input {...props} onSubmit={props.onSubmit}
+					<input
+						{...props}
+						onChange={props.onChangeLength}
+						ref={props.refLenght}
 						type="text"
 						name="length"
-						placeholder={authUser.length}
+						placeholder={props.placeLength}
 						id="length"
-						required
 					/>
 					<p>cm</p>
 				</div>
 
 				<Button
 					margin="0 0 0 0"
-					id="weight"
+					// id="weight"
+					onClick={props.onClick}
 					btnWidth="100px"
 					fontColor="white"
 					bgColor="rgba(255,255,255, 0.3)"
 					fontSize="20px"
 					type="submit"
 				>
-					weight
+					lenth
 				</Button>
-			</div>
+			</div> */}
 		</StyledBodyInfo>
 	);
 };

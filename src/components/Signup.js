@@ -135,6 +135,7 @@ const handleSubmit = (event) => {
 						name="displayName"
 						id="displayName"
 						placeholder="Name"
+						required
 					/>
 				</div>
 
@@ -145,6 +146,7 @@ const handleSubmit = (event) => {
 						name="email"
 						id="email"
 						placeholder="Email"
+
 					/>
 				</div>
 
@@ -155,6 +157,7 @@ const handleSubmit = (event) => {
 						name="password"
 						id="password"
 						placeholder="Password"
+
 					/>
 				</div>
 

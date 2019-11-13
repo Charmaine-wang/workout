@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useAuth } from "../../../../authcontext";
 import firebase, {firestore} from "../../../../firebase";
@@ -7,7 +7,7 @@ import ArrowBack from '../../../../components/ArrowBack'
 import HealthComponent from '../../../../components/HealthComponent';
 import BodyComponent from '../../../../components/BodyComponent';
 import FadedBackground from '../../../../components/FadedBackground';
-import { auth } from 'firebase';
+import Button from "../../../../components/Button"
 
 const StyledHealth = styled.div`
 	height: calc(100vh - 54px);
@@ -55,28 +55,51 @@ const BMIWrapper = styled.div`
 
 const PageHealth = () => {
 const { authUser, authLoading } = useAuth();
+const [length, setLength] = useState(null);
+const [weight, setWeight] = useState(null);
+  const [state, setState] = useState({
+		length: "",
+		weight: ""
+	});
 
-const { userWeight, setUserWeight } = useState();
-const { userLength, setUserLength } = useState();
 
 const handleChange = (event) => {
+	// const value = event.target.value;
+	//   setState({
+	// 		...state,
+	// 		[event.target.name]: value
+	// 	});
+			if (!length == "") {
+			authUser.length = length
+			}
+			if (!weight == "") {
+				authUser.weight = weight
+			}
+
 	event.preventDefault();
-	const userData = new FormData(event.currentTarget);
 
-	firestore
-	.collection("users")
-	.doc(authUser.uid)
-	.update({
-		length: userData.get("length"),
-		weight: userData.get("weight")
-	});
-}
+		firestore
+			.collection("users")
+			.doc(authUser.uid)
+			.update({
+				length: authUser.length,
+				weight: authUser.weight
+			});
 
-	// console.log(authUser);
+ }
 
-	const BMI = Number(
+//  let BMI;
+
+ 	const BMI = Number(
 		(authUser.weight / Math.pow(authUser.length, 2)) * 10000
 	).toFixed(1);
+
+useEffect(() => {
+
+
+}, [authUser.length, authUser.weight]);
+
+
 
 	return (
 		<div>
@@ -101,7 +124,48 @@ const handleChange = (event) => {
 
 				<div>
 					{/* <BodyWrapper> */}
-					<BodyComponent onSubmit={handleChange} />
+					<BodyComponent
+						onSubmit={handleChange}
+					>
+						<div>
+							<p>Weight</p>
+
+							<div>
+								<input
+									onChange={(e) => setWeight(e.target.value)}
+									type="text"
+									name="weight"
+									placeholder={authUser.weight}
+									id="weight"
+								/>
+								<p>kg</p>
+							</div>
+						</div>
+						<div>
+							<p>Length</p>
+							<div>
+								<input
+									onChange={(e) => setLength(e.target.value)}
+									type="text"
+									name="length"
+									placeholder={authUser.length}
+									id="length"
+								/>
+								<p>cm</p>
+							</div>
+
+							<Button
+								margin="0 0 0 0"
+								btnWidth="100px"
+								fontColor="white"
+								bgColor="rgba(255,255,255, 0.3)"
+								fontSize="20px"
+								type="submit"
+							>
+								lenth
+							</Button>
+						</div>
+					</BodyComponent>
 
 					<BMIWrapper>
 						<p> BMI </p>
