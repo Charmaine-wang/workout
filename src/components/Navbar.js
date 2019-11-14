@@ -15,7 +15,7 @@ const StyledNavbar = styled.div`
 	background: rgba(0, 0, 0, 0.4);
 	& > a img {
 		height: 24px;
-		/* transform: scale(0.8); */
+		transition: 0.2s;
 	}
 	& > a:nth-child(2) img {
 		height: 30px;
@@ -23,18 +23,23 @@ const StyledNavbar = styled.div`
 	& > a:nth-child(5) img {
 		height: 26px;
 	}
+
 	& > a img:hover,
 	a img:active {
 		transform: scale(1.2);
-		top: 12px;
-		/* border-bottom: 1px solid white; */
+		top: 16px;
 	}
-	& > a:hover,
-	a:active {
-		height: 50px;
-		border-bottom: 1px solid white;
+	& > a:nth-child(2) img:hover,
+	a:nth-child(2) img:active {
+		transform: scale(1.2);
+		top: 12px;
 	}
 
+	& > a:hover,
+	a:active {
+		height: 54px;
+		border-bottom: 2px solid white;
+	}
 `;
 
 const Navbar = () => {

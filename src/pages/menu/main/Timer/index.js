@@ -88,11 +88,9 @@ const ChoiceWrapper = styled.div`
 
 const PageTimer = (props) => {
 	const { authUser, authLoading } = useAuth();
+	const [isToggled, setToggled] = useState(false);
+	const [activity, setActivity] = useState("");
 
-const [isToggled, setToggled] = useState(false);
-const [activity, setActivity] = useState("");
-
-console.log(props);
 	return (
 		<StyledPageTimer>
 			<FadedBackground opacity={"0.7"} />

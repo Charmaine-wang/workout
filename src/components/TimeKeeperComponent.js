@@ -120,28 +120,39 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
+	const days = [
+		"Mon",
+		"Tue",
+		"Wed",
+		"Thu",
+		"Fri",
+		"Sat",
+		"Sun"
+	];
+
+	const monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	];
 
   const date = new Date()
-	const workoutMonth = monthNames[date.getMonth()]
-	const workoutDay = date.toDateString();
+
+	const day = days[date.getDay()]
+	const dateNum = date.getDate()
+	const month = monthNames[date.getMonth()]
 
 	const fetchWorkout = event => {
 		setIsActive(false);
-setSeconds(0)
 		firebase
 			.firestore()
 			.collection("users")
@@ -153,12 +164,12 @@ setSeconds(0)
 			   activitytime: { minutes, seconds },
 			   kcal: caloriesBurned,
 			   distance: totalDistanceRounded,
-         month: workoutMonth,
-         day: workoutDay
+				 day: day,
+				 dateNum: dateNum,
+         month: month,
 			});
 	};
 
-// let interval = null;
 	useEffect(() => {
 		navigateDistance();
 

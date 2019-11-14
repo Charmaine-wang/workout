@@ -5,11 +5,12 @@ import ArrowBack from '../../../../components/ArrowBack';
 import FadedBackground from '../../../../components/FadedBackground';
 import WeekWrapper from '../../../../components/WeekWrapper';
 import Bubble from '../../../../components/Bubble';
-
+import firebase, { firestore } from "../../../../firebase";
+import { useAuth } from "../../../../authcontext";
 
 const StyledMoves = styled.div`
 	> div:nth-child(1) {
-		padding: 60px 20px 38px;
+		padding: 18px 20px 40px;
 		> div {
 			display: flex;
 			transition: 0.3s;
@@ -91,7 +92,7 @@ const DayWrapper = styled.div`
 		background-color: rgba(0,0,0, 0.8);
 		margin-bottom: 2px;
 		width: 100%;
-		height: calc((100vh - 98px - 48px - 130px - 54px) / 3);
+		height: calc((100vh - 58px - 48px - 130px - 54px) / 3);
 
 		> p {
 			font-size: 22px;
@@ -116,12 +117,111 @@ const MapIcon = styled.img`
 `;
 
 const PageMoves = (props) => {
-	useEffect(() => {
-		// console.log("mounted");
-
-	}, []);
 	const [isDay, setIsDay] = useState(false);
 
+	const days = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+
+	const monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	];
+
+	// todays date
+	let date = new Date();
+	let currentDay = date.getDay();
+	let currentDate = date.getDate();
+	let currentMonth = date.getMonth();
+	let monthName = monthNames[currentMonth];
+	let dayName = days[currentDay];
+
+
+	return (
+		<div {...props}>
+			<FadedBackground opacity={'0.4'} />
+			<ArrowBack />
+
+			<StyledMoves {...props} isDay={isDay}>
+				<div>
+					<div isWeek={isDay}>
+						<p><span> {monthName} </span></p>
+					</div>
+					<div isWeek={isDay}>
+						<p> {dayName} <span> {currentDay} </span></p>
+					</div>
+				</div>
+				<div>
+					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
+					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
+				</div>
+
+				<WeekSlider {...props} flexWeek={isDay} >
+					<WeekWrapper />
+				</WeekSlider>
+
+
+				<DayWrapper {...props} flexDay={isDay}>
+					<img src="/images/fakemap.png" alt="map" />
+					<MapIcon src="/images/location.png" alt="location icon" />
+
+					<div>
+						<p> Run </p>
+						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<img src="/images/running.png" alt="running icon" />
+					</div>
+					<div>
+						<p> Cycle </p>
+						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<img src="/images/cycling.png" alt="running icon" />
+					</div>
+					<div>
+						<p> Walk </p>
+						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<img src="/images/walking.png" alt="running icon" />
+					</div>
+				</DayWrapper>
+
+
+			</StyledMoves>
+		</div>
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	{/*
 	return (
 		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
@@ -131,32 +231,18 @@ const PageMoves = (props) => {
 
 				<div>
 					<div isWeek={isDay}>
-						<p> Week <span> 42 </span></p>
+						<p><span> Oktober </span></p>
 					</div>
 					<div isWeek={isDay}>
 						<p> Wednesday <span> 18 OKT </span></p>
 					</div>
 				</div>
-
 				<div>
 					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
-					<div isWeek={isDay} onClick={() => setIsDay(false)}> WEEK </div>
+					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
 				</div>
 
-				{ /* Foreach här med varje datum, km/h, unit osv per dag */}
-
 				<WeekSlider {...props} flexWeek={isDay} >
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-
 					<WeekWrapper>
 						<div>
 							<p> 12 <span> OKT </span> </p>
@@ -217,6 +303,9 @@ const PageMoves = (props) => {
 			</StyledMoves>
 		</div>
 	);
+
+	*/}
+
 };
 
 export default PageMoves;
