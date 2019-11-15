@@ -136,8 +136,6 @@ const TimeKeeperComponent = (props) => {
 	];
 
   const date = new Date()
-
-	// const day = days[date.getDay()]
 	const dateNum = date.getDate()
 	const month = monthNames[date.getMonth()]
 
@@ -164,7 +162,6 @@ const TimeKeeperComponent = (props) => {
 
 	let interval = null;
 		if (isActive) {
-
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
 			}, 1000);
@@ -200,23 +197,19 @@ const TimeKeeperComponent = (props) => {
 		activityMET = 9.5; // about 3.8 MET value when cycling
 	}
 
-	//FORMULA Total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
+	//formula total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
 	let userWeight = 65; // take this from database
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
-
-
-	// insert activity session
-
 
 
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 			<ArrowBack {...props} onClick={() => {
 				totalDistanceRounded >= 0.01 && fetchWorkout()
-
-				 props.goBack()
-					 setSeconds(0);
-					 toggleTimer()
+				props.goBack()
+				setSeconds(0);
+				toggleTimer()
+				setFinalDistanceKm(0)
 			}
 			 }>
 				<img src="/images/arrowBack.png" alt="arrow back" />
@@ -225,7 +218,6 @@ const TimeKeeperComponent = (props) => {
 			<FadedBackground opacity={"0.55"} />
 			<div>
 				<img src="/images/dots.png" alt="dots" />
-
 				<Timekeeper
 					onClick={toggleTimer}
 					isActive={isActive ? "Pause" : "Start"}
@@ -235,7 +227,6 @@ const TimeKeeperComponent = (props) => {
 				/>
 
 				<StopTimer onClick={() => fetchWorkout()} showStopBtn={totalDistanceRounded >= 0.01} />
-
 				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
 			</div>
 		</StyledTimekeeperComponent>

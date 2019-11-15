@@ -10,9 +10,26 @@ const StyledTimekeeper = styled.div`
 	transition: 0.2s;
 	border-radius: 50%;
 	color: white;
-	background-color: ${props => props.startedBg ? 'rgba(0,0,0, 0.6)' : 'rgba(0,0,0, 0.9)'};
+	background-color: rgba(0,0,0, 0.9);
+
+	@keyframes pulse {
+		0% {
+			-moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0.2);
+			box-shadow: 0 0 0 0 rgba(255,255,255, 0.2);
+		}
+		70% {
+				-moz-box-shadow: 0 0 0 24px rgba(255,255,255, 0);
+				box-shadow: 0 0 0 24px rgba(255,255,255, 0);
+		}
+		100% {
+				-moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+				box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+		}
+	}
+
+	animation: ${props => props.startedBg ? 'pulse 2s infinite' : 'none' };
+
 	/* byt färg till nått nice, eller gör andra animationer */
-	border: ${props => props.startedBg ? '12px solid black' : '0px solid rgba(50,0,0, 0.1)'};
 	> h1 {
 		font-size: 70px;
 	}

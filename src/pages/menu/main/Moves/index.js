@@ -108,14 +108,6 @@ const DayWrapper = styled.div`
 	}
 `;
 
-const MapIcon = styled.img`
-	width: 30px !important;
-	height: 30px !important;
-	position: absolute;
-	right: 16px;
-	margin-top: 90px;
-`;
-
 const PageMoves = (props) => {
 	const [isDay, setIsDay] = useState(false);
 	const [activities, setActivities] = useState([]);
@@ -261,7 +253,6 @@ const PageMoves = (props) => {
 
 				<DayWrapper {...props} flexDay={isDay}>
 					<img src="/images/fakemap.png" alt="map" />
-					<MapIcon src="/images/location.png" alt="location icon" />
 
 					<div>
 						<p> Run </p>
@@ -280,114 +271,9 @@ const PageMoves = (props) => {
 					</div>
 				</DayWrapper>
 
-
 			</StyledMoves>
 		</div>
 	);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	{/*
-	return (
-		<div {...props}>
-			<FadedBackground opacity={'0.4'} />
-			<ArrowBack />
-
-			<StyledMoves {...props} isDay={isDay}>
-
-				<div>
-					<div isWeek={isDay}>
-						<p><span> Oktober </span></p>
-					</div>
-					<div isWeek={isDay}>
-						<p> Wednesday <span> 18 OKT </span></p>
-					</div>
-				</div>
-				<div>
-					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
-					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
-				</div>
-
-				<WeekSlider {...props} flexWeek={isDay} >
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-				</WeekSlider>
-
-
-				<DayWrapper {...props} flexDay={isDay}>
-					<img src="/images/fakemap.png" alt="map" />
-					<MapIcon src="/images/location.png" alt="location icon" />
-
-					<div>
-						<p> Run </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
-						<img src="/images/running.png" alt="running icon" />
-					</div>
-					<div>
-						<p> Cycle </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
-						<img src="/images/cycling.png" alt="running icon" />
-					</div>
-					<div>
-						<p> Walk </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
-						<img src="/images/walking.png" alt="running icon" />
-					</div>
-				</DayWrapper>
-
-
-			</StyledMoves>
-		</div>
-	);
-
-	*/}
-
 };
 
 export default PageMoves;
