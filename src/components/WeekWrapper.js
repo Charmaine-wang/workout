@@ -102,7 +102,9 @@ const WeekWrapper = ({ ...props }) => {
 	let monthName;
 	let dayName;
 
+
 	// get last 30 days (excluding today)
+	date.setDate(date.getDate() + 1);
 	for(let i = 0; i < 30; i++) {
 		date.setDate(date.getDate() - 1);
 
@@ -119,8 +121,11 @@ const WeekWrapper = ({ ...props }) => {
 		// console.log(monthName)
 		// console.log("----")
 
-		// trying to loop to get 30 last day activities but not working, only working on 1
+	};
 
+	// let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
+	// let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
+	// let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
   return (
 		<WeekContainer { ...props }>
@@ -136,8 +141,6 @@ const WeekWrapper = ({ ...props }) => {
 
 		</WeekContainer>
   );
-
-	};
 
 };
 

@@ -120,16 +120,6 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
-	// const days = [
-	// 	"Sun",
-	// 	"Mon",
-	// 	"Tue",
-	// 	"Wed",
-	// 	"Thu",
-	// 	"Fri",
-	// 	"Sat"
-	// ];
-
 	const monthNames = [
 		"January",
 		"February",
