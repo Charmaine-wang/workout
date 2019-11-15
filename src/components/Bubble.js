@@ -27,6 +27,25 @@ const StyledBubble = styled.div`
 	align-items: center;
 	justify-content: center;
 
+	&:hover {
+		animation: pulse 1s;
+	}
+
+	@keyframes pulse {
+	  0% {
+	    -moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0.5);
+	    box-shadow: 0 0 0 0 rgba(255,255,255, 0.5);
+	  }
+	  70% {
+	      -moz-box-shadow: 0 0 0 10px rgba(255,255,255, 0);
+	      box-shadow: 0 0 0 10px rgba(255,255,255, 0);
+	  }
+	  100% {
+	      -moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+	      box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+	  }
+	}
+
 	> p:nth-child(1) {
 		font-size: 22px;
 		color: white;

@@ -120,7 +120,9 @@ const PageMoves = (props) => {
 	const [isDay, setIsDay] = useState(false);
 	const [activities, setActivities] = useState([]);
 	const { authUser, authLoading } = useAuth();
-
+	const [toggleRunning, setToggleRunning] = useState(true);
+	const [toggleCycling, setToggleCycling] = useState(true);
+	const [toggleWalking, setToggleWalking] = useState(true);
 
 	const days = [
 		"Sunday",
@@ -155,8 +157,6 @@ const PageMoves = (props) => {
 	let monthName = monthNames[currentMonth];
 	let dayName = days[currentDay];
 
-console.log(currentDate)
-
 	useEffect(() => {
 		fetchActivities();
 	}, []);
@@ -180,24 +180,26 @@ console.log(currentDate)
 			});
 	};
 
-	let totalTime;
+	// let totalTime;
 	let totalKmRunning = 0;
 	let totalKmCycling = 0;
 	let totalKmWalking = 0;
 
+//
+	// let totalTimeRunning = 0;
+	// let totalTimeCycling = 0;
+	// let totalTimeWalking = 0;
+
 
 	activities.forEach(activity => {
-		if(activity.type = "running") {
-			totalKmRunning = totalKmRunning + parseFloat(activity.distance);
-			// console.log(activity)
+		if(activity.type == "running") {
+			totalKmRunning += parseFloat(activity.distance);
 		}
-		if(activity.type = "cycling") {
-			totalKmCycling = totalKmCycling + parseFloat(activity.distance);
-			// console.log(activity)
+		if(activity.type == "cycling") {
+			totalKmCycling += parseFloat(activity.distance);
 		}
-		if(activity.type = "walking") {
-			totalKmWalking = totalKmWalking + parseFloat(activity.distance);
-			// console.log(activity)
+		if(activity.type == "walking") {
+			totalKmWalking += parseFloat(activity.distance);
 		}
 	})
 
@@ -205,21 +207,25 @@ console.log(currentDate)
 	let cyclingfinalKm = 0;
 	let walkingfinalKm = 0;
 
+//
+	// let runningfinalTime = '00:00';
+	// let cyclingfinalTime = '00:00';
+	// let walkingfinalTime = '00:00';
+
+
 	if(totalKmRunning > 0.00) {
 		runningfinalKm = Number(totalKmRunning).toFixed(2);
 	}
-
 	if(totalKmCycling > 0.00) {
 		cyclingfinalKm = Number(totalKmCycling).toFixed(2);
 	}
-
 	if(totalKmWalking > 0.00) {
 		walkingfinalKm = Number(totalKmWalking).toFixed(2);
 	}
 
-	// console.log(runningfinalKm)
-	// console.log(cyclingfinalKm)
-	// console.log(walkingfinalKm)
+	console.log(runningfinalKm)
+	console.log(cyclingfinalKm)
+	console.log(walkingfinalKm)
 
 
 	return (
@@ -237,7 +243,7 @@ console.log(currentDate)
 					</div>
 				</div>
 				<div>
-					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
+					<div isWeek={isDay} onClick={() => setIsDay(true)}> TODAY </div>
 					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
 				</div>
 
@@ -252,17 +258,17 @@ console.log(currentDate)
 
 					<div>
 						<p> Run </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<Bubble onClick={() => setToggleRunning(!toggleRunning)} diameter={"90px"} hourOrKm={toggleRunning ? runningfinalKm : '0'} unit={toggleRunning ? 'km' : 'hours'} />
 						<img src="/images/running.png" alt="running icon" />
 					</div>
 					<div>
 						<p> Cycle </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<Bubble onClick={() => setToggleCycling(!toggleCycling)} diameter={"90px"} hourOrKm={toggleCycling ? cyclingfinalKm : '0'} unit={toggleCycling ? 'km' : 'hours'} />
 						<img src="/images/cycling.png" alt="running icon" />
 					</div>
 					<div>
 						<p> Walk </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<Bubble onClick={() => setToggleWalking(!toggleWalking)} diameter={"90px"} hourOrKm={toggleWalking ? walkingfinalKm : '0'} unit={toggleWalking ? 'km' : 'hours'} />
 						<img src="/images/walking.png" alt="running icon" />
 					</div>
 				</DayWrapper>
