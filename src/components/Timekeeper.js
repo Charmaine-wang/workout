@@ -14,16 +14,13 @@ const StyledTimekeeper = styled.div`
 
 	@keyframes pulse {
 		0% {
-			-moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0.2);
 			box-shadow: 0 0 0 0 rgba(255,255,255, 0.2);
 		}
 		70% {
-				-moz-box-shadow: 0 0 0 24px rgba(255,255,255, 0);
-				box-shadow: 0 0 0 24px rgba(255,255,255, 0);
+			box-shadow: 0 0 0 24px rgba(255,255,255, 0);
 		}
 		100% {
-				-moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0);
-				box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+			box-shadow: 0 0 0 0 rgba(255,255,255, 0);
 		}
 	}
 

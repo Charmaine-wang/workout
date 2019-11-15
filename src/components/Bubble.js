@@ -33,16 +33,13 @@ const StyledBubble = styled.div`
 
 	@keyframes pulse {
 	  0% {
-	    -moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0.5);
-	    box-shadow: 0 0 0 0 rgba(255,255,255, 0.5);
+	    box-shadow: 0 0 0 0 rgba(255,255,255, 0.4);
 	  }
 	  70% {
-	      -moz-box-shadow: 0 0 0 10px rgba(255,255,255, 0);
-	      box-shadow: 0 0 0 10px rgba(255,255,255, 0);
+      box-shadow: 0 0 0 10px rgba(255,255,255, 0);
 	  }
 	  100% {
-	      -moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0);
-	      box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+      box-shadow: 0 0 0 0 rgba(255,255,255, 0);
 	  }
 	}
 
