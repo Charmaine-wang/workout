@@ -111,6 +111,7 @@ const DayWrapper = styled.div`
 const PageMoves = (props) => {
 	const [isDay, setIsDay] = useState(false);
 	const [activities, setActivities] = useState([]);
+	const [monthActivities, setMonthActivities] = useState([]);
 	const { authUser, authLoading } = useAuth();
 	const [toggleRunning, setToggleRunning] = useState(true);
 	const [toggleCycling, setToggleCycling] = useState(true);
@@ -151,7 +152,9 @@ const PageMoves = (props) => {
 
 	useEffect(() => {
 		fetchActivities();
+		fetchMonthActivities();
 	}, []);
+
 
 	// get all activities from user
 	const fetchActivities = () => {
@@ -162,6 +165,22 @@ const PageMoves = (props) => {
 			.collection("activities")
 			.where('dateNum', '==', currentDate)
 			.where('month', '==', monthName)
+			.get()
+			.then(activities => {
+				const data = [];
+				activities.forEach(doc => {
+					data.push({ id: doc.id, ...doc.data() });
+				});
+				setActivities(data);
+			});
+	};
+
+	const fetchMonthActivities = () => {
+		firebase
+			.firestore()
+			.collection("users")
+			.doc(authUser.uid)
+			.collection("activities")
 			.get()
 			.then(activities => {
 				const data = [];
@@ -227,6 +246,31 @@ const PageMoves = (props) => {
 	}
 
 
+	let dayToMonth;
+	let dateToMonth;
+	let monthToMonth;
+	let monthNameToMonth;
+	let dayNameToMonth;
+
+	// get last 30 days (excluding today)
+	date.setDate(date.getDate() + 1);
+	for(let i = 0; i < 30; i++) {
+		date.setDate(date.getDate() - 1);
+
+		dayToMonth = date.getDay();
+		dateToMonth = date.getDate();
+		monthToMonth = date.getMonth();
+
+		monthNameToMonth = monthNames[monthToMonth];
+		dayNameToMonth = days[currentDay];
+
+		console.log(date)
+		console.log(dateToMonth)
+		console.log(monthNameToMonth)
+		console.log(dayNameToMonth)
+		console.log("----")
+	};
+
 	return (
 		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
@@ -247,7 +291,16 @@ const PageMoves = (props) => {
 				</div>
 
 				<WeekSlider {...props} flexWeek={isDay} >
-					<WeekWrapper />
+					<WeekWrapper>
+						<div>
+							<p> {dateToMonth} <span> {dayNameToMonth} </span> </p>
+						</div>
+						<div>
+							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
+							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
+							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
+						</div>
+					</WeekWrapper>
 				</WeekSlider>
 
 
