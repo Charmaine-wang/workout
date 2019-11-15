@@ -224,6 +224,7 @@ const TimeKeeperComponent = (props) => {
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 			<ArrowBack {...props} onClick={() => {
 				totalDistanceRounded >= 0.01 && fetchWorkout()
+
 			 	props.goBack()
 			}
 			 }>

@@ -105,8 +105,8 @@ const handleSubmit = (event) => {
 								displayName: userData.get("displayName"),
 								email: userData.get("email"),
 								password: userData.get("password"),
-								// weight: 0,
-								// length: 0
+								weight: 0,
+								length: 0
 							});
 		})
 		.catch(function(error) {
