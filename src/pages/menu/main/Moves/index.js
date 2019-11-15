@@ -118,6 +118,9 @@ const MapIcon = styled.img`
 
 const PageMoves = (props) => {
 	const [isDay, setIsDay] = useState(false);
+	const [activities, setActivities] = useState([]);
+	const { authUser, authLoading } = useAuth();
+
 
 	const days = [
 		"Sunday",
@@ -144,13 +147,79 @@ const PageMoves = (props) => {
 		"December"
 	];
 
-	// todays date
+	// date today
 	let date = new Date();
 	let currentDay = date.getDay();
 	let currentDate = date.getDate();
 	let currentMonth = date.getMonth();
 	let monthName = monthNames[currentMonth];
 	let dayName = days[currentDay];
+
+console.log(currentDate)
+
+	useEffect(() => {
+		fetchActivities();
+	}, []);
+
+	// get all activities from user
+	const fetchActivities = () => {
+		firebase
+			.firestore()
+			.collection("users")
+			.doc(authUser.uid)
+			.collection("activities")
+			.where('dateNum', '==', currentDate)
+			.where('month', '==', monthName)
+			.get()
+			.then(activities => {
+				const data = [];
+				activities.forEach(doc => {
+					data.push({ id: doc.id, ...doc.data() });
+				});
+				setActivities(data);
+			});
+	};
+
+	let totalTime;
+	let totalKmRunning = 0;
+	let totalKmCycling = 0;
+	let totalKmWalking = 0;
+
+
+	activities.forEach(activity => {
+		if(activity.type = "running") {
+			totalKmRunning = totalKmRunning + parseFloat(activity.distance);
+			// console.log(activity)
+		}
+		if(activity.type = "cycling") {
+			totalKmCycling = totalKmCycling + parseFloat(activity.distance);
+			// console.log(activity)
+		}
+		if(activity.type = "walking") {
+			totalKmWalking = totalKmWalking + parseFloat(activity.distance);
+			// console.log(activity)
+		}
+	})
+
+	let runningfinalKm = 0;
+	let cyclingfinalKm = 0;
+	let walkingfinalKm = 0;
+
+	if(totalKmRunning > 0.00) {
+		runningfinalKm = Number(totalKmRunning).toFixed(2);
+	}
+
+	if(totalKmCycling > 0.00) {
+		cyclingfinalKm = Number(totalKmCycling).toFixed(2);
+	}
+
+	if(totalKmWalking > 0.00) {
+		walkingfinalKm = Number(totalKmWalking).toFixed(2);
+	}
+
+	// console.log(runningfinalKm)
+	// console.log(cyclingfinalKm)
+	// console.log(walkingfinalKm)
 
 
 	return (
