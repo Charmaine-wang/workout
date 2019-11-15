@@ -120,13 +120,13 @@ const WeekWrapper = ({ ...props }) => {
 		console.log("----")
 
 		// trying to loop to get 30 last day activities but not working, only working on 1
-};
+
 
   return (
 		<WeekContainer { ...props }>
 
 			<div>
-				<p> test 15 <span> test Sat </span> </p>
+				<p> {currentDate} <span> {dayName} </span> </p>
 			</div>
 			<div>
 				<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
@@ -136,6 +136,8 @@ const WeekWrapper = ({ ...props }) => {
 
 		</WeekContainer>
   );
+
+	};
 
 };
 

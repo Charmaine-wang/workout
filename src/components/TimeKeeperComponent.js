@@ -89,7 +89,7 @@ const TimeKeeperComponent = (props) => {
 
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition( position => {
-			const currentLocation = position.coords
+			const currentLocation = position.coords;
 			let calcDist = null;
 
 			if (currentLocation && prevPosition) {
@@ -120,15 +120,15 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
-	const days = [
-		"Mon",
-		"Tue",
-		"Wed",
-		"Thu",
-		"Fri",
-		"Sat",
-		"Sun"
-	];
+	// const days = [
+	// 	"Sun",
+	// 	"Mon",
+	// 	"Tue",
+	// 	"Wed",
+	// 	"Thu",
+	// 	"Fri",
+	// 	"Sat"
+	// ];
 
 	const monthNames = [
 		"January",
@@ -147,7 +147,7 @@ const TimeKeeperComponent = (props) => {
 
   const date = new Date()
 
-	const day = days[date.getDay()]
+	// const day = days[date.getDay()]
 	const dateNum = date.getDate()
 	const month = monthNames[date.getMonth()]
 
@@ -164,9 +164,9 @@ const TimeKeeperComponent = (props) => {
 			   activitytime: { minutes, seconds },
 			   kcal: caloriesBurned,
 			   distance: totalDistanceRounded,
-				 day: day,
+				 // day: day,
 				 dateNum: dateNum,
-         month: month,
+         month: month
 			});
 	};
 
