@@ -164,7 +164,6 @@ const TimeKeeperComponent = (props) => {
 			   activitytime: { minutes, seconds },
 			   kcal: caloriesBurned,
 			   distance: totalDistanceRounded,
-				 // day: day,
 				 dateNum: dateNum,
          month: month
 			});
@@ -224,7 +223,10 @@ const TimeKeeperComponent = (props) => {
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 			<ArrowBack {...props} onClick={() => {
 				totalDistanceRounded >= 0.01 && fetchWorkout()
-			 	props.goBack()
+
+				 props.goBack()
+					 setSeconds(0);
+					 toggleTimer()
 			}
 			 }>
 				<img src="/images/arrowBack.png" alt="arrow back" />
