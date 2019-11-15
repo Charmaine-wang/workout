@@ -113,11 +113,11 @@ const WeekWrapper = ({ ...props }) => {
 		monthName = monthNames[currentMonth];
 		dayName = days[currentDay];
 
-		console.log(date)
-		console.log(dayName)
-		console.log(currentDate)
-		console.log(monthName)
-		console.log("----")
+		// console.log(date)
+		// console.log(dayName)
+		// console.log(currentDate)
+		// console.log(monthName)
+		// console.log("----")
 
 		// trying to loop to get 30 last day activities but not working, only working on 1
 
