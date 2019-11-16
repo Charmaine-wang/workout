@@ -63,12 +63,6 @@ const WeekWrapper = ({ ...props }) => {
 			});
 	};
 
-	// console.log(activities)
-	// activities.forEach(activity => {
-	// 	if(activity.type = "running") {
-	// 		console.log(activity)
-	// 	}
-	// })
 
 	const days = [
 		"Sun",
@@ -121,7 +115,7 @@ const WeekWrapper = ({ ...props }) => {
 
 		// trying to loop to get 30 last day activities but not working, only working on 1
 
-
+	}
   return (
 		<WeekContainer { ...props }>
 
@@ -137,7 +131,7 @@ const WeekWrapper = ({ ...props }) => {
 		</WeekContainer>
   );
 
-	};
+
 
 };
 
