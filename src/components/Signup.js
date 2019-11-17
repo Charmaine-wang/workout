@@ -12,28 +12,22 @@ const StyledSignup = styled.form`
 	align-items: center;
 	width: 100%;
 	height: 80vh;
-
 	> img {
 		width: 100px;
 		margin-bottom: 40px;
 	}
-
 	> p {
 		font-size: 30px;
 		color: white;
 		margin-bottom: 10px;
 	}
-
 	> div {
 		margin-top: 16px;
-
 		> img {
 			width: 20px;
 			position: absolute;
 			margin: 18px 0 0 14px;
-
 		}
-
 		> input:-webkit-autofill,
 			input:-webkit-autofill:hover,
 			input:-webkit-autofill:focus,
@@ -43,7 +37,6 @@ const StyledSignup = styled.form`
 				font-family: 'Barlow';
 				font-family: Barlow;
 		}
-
 		> input {
 			border-radius: 5px;
 			width: 320px;
@@ -55,22 +48,18 @@ const StyledSignup = styled.form`
 			border: none;
 			outline: none;
 			-webkit-tap-highlight-color: none;
-
 			&::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 				color: white;
 			  opacity: 0.7; /* Firefox */
 			}
-
 			&::value {
 				font-weight: 200;
 			}
-
 			&::after, &::before {
 				color: white;
 			}
 		}
 	}
-
 	> a {
 		color: rgba(255,255,255, 0.8);
 		text-decoration: none;
@@ -83,40 +72,36 @@ const StyledSignup = styled.form`
 }`
 
 const Signup = (props) => {
-const {authUser} = useAuth()
+	const {authUser} = useAuth()
 
-const handleSubmit = (event) => {
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		let userData = new FormData(event.currentTarget);
 
-	event.preventDefault();
-	let userData = new FormData(event.currentTarget);
-
-	firebase
+		firebase
 		.auth()
 		.createUserWithEmailAndPassword(
 			userData.get("email"),
 			userData.get("password")
 		)
 		.then((res) => {
-
-						firestore
-							.collection("users")
-							.doc(res.user.uid)
-							.set({
-								displayName: userData.get("displayName"),
-								email: userData.get("email"),
-								password: userData.get("password"),
-								weight: 0,
-								length: 0
-							});
+			firestore
+			.collection("users")
+			.doc(res.user.uid)
+			.set({
+				displayName: userData.get("displayName"),
+				email: userData.get("email"),
+				password: userData.get("password"),
+				weight: 0,
+				length: 0
+			});
 		})
 		.catch(function(error) {
 			const errorCode = error.code;
 			const errorMessage = error.message;
-
 			console.log("errorCode", errorCode, "errorMessage", errorMessage);
 		});
-};
-
+	};
 
 	if (authUser) {
 		return (window.location.href = "/");

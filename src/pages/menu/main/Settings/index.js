@@ -80,13 +80,13 @@ const Signup = props => {
 			)
 			.then(res => {
 				firestore
-					.collection("users")
-					.doc(res.user.uid)
-					.set({
-						displayName: userData.get("displayName"),
-						email: userData.get("email"),
-						password: userData.get("password")
-					});
+				.collection("users")
+				.doc(res.user.uid)
+				.set({
+					displayName: userData.get("displayName"),
+					email: userData.get("email"),
+					password: userData.get("password")
+				});
 			})
 			.catch(function(error) {
 				const errorCode = error.code;

@@ -52,9 +52,8 @@ const TimeKeeperComponent = (props) => {
  	const [isActive, setIsActive] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
-	const [updateDistance, setUpdateDistance] = useState(0)
+	const [updateDistance, setUpdateDistance] = useState(0);
 
-// let interval = null;
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
 	  let R = 6371;
@@ -116,7 +115,7 @@ const TimeKeeperComponent = (props) => {
 
 	let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
-	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
+	let hours = ("0" + Math.floor(seconds / 3600)).slice(-2);
 
 	const monthNames = [
 		"January",
@@ -140,25 +139,25 @@ const TimeKeeperComponent = (props) => {
 	const fetchWorkout = event => {
 		setIsActive(false);
 		firebase
-			.firestore()
-			.collection("users")
-			.doc(authUser.uid)
-			.collection("activities")
-			.doc()
-			.set({
-			   type: props.getActivity,
-			   activitytime: { minutes, seconds },
-			   kcal: caloriesBurned,
-			   distance: totalDistanceRounded,
-				 dateNum: dateNum,
-         month: month
-			});
+		.firestore()
+		.collection("users")
+		.doc(authUser.uid)
+		.collection("activities")
+		.doc()
+		.set({
+			type: props.getActivity,
+			activitytime: { minutes, seconds },
+			kcal: caloriesBurned,
+			distance: totalDistanceRounded,
+			dateNum: dateNum,
+			month: month
+		});
 	};
+
 
 	useEffect(() => {
 		navigateDistance();
-
-	let interval = null;
+		let interval = null;
 		if (isActive) {
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
@@ -169,14 +168,11 @@ const TimeKeeperComponent = (props) => {
 		return () => clearInterval(interval);
 	}, [isActive, seconds]);
 
-
-
 	// round final distance to 2 decimals in km
 	let totalDistanceRounded = Number(finalDistanceKm).toFixed(2);
 
 	// average speed in km per hour
 	let averageSpeed = Number(totalDistanceRounded / seconds * 60 * 60).toFixed(1);
-
 	if(averageSpeed == 'NaN' || averageSpeed == 'Infinity') {
 		averageSpeed = '0.0';
 	}
@@ -185,8 +181,7 @@ const TimeKeeperComponent = (props) => {
 	let activityMET;
 	let activityType = props.getActivity; // choosen activity type
 
-
-//if walking elr running räkna på km istället, else blir cycklign ta andra värden
+	//if walking elr running räkna på km istället, else blir cycklign ta andra värden
 	if (activityType == "running") {
 		activityMET = 9.8; // about 9.8 MET value when running
 	} else if (activityType == "walking") {
@@ -196,9 +191,7 @@ const TimeKeeperComponent = (props) => {
 	}
 
 	//formula total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
-	let userWeight = 65; // take this from database
-	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * userWeight)/200);
-
+	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * authUser.weight)/200);
 
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
@@ -227,7 +220,6 @@ const TimeKeeperComponent = (props) => {
 				<StopTimer onClick={() => {
 					totalDistanceRounded >= 0.01 && fetchWorkout()
 					setSeconds(0);
-					// toggleTimer()
 					setIsActive(false)
 					setFinalDistanceKm(0)
 				}}

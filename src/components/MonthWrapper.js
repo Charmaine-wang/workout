@@ -144,11 +144,11 @@ const MonthWrapper = ({ ...props }) => {
 
 		// get total time in hours and seconds
 		let minutesR = ("0" + (Math.floor(totalTimeRunning / 60) % 60)).slice(-2);
-		let hoursR = ("0" + Math.floor(minutesR / 360)).slice(-2);
+		let hoursR = ("0" + Math.floor(totalTimeRunning / 3600)).slice(-2);
 		let minutesC = ("0" + (Math.floor(totalTimeCycling / 60) % 60)).slice(-2);
-		let hoursC = ("0" + Math.floor(minutesC / 360)).slice(-2);
+		let hoursC = ("0" + Math.floor(totalTimeCycling / 3600)).slice(-2);
 		let minutesW = ("0" + (Math.floor(totalTimeWalking / 60) % 60)).slice(-2);
-		let hoursW = ("0" + Math.floor(minutesW / 360)).slice(-2);
+		let hoursW = ("0" + Math.floor(totalTimeWalking / 3600)).slice(-2);
 
 		runningfinalTime = hoursR+':'+minutesR;
 		cyclingfinalTime = hoursC+':'+minutesC;

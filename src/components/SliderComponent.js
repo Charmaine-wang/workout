@@ -67,9 +67,7 @@ const WelcomingWrapper = styled.p`
 
 const SliderComponent = () => {
 
-const { authUser, authLoading } = useAuth();
-
-
+	const { authUser, authLoading } = useAuth();
   var settings = {
 		infinite: true,
 		speed: 500,
