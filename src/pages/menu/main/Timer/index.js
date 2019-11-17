@@ -52,7 +52,7 @@ const StyledTimer = styled.div`
 `;
 
 const ChoiceWrapper = styled.div`
-	width: 100%;
+	width: 100vw;
 	height: calc(100vh - 216px - 54px);
 	display: flex;
 	flex-direction: column;
@@ -109,28 +109,18 @@ const PageTimer = (props) => {
 				<img src="images/timerBg.png" alt="choice background" />
 				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
-				<ChoiceWrapper>
-					<div onClick={() => {
-
-						setToggled(true)
-						setActivity("running")
-					}}>
+				<ChoiceWrapper onClick={() => setToggled(true) }>
+					<div onClick={() => setActivity("running")}>
 						<img src="/images/running.png" alt="choice background" />
 						<p> RUNNING </p>
 					</div>
 
-					<div onClick={() => {
-						setToggled(true)
-						setActivity("cycling");
-					}}>
+					<div onClick={() => setActivity("cycling")}>
 						<p> CYCLING </p>
 						<img src="/images/cycling.png" alt="choice background" />
 					</div>
 
-					<div onClick={() => {
-						setToggled(true)
-						setActivity("walking")
-					}}>
+					<div onClick={() => setActivity("walking")}>
 						<img src="/images/walking.png" alt="choice background" />
 						<p> WALKING </p>
 					</div>

@@ -50,7 +50,6 @@ const TimeKeeperComponent = (props) => {
 	const { authUser, authLoading } = useAuth();
  	const [seconds, setSeconds] = useState(0);
  	const [isActive, setIsActive] = useState(false);
-	const [startedBg, setStartedBg] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
 	const [updateDistance, setUpdateDistance] = useState(0)
@@ -113,7 +112,6 @@ const TimeKeeperComponent = (props) => {
 
 	const toggleTimer = () => {
 		setIsActive(!isActive);
-		setStartedBg(!startedBg)
 	};
 
 	let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
@@ -208,8 +206,8 @@ const TimeKeeperComponent = (props) => {
 				totalDistanceRounded >= 0.01 && fetchWorkout()
 				props.goBack()
 				setSeconds(0);
-				toggleTimer()
 				setFinalDistanceKm(0)
+				setIsActive(false)
 			}
 			 }>
 				<img src="/images/arrowBack.png" alt="arrow back" />
@@ -223,10 +221,18 @@ const TimeKeeperComponent = (props) => {
 					isActive={isActive ? "Pause" : "Start"}
 					minutes={minutes}
 					seconds={secondstimer}
-					startedBg={startedBg}
+					isActiveBtn={isActive}
 				/>
 
-				<StopTimer onClick={() => fetchWorkout()} showStopBtn={totalDistanceRounded >= 0.01} />
+				<StopTimer onClick={() => {
+					totalDistanceRounded >= 0.01 && fetchWorkout()
+					setSeconds(0);
+					// toggleTimer()
+					setIsActive(false)
+					setFinalDistanceKm(0)
+				}}
+					showStopBtn={totalDistanceRounded >= 0.01}
+				/>
 				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
 			</div>
 		</StyledTimekeeperComponent>

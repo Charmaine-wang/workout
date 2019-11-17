@@ -28,10 +28,10 @@ const StyledBubble = styled.div`
 	justify-content: center;
 
 	&:hover {
-		animation: pulse 1s;
+		animation: pulseBubble 1s;
 	}
 
-	@keyframes pulse {
+	@keyframes pulseBubble {
 	  0% {
 	    box-shadow: 0 0 0 0 rgba(255,255,255, 0.4);
 	  }
