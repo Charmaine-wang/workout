@@ -159,20 +159,20 @@ const PageMoves = (props) => {
 	// get all activities from user
 	const fetchActivities = () => {
 		firebase
-			.firestore()
-			.collection("users")
-			.doc(authUser.uid)
-			.collection("activities")
-			.where('dateNum', '==', currentDate)
-			.where('month', '==', monthName)
-			.get()
-			.then(activities => {
-				const data = [];
-				activities.forEach(doc => {
-					data.push({ id: doc.id, ...doc.data() });
-				});
-				setActivities(data);
+		.firestore()
+		.collection("users")
+		.doc(authUser.uid)
+		.collection("activities")
+		.where('dateNum', '==', currentDate)
+		.where('month', '==', monthName)
+		.get()
+		.then(activities => {
+			const data = [];
+			activities.forEach(doc => {
+				data.push({ id: doc.id, ...doc.data() });
 			});
+			setActivities(data);
+		});
 	};
 
 	let totalKmRunning = 0;
@@ -201,13 +201,13 @@ const PageMoves = (props) => {
 
 	// get total time in hours and seconds
 	let minutesR = ("0" + (Math.floor(totalTimeRunning / 60) % 60)).slice(-2);
-	let hoursR = ("0" + Math.floor(minutesR / 360)).slice(-2);
+	let hoursR = ("0" + Math.floor(totalTimeRunning / 3600)).slice(-2);
 
 	let minutesC = ("0" + (Math.floor(totalTimeCycling / 60) % 60)).slice(-2);
-	let hoursC = ("0" + Math.floor(minutesC / 360)).slice(-2);
+	let hoursC = ("0" + Math.floor(totalTimeCycling / 3600)).slice(-2);
 
 	let minutesW = ("0" + (Math.floor(totalTimeWalking / 60) % 60)).slice(-2);
-	let hoursW = ("0" + Math.floor(minutesW / 360)).slice(-2);
+	let hoursW = ("0" + Math.floor(totalTimeWalking / 3600)).slice(-2);
 
 
 	let runningfinalKm = 0;

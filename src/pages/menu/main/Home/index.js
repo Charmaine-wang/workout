@@ -17,8 +17,6 @@ const StyledPageHome = styled.div`
 `;
 
 const PageHome = () => {
-	// const [meters, setMeters] = useState({});
-
 	return (
 		<StyledPageHome>
 			<FadedBackground opacity={'1'} />
