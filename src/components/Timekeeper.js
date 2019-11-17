@@ -14,17 +14,14 @@ const StyledTimekeeper = styled.div`
 
 	@keyframes pulse {
 		0% {
-			box-shadow: 0 0 0 0 rgba(255,255,255, 0.2);
-		}
-		70% {
-			box-shadow: 0 0 0 24px rgba(255,255,255, 0);
+			box-shadow: 0 0 0 0 rgba(0,0,0, 0.4);
 		}
 		100% {
-			box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+			box-shadow: 0 0 0 24px rgba(0,0,0, 0);
 		}
 	}
 
-	animation: ${props => props.startedBg ? 'pulse 2s infinite' : 'none' };
+	animation: ${props => props.isActiveBtn ? 'pulse 1s infinite' : 'none' };
 
 	/* byt färg till nått nice, eller gör andra animationer */
 	> h1 {
