@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { UserContext } from '../../../../context';
 import ArrowBack from '../../../../components/ArrowBack';
 import FadedBackground from '../../../../components/FadedBackground';
-import WeekWrapper from '../../../../components/WeekWrapper';
+import MonthWrapper from '../../../../components/MonthWrapper';
 import Bubble from '../../../../components/Bubble';
 import firebase, { firestore } from "../../../../firebase";
 import { useAuth } from "../../../../authcontext";
@@ -64,7 +64,7 @@ const StyledMoves = styled.div`
 	}
 `;
 
-const WeekSlider = styled.div`
+const MonthSlider = styled.div`
 	display: ${props => props.flexWeek ? 'none' : 'flex'};
 	flex-direction: row;
 	overflow-x: scroll;
@@ -108,19 +108,13 @@ const DayWrapper = styled.div`
 	}
 `;
 
-const MapIcon = styled.img`
-	width: 30px !important;
-	height: 30px !important;
-	position: absolute;
-	right: 16px;
-	margin-top: 90px;
-`;
-
 const PageMoves = (props) => {
 	const [isDay, setIsDay] = useState(false);
 	const [activities, setActivities] = useState([]);
 	const { authUser, authLoading } = useAuth();
-
+	const [toggleRunning, setToggleRunning] = useState(true);
+	const [toggleCycling, setToggleCycling] = useState(true);
+	const [toggleWalking, setToggleWalking] = useState(true);
 
 	const days = [
 		"Sunday",
@@ -155,11 +149,11 @@ const PageMoves = (props) => {
 	let monthName = monthNames[currentMonth];
 	let dayName = days[currentDay];
 
-console.log(currentDate)
-
 	useEffect(() => {
 		fetchActivities();
+		// fetchMonthActivities();
 	}, []);
+
 
 	// get all activities from user
 	const fetchActivities = () => {
@@ -180,47 +174,101 @@ console.log(currentDate)
 			});
 	};
 
-	let totalTime;
+	// const fetchMonthActivities = () => {
+	// 	firebase
+	// 		.firestore()
+	// 		.collection("users")
+	// 		.doc(authUser.uid)
+	// 		.collection("activities")
+	// 		.get()
+	// 		.then(activities => {
+	// 			const data = [];
+	// 			activities.forEach(doc => {
+	// 				data.push({ id: doc.id, ...doc.data() });
+	// 			});
+	// 			setActivities(data);
+	// 		});
+	// };
+
 	let totalKmRunning = 0;
 	let totalKmCycling = 0;
 	let totalKmWalking = 0;
 
+	let totalTimeRunning = 0;
+	let totalTimeCycling = 0;
+	let totalTimeWalking = 0;
 
+	// sum all km and time of each activity
 	activities.forEach(activity => {
-		if(activity.type = "running") {
-			totalKmRunning = totalKmRunning + parseFloat(activity.distance);
-			// console.log(activity)
+		if(activity.type == "running") {
+			totalKmRunning += parseFloat(activity.distance);
+			totalTimeRunning += activity.activitytime.seconds;
 		}
-		if(activity.type = "cycling") {
-			totalKmCycling = totalKmCycling + parseFloat(activity.distance);
-			// console.log(activity)
+		if(activity.type == "cycling") {
+			totalKmCycling += parseFloat(activity.distance);
+			totalTimeCycling += activity.activitytime.seconds;
 		}
-		if(activity.type = "walking") {
-			totalKmWalking = totalKmWalking + parseFloat(activity.distance);
-			// console.log(activity)
+		if(activity.type == "walking") {
+			totalKmWalking += parseFloat(activity.distance);
+			totalTimeWalking += activity.activitytime.seconds;
 		}
 	})
+
+	// get total time in hours and seconds
+	let minutesR = ("0" + (Math.floor(totalTimeRunning / 60) % 60)).slice(-2);
+	let hoursR = ("0" + Math.floor(minutesR / 360)).slice(-2);
+
+	let minutesC = ("0" + (Math.floor(totalTimeCycling / 60) % 60)).slice(-2);
+	let hoursC = ("0" + Math.floor(minutesC / 360)).slice(-2);
+
+	let minutesW = ("0" + (Math.floor(totalTimeWalking / 60) % 60)).slice(-2);
+	let hoursW = ("0" + Math.floor(minutesW / 360)).slice(-2);
+
 
 	let runningfinalKm = 0;
 	let cyclingfinalKm = 0;
 	let walkingfinalKm = 0;
 
+	let runningfinalTime = hoursR+':'+minutesR;
+	let cyclingfinalTime = hoursC+':'+minutesC;
+	let walkingfinalTime = hoursW+':'+minutesW;
+
+	// get rounded total km
 	if(totalKmRunning > 0.00) {
 		runningfinalKm = Number(totalKmRunning).toFixed(2);
 	}
-
 	if(totalKmCycling > 0.00) {
 		cyclingfinalKm = Number(totalKmCycling).toFixed(2);
 	}
-
 	if(totalKmWalking > 0.00) {
 		walkingfinalKm = Number(totalKmWalking).toFixed(2);
 	}
 
-	// console.log(runningfinalKm)
-	// console.log(cyclingfinalKm)
-	// console.log(walkingfinalKm)
 
+	// let dayToMonth;
+	// let dateToMonth;
+	// let monthToMonth;
+	// let monthNameToMonth;
+	// let dayNameToMonth;
+
+	// get last 30 days (excluding today)
+	// date.setDate(date.getDate() + 1);
+	// for(let i = 0; i < 30; i++) {
+	// 	date.setDate(date.getDate() - 1);
+	//
+	// 	dayToMonth = date.getDay();
+	// 	dateToMonth = date.getDate();
+	// 	monthToMonth = date.getMonth();
+	//
+	// 	monthNameToMonth = monthNames[monthToMonth];
+	// 	dayNameToMonth = days[currentDay];
+	//
+	// 	console.log(date)
+	// 	console.log(dateToMonth)
+	// 	console.log(monthNameToMonth)
+	// 	console.log(dayNameToMonth)
+	// 	console.log("----")
+	// };
 
 	return (
 		<div {...props}>
@@ -233,148 +281,42 @@ console.log(currentDate)
 						<p><span> {monthName} </span></p>
 					</div>
 					<div isWeek={isDay}>
-						<p> {dayName} <span> {currentDay} </span></p>
+						<p> {dayName} <span> {currentDate} </span></p>
 					</div>
 				</div>
 				<div>
-					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
+					<div isWeek={isDay} onClick={() => setIsDay(true)}> TODAY </div>
 					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
 				</div>
 
-				<WeekSlider {...props} flexWeek={isDay} >
-					<WeekWrapper />
-				</WeekSlider>
+				<MonthSlider {...props} flexWeek={isDay} >
+					<MonthWrapper />
+				</MonthSlider>
 
 
 				<DayWrapper {...props} flexDay={isDay}>
 					<img src="/images/fakemap.png" alt="map" />
-					<MapIcon src="/images/location.png" alt="location icon" />
 
 					<div>
 						<p> Run </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<Bubble onClick={() => setToggleRunning(!toggleRunning)} diameter={"90px"} hourOrKm={toggleRunning ? runningfinalKm : runningfinalTime} unit={toggleRunning ? 'km' : 'hours'} />
 						<img src="/images/running.png" alt="running icon" />
 					</div>
 					<div>
 						<p> Cycle </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<Bubble onClick={() => setToggleCycling(!toggleCycling)} diameter={"90px"} hourOrKm={toggleCycling ? cyclingfinalKm : cyclingfinalTime} unit={toggleCycling ? 'km' : 'hours'} />
 						<img src="/images/cycling.png" alt="running icon" />
 					</div>
 					<div>
 						<p> Walk </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
+						<Bubble onClick={() => setToggleWalking(!toggleWalking)} diameter={"90px"} hourOrKm={toggleWalking ? walkingfinalKm : walkingfinalTime} unit={toggleWalking ? 'km' : 'hours'} />
 						<img src="/images/walking.png" alt="running icon" />
 					</div>
 				</DayWrapper>
 
-
 			</StyledMoves>
 		</div>
 	);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	{/*
-	return (
-		<div {...props}>
-			<FadedBackground opacity={'0.4'} />
-			<ArrowBack />
-
-			<StyledMoves {...props} isDay={isDay}>
-
-				<div>
-					<div isWeek={isDay}>
-						<p><span> Oktober </span></p>
-					</div>
-					<div isWeek={isDay}>
-						<p> Wednesday <span> 18 OKT </span></p>
-					</div>
-				</div>
-				<div>
-					<div isWeek={isDay} onClick={() => setIsDay(true)}> DAY </div>
-					<div isWeek={isDay} onClick={() => setIsDay(false)}> MONTH </div>
-				</div>
-
-				<WeekSlider {...props} flexWeek={isDay} >
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-
-					<WeekWrapper>
-						<div>
-							<p> 12 <span> OKT </span> </p>
-						</div>
-						<div>
-							<Bubble diameter={"100px"} hourOrKm={'0:45'} unit={'hours'} icon={'/images/running.png'} />
-							<Bubble diameter={"90px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/cycling.png'} />
-							<Bubble diameter={"80px"} hourOrKm={'0:35'} unit={'hours'} icon={'/images/walking.png'} />
-						</div>
-					</WeekWrapper>
-				</WeekSlider>
-
-
-				<DayWrapper {...props} flexDay={isDay}>
-					<img src="/images/fakemap.png" alt="map" />
-					<MapIcon src="/images/location.png" alt="location icon" />
-
-					<div>
-						<p> Run </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
-						<img src="/images/running.png" alt="running icon" />
-					</div>
-					<div>
-						<p> Cycle </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
-						<img src="/images/cycling.png" alt="running icon" />
-					</div>
-					<div>
-						<p> Walk </p>
-						<Bubble diameter={"90px"} hourOrKm={'0:45'} unit={'hours'} />
-						<img src="/images/walking.png" alt="running icon" />
-					</div>
-				</DayWrapper>
-
-
-			</StyledMoves>
-		</div>
-	);
-
-	*/}
-
 };
 
 export default PageMoves;

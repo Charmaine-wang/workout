@@ -122,16 +122,6 @@ const TimeKeeperComponent = (props) => {
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
 	let hours = ("0" + Math.floor(seconds / 360)).slice(-2);
 
-	// const days = [
-	// 	"Sun",
-	// 	"Mon",
-	// 	"Tue",
-	// 	"Wed",
-	// 	"Thu",
-	// 	"Fri",
-	// 	"Sat"
-	// ];
-
 	const monthNames = [
 		"January",
 		"February",
@@ -226,9 +216,7 @@ console.log(saveWorkout);
 			<ArrowBack
 				{...props}
 				onClick={() => {
-						totalDistanceRounded >= 0.01 && fetchWorkout();
-
-
+					totalDistanceRounded >= 0.01 && fetchWorkout();
 					props.goBack();
 					setSeconds(0);
 					toggleTimer();
@@ -252,7 +240,7 @@ console.log(saveWorkout);
 				<StopTimer
 					onClick={() => {
 						setFinalDistanceKm(0);
-						setSaveWorkout(true);
+						setSaveWorkout(isActive);
 						toggleTimer();
 						setSeconds(0);
 						fetchWorkout();
