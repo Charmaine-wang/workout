@@ -112,17 +112,27 @@ const PageMoves = (props) => {
 	let cyclingfinalTime = hoursC+':'+minutesC;
 	let walkingfinalTime = hoursW+':'+minutesW;
 
-	// get rounded total km
+	let bubbleRun = 70;
+	let bubbleCyc = 70;
+	let bubbleWal = 70;
+
+	// get rounded total km, else keep the value on 0
 	if(totalKmRunning > 0.00) {
 		runningfinalKm = Number(totalKmRunning).toFixed(2);
+		bubbleRun += Math.round(runningfinalKm * 4);
 	}
 	if(totalKmCycling > 0.00) {
 		cyclingfinalKm = Number(totalKmCycling).toFixed(2);
+		bubbleCyc += Math.round(cyclingfinalKm * 4);
 	}
 	if(totalKmWalking > 0.00) {
 		walkingfinalKm = Number(totalKmWalking).toFixed(2);
+		bubbleWal += Math.round(walkingfinalKm * 4);
 	}
-console.log(props);
+
+
+
+
 	return (
 		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
@@ -152,17 +162,17 @@ console.log(props);
 
 					<div>
 						<p> Run </p>
-						<Bubble onClick={() => setToggleRunning(!toggleRunning)} diameter={"90px"} hourOrKm={toggleRunning ? runningfinalKm : runningfinalTime} unit={toggleRunning ? 'km' : 'hours'} />
+						<Bubble onClick={() => setToggleRunning(!toggleRunning)} diameter={bubbleRun + "px"} hourOrKm={toggleRunning ? runningfinalKm : runningfinalTime} unit={toggleRunning ? 'km' : 'hours'} />
 						<img src="/images/running.png" alt="running icon" />
 					</div>
 					<div>
 						<p> Cycle </p>
-						<Bubble onClick={() => setToggleCycling(!toggleCycling)} diameter={"90px"} hourOrKm={toggleCycling ? cyclingfinalKm : cyclingfinalTime} unit={toggleCycling ? 'km' : 'hours'} />
+						<Bubble onClick={() => setToggleCycling(!toggleCycling)} diameter={bubbleCyc + "px"} hourOrKm={toggleCycling ? cyclingfinalKm : cyclingfinalTime} unit={toggleCycling ? 'km' : 'hours'} />
 						<img src="/images/cycling.png" alt="running icon" />
 					</div>
 					<div>
 						<p> Walk </p>
-						<Bubble onClick={() => setToggleWalking(!toggleWalking)} diameter={"90px"} hourOrKm={toggleWalking ? walkingfinalKm : walkingfinalTime} unit={toggleWalking ? 'km' : 'hours'} />
+						<Bubble onClick={() => setToggleWalking(!toggleWalking)} diameter={bubbleWal + "px"} hourOrKm={toggleWalking ? walkingfinalKm : walkingfinalTime} unit={toggleWalking ? 'km' : 'hours'} />
 						<img src="/images/walking.png" alt="running icon" />
 					</div>
 				</DayWrapper>
