@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Signup from '../../../components/Signup'
-import FadedBackground from '../../../components/FadedBackground'
+import React from 'react';
+import { Signup, FadedBackground } from '../../../components/'
+
 
 const PageSignup = (props) => {
 	return (

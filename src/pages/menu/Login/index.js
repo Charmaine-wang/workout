@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styled from 'styled-components';
-import Login from "../../../components/Login";
-import FadedBackground from "../../../components/FadedBackground";
+import React from 'react';
+import { Login, FadedBackground } from "../../../components/";
 
-const StyledLogin = styled.div`
-	display: flex;
-`;
 
 const PageLogin = (props) => {
 

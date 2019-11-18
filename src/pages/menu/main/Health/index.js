@@ -1,68 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { useAuth } from "../../../../authcontext";
 import firebase, {firestore} from "../../../../firebase";
-import ArrowBack from '../../../../components/ArrowBack'
-import HealthComponent from '../../../../components/HealthComponent';
-import BodyComponent from '../../../../components/BodyComponent';
-import FadedBackground from '../../../../components/FadedBackground';
-import Button from "../../../../components/Button"
-
-const StyledHealth = styled.div`
-	height: calc(100vh - 54px);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: space-between;
-`;
-
-const HealthWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-top: 10vh;
-	width: 100%;
-`;
-
-const BodyWrapper = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 100%;
-`;
-
-const BMIWrapper = styled.div`
-	width: 100%;
-	height: 10vh;
-	background-color: rgba(0,0,0, 0.8);
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 0 34px;
-	> p:nth-child(1) {
-		font-size: 24px;
-		color: white;
-		opacity: 0.8;
-		margin-right: 10px;
-	}
-	> p:nth-child(2) {
-		font-size: 40px;
-		color: white;
-	}
-`;
-
-const StyledButton = styled(Button)`
-	position: absolute;
-	z-index: 1;
-	right: 0;
-	margin: 10px 14px;
-	height: 40px;
-	border-radius: 0;
-	transition: 0.5s;
-	background-color: ${props => props.saved ? 'rgba(150,200,255, 0.3)' : 'rgba(255,255,255, 0.15)'};
-
-`;
+import {ArrowBack, HealthComponent, BodyComponent, FadedBackground} from '../../../../components/'
+import { StyledHealth, HealthWrapper, BMIWrapper, StyledButton } from './StyledHealth'
 
 const PageHealth = () => {
 	const { authUser, authLoading } = useAuth();
