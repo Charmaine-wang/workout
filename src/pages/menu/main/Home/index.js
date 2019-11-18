@@ -4,6 +4,7 @@ import SliderComponent from '../../../../components/SliderComponent'
 import firebase from '../../../../firebase'
 import FadedBackground from '../../../../components/FadedBackground'
 
+
 const StyledPageHome = styled.div`
 	> img:nth-child(2) {
 		width: 100%;
@@ -24,6 +25,7 @@ const PageHome = () => {
 			<FadedBackground opacity={'1'} />
 			<img src="/images/shoeImage.png" alt="shoes background" />
 			<SliderComponent />
+
 		</StyledPageHome>
 	);
 };

@@ -115,7 +115,7 @@ const TimeKeeperComponent = (props) => {
 	const toggleTimer = () => {
 		setIsActive(!isActive);
 		setStartedBg(!startedBg)
-		setSaveWorkout(isActive)
+
 	};
 
 	let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
@@ -144,8 +144,7 @@ const TimeKeeperComponent = (props) => {
 	const month = monthNames[date.getMonth()]
 
 	const fetchWorkout = event => {
-		// setIsActive(false);
-		toggleTimer()
+
 		firebase
 			.firestore()
 			.collection("users")
@@ -219,7 +218,10 @@ console.log(saveWorkout);
 					totalDistanceRounded >= 0.01 && fetchWorkout();
 					props.goBack();
 					setSeconds(0);
-					toggleTimer();
+					setIsActive(false);
+					setStartedBg(false);
+					setSaveWorkout(false)
+
 				}}
 			>
 				<img src="/images/arrowBack.png" alt="arrow back" />
@@ -240,10 +242,11 @@ console.log(saveWorkout);
 				<StopTimer
 					onClick={() => {
 						setFinalDistanceKm(0);
-						setSaveWorkout(isActive);
+						setSaveWorkout(true);
 						toggleTimer();
 						setSeconds(0);
 						fetchWorkout();
+						setTimeout(() => setSaveWorkout(false), 1800);
 
 					}}
 					showStopBtn={caloriesBurned >= 0.01}
