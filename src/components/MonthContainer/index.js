@@ -16,21 +16,21 @@ const MonthContainer = props => {
 			</div>
 			<div>
 				<Bubble
-					diameter={"100px"}
+					diameter={props.diameterRun}
 					onClick={() => setToggleRunning(!toggleRunning)}
 					hourOrKm={toggleRunning ? props.kmRunning : props.hourRunning}
 					unit={"km"}
 					icon={"/images/running.png"}
 				/>
 				<Bubble
-					diameter={"90px"}
+					diameter={props.diameterCyc}
 					onClick={() => setToggleCycling(!toggleCycling)}
 					hourOrKm={toggleCycling ? props.kmCycling : props.hourCycling}
 					unit={"km"}
 					icon={"/images/cycling.png"}
 				/>
 				<Bubble
-					diameter={"80px"}
+					diameter={props.diameterWal}
 					onClick={() => setToggleWalking(!toggleWalking)}
 					hourOrKm={toggleWalking ? props.kmWalking : props.hourWalking}
 					unit={"km"}

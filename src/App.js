@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import Navbar from "./components/Navbar";
+import {Navbar} from "./components/";
 import GlobalStyle from "./styles/Globalstyles";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 // import { useAuthState } from "react-firebase-hooks/auth";
@@ -12,7 +12,7 @@ import PageTimer from "./pages/menu/main/Timer";
 import PageHealth from "./pages/menu/main/Health";
 import PageMoves from "./pages/menu/main/Moves";
 import PageSettings from "./pages/menu/main/Settings";
-import Layout from "./components/Layout";
+// import Layout from "./components/Layout";
 import { collectIdsAndDocs } from "./components/Utilities";
 import { useAuth } from "./authcontext";
 

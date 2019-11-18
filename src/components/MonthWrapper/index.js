@@ -130,15 +130,22 @@ const MonthWrapper = ({ ...props }) => {
 		cyclingfinalTime = hoursC + ":" + minutesC;
 		walkingfinalTime = hoursW + ":" + minutesW;
 
+		let bubbleRun = 70;
+		let bubbleCyc = 70;
+		let bubbleWal = 70;
+
 		// get rounded total km, else keep the value on 0
-		if (totalKmRunning > 0.0) {
+		if(totalKmRunning > 0.00) {
 			runningfinalKm = Number(totalKmRunning).toFixed(2);
+			bubbleRun += Math.round(runningfinalKm * 4);
 		}
-		if (totalKmCycling > 0.0) {
+		if(totalKmCycling > 0.00) {
 			cyclingfinalKm = Number(totalKmCycling).toFixed(2);
+			bubbleCyc += Math.round(cyclingfinalKm * 4);
 		}
-		if (totalKmWalking > 0.0) {
+		if(totalKmWalking > 0.00) {
 			walkingfinalKm = Number(totalKmWalking).toFixed(2);
+			bubbleWal += Math.round(walkingfinalKm * 4);
 		}
 
 		calendar.push({
@@ -150,8 +157,13 @@ const MonthWrapper = ({ ...props }) => {
 			walkingfinalKm: walkingfinalKm,
 			runningfinalTime: runningfinalTime,
 			cyclingfinalTime: cyclingfinalTime,
-			walkingfinalTime: walkingfinalTime
+			walkingfinalTime: walkingfinalTime,
+			bubbleRun: bubbleRun,
+			bubbleCyc: bubbleCyc,
+			bubbleWal: bubbleWal
 		});
+
+		console.log(calendar)
 	}
 
 	return (
@@ -163,10 +175,13 @@ const MonthWrapper = ({ ...props }) => {
 					dateName={day.dayName}
 					kmRunning={day.runningfinalKm}
 					hourRunning={day.runningfinalTime}
-					kmCycling={day.runningfinalKm}
-					hourCycling={day.runningfinalTime}
+					diameterRun={day.bubbleRun + "px"}
+					kmCycling={day.cyclingfinalKm}
+					hourCycling={day.cyclingfinalTime}
+					diameterCyc={day.bubbleCyc + "px"}
 					kmWalking={day.walkingfinalKm}
 					hourWalking={day.walkingfinalTime}
+					diameterWal={day.bubbleWal + "px"}
 				/>
 			))}
 		</Horisontal>
