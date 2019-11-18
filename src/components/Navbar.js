@@ -14,11 +14,11 @@ const StyledNavbar = styled.div`
 	top: calc(100% - 54px);
 	background: rgba(0, 0, 0, 0.4);
 	& > a img {
-		height: 24px;
+		height: 23px;
 		transition: 0.2s;
 	}
 	& > a:nth-child(2) img {
-		height: 30px;
+		height: 28px;
 	}
 	& > a:nth-child(5) img {
 		height: 26px;
@@ -26,12 +26,12 @@ const StyledNavbar = styled.div`
 
 	& > a img:hover,
 	a img:active {
-		transform: scale(1.2);
-		top: 16px;
+		transform: scale(1.3);
+		top: 14px;
 	}
 	& > a:nth-child(2) img:hover,
 	a:nth-child(2) img:active {
-		transform: scale(1.2);
+		transform: scale(1.3);
 		top: 12px;
 	}
 

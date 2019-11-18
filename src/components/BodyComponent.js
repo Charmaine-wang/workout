@@ -41,6 +41,10 @@ const StyledBodyInfo = styled.form`
 				background-color: rgba(255, 255, 255, 0.12);
 				padding: 1vh 10px;
 				border: none;
+
+				&::placeholder {
+					color: white;
+				}
 			}
 
 			> p:first-child {

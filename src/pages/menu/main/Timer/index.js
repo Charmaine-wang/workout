@@ -21,7 +21,7 @@ const StyledTimer = styled.div`
 
 	> div:nth-child(1) {
 		background-color: rgba(0, 0, 0, 0.4);
-		height: 216px;
+		height: 200px;
 		width: 100%;
 		position: absolute;
 		z-index: 1;
@@ -45,15 +45,15 @@ const StyledTimer = styled.div`
 	}
 	> img {
 		width: 100%;
-		height: 216px;
+		height: 190px;
 		opacity: 1;
 		margin-bottom: -3px;
 	}
 `;
 
 const ChoiceWrapper = styled.div`
-	width: 100%;
-	height: calc(100vh - 216px - 54px);
+	width: 100vw;
+	height: calc(100vh - 190px - 54px);
 	display: flex;
 	flex-direction: column;
 	> div {
@@ -109,28 +109,18 @@ const PageTimer = (props) => {
 				<img src="images/timerBg.png" alt="choice background" />
 				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
-				<ChoiceWrapper>
-					<div onClick={() => {
-
-						setToggled(true)
-						setActivity("running")
-					}}>
+				<ChoiceWrapper onClick={() => setToggled(true) }>
+					<div onClick={() => setActivity("running")}>
 						<img src="/images/running.png" alt="choice background" />
 						<p> RUNNING </p>
 					</div>
 
-					<div onClick={() => {
-						setToggled(true)
-						setActivity("cycling");
-					}}>
+					<div onClick={() => setActivity("cycling")}>
 						<p> CYCLING </p>
 						<img src="/images/cycling.png" alt="choice background" />
 					</div>
 
-					<div onClick={() => {
-						setToggled(true)
-						setActivity("walking")
-					}}>
+					<div onClick={() => setActivity("walking")}>
 						<img src="/images/walking.png" alt="choice background" />
 						<p> WALKING </p>
 					</div>
