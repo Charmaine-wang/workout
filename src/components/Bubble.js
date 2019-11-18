@@ -57,7 +57,7 @@ const Bubble = ({ ...props }) => {
   return (
 		<BubbleContainer>
 			{ props.icon ? <img src={props.icon} alt="icon" /> : '' }
-	    <StyledBubble {...props}>
+	    <StyledBubble {...props} onclick={props.onClick}>
 				<p> {props.hourOrKm} </p>
 				<p> {props.unit} </p>
 			</StyledBubble>

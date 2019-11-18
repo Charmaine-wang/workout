@@ -228,7 +228,7 @@ const PageMoves = (props) => {
 	if(totalKmWalking > 0.00) {
 		walkingfinalKm = Number(totalKmWalking).toFixed(2);
 	}
-
+console.log(props);
 	return (
 		<div {...props}>
 			<FadedBackground opacity={'0.4'} />
