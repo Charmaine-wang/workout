@@ -4,37 +4,38 @@ import Bubble from './Bubble';
 import firebase, { firestore } from "../firebase";
 import { useAuth } from "../authcontext";
 import ReactDOM from 'react-dom';
+import MonthContainer from './MonthContainer';
 
-const MonthContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: rgba(0,0,0, 0.8);
-	min-width: 140px;
-	height: calc(100vh - 48px - 54px - 58px);
-	border-right: 2px solid rgba(255, 255, 255, 0.1);
-	overflow: hidden;
+// const MonthContainer = styled.div`
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	background-color: rgba(0,0,0, 0.8);
+// 	min-width: 140px;
+// 	height: calc(100vh - 48px - 54px - 58px);
+// 	border-right: 2px solid rgba(255, 255, 255, 0.1);
+// 	overflow: hidden;
 
-	> div {
-		margin: 20px 0 0;
-		> p {
-			text-align: center;
-			color: white;
-			font-size: 20px;
-		}
-		> p:nth-child(2) {
-			font-size: 15px;
-			letter-spacing: 0.8px;
-		}
-	}
-	> div:nth-child(2) {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		height: 60vh;
-		max-height: 450px;
-	}
-`;
+// 	> div {
+// 		margin: 20px 0 0;
+// 		> p {
+// 			text-align: center;
+// 			color: white;
+// 			font-size: 20px;
+// 		}
+// 		> p:nth-child(2) {
+// 			font-size: 15px;
+// 			letter-spacing: 0.8px;
+// 		}
+// 	}
+// 	> div:nth-child(2) {
+// 		display: flex;
+// 		flex-direction: column;
+// 		justify-content: space-around;
+// 		height: 60vh;
+// 		max-height: 450px;
+// 	}
+// `;
 
 const Horisontal = styled.div`
 	display: flex;
@@ -45,6 +46,11 @@ const Horisontal = styled.div`
 const MonthWrapper = ({ ...props }) => {
 	const [monthActivities, setMonthActivities] = useState([]);
 	const { authUser, authLoading } = useAuth();
+
+
+	// const [toggleRunning, setToggleRunning] = useState(true);
+	// const [toggleCycling, setToggleCycling] = useState(true);
+	// const [toggleWalking, setToggleWalking] = useState(true);
 
 	const days = [
 		"Sunday",
@@ -170,21 +176,22 @@ const MonthWrapper = ({ ...props }) => {
 
   return (
 		<Horisontal>
-			{calendar.map((day, key) =>
-				<MonthContainer key={day.dateNum} { ...props }>
-					<div>
-						<p> {day.dateNum} </p>
-						<p> {day.dayName} </p>
-					</div>
-					<div>
-						<Bubble diameter={"100px"} hourOrKm={day.runningfinalKm} unit={'km'} icon={'/images/running.png'} />
-						<Bubble diameter={"90px"} hourOrKm={day.cyclingfinalKm} unit={'km'} icon={'/images/cycling.png'} />
-						<Bubble diameter={"80px"} hourOrKm={day.walkingfinalKm} unit={'km'} icon={'/images/walking.png'} />
-					</div>
-				</MonthContainer>
-			)}
+			{calendar.map((day, key) => (
+				<MonthContainer
+					key={day.dateNum}
+					dateDay={day.dateNum}
+					dateName={day.dayName}
+					kmRunning={day.runningfinalKm}
+					hourRunning={day.runningfinalTime}
+					kmCycling={day.runningfinalKm}
+					hourCycling={day.runningfinalTime}
+					kmWalking={day.walkingfinalKm}
+					hourWalking={day.walkingfinalTime}
+
+				/>
+			))}
 		</Horisontal>
-  );
+	);
 };
 
 
