@@ -2,50 +2,42 @@ import React, { useState, useEffect } from 'react';
 import styled, {keyframes} from 'styled-components';
 import { animated } from 'react-spring'
 
-
-
 const StyledModal = styled.div`
-
-	/* display: ${props => (props.isActive ? "flex" : "none")}; */
-	opacity: 0;
-	/* opacity:${props => (props.isActive ? 1 : 0)}; */
+	opacity: ${props => (props.isActive ? 1 : 0)};
 	display: flex;
-	width: 90vw;
-	height: 200px;
-	position: fixed;
-	z-index: 4;
-	top: 100px;
-	left: 5%;
-	flex-direction: column;
-	border-radius: 10px;
-	background: rgba(0, 0, 0, 0.8);
-	color: #ffffff;
-	justify-content: space-around;
 	align-items: center;
+	justify-content: center;
+	position: fixed;
+	transform: translate(-50%, 0%);
+	left: 50%;
+	width: 250px;
+	height: 250px;
+	z-index: 2;
+	top: 50px;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 1);
+	color: #ffffff;
 	pointer-events: none;
-	${props => props.isActive && "animation: fade-in 2s linear;"}
-@keyframes fade-in {
-    0%   {opacity: 0;}
-    25%   {opacity: 1;}
-    75%   {opacity: 1;}
-    100%   {opacity: 0;}
-}
+	${props => props.isActive && "animation: fade-in 2s linear;"};
 
-
+	@keyframes fade-in {
+	  0%   {opacity: 0; box-shadow: 0 0 0 0 rgba(0,0,0, 0.8);}
+	  30%   {opacity: 1; box-shadow: 0 0 10px 30px rgba(0,0,0, 0)}
+	  75%   {opacity: 1;}
+	  100%   {opacity: 0;}
+	}
 `;
 
 const Modal = (props) => {
-	console.log(props)
 	const [myState, setmyState] = useState(null);
 
-	useEffect(() => {
-		console.log("mounted");
-	}, []);
+	// useEffect(() => {
+	// 	console.log("mounted");
+	// }, []);
 
-	console.log(props);
 	return (
 		<StyledModal {...props} >
-<h1>Saved workout</h1>
+			<h1>Saved Workout</h1>
 
 		</StyledModal>
 	);

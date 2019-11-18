@@ -107,7 +107,6 @@ const PageTimer = (props) => {
 				</div>
 				<ArrowBack />
 				<img src="images/timerBg.png" alt="choice background" />
-				{/* <TimeKeeperComponent isToggled={isToggled} goBack={() => setToggled(false)}/> */}
 
 				<ChoiceWrapper onClick={() => setToggled(true) }>
 					<div onClick={() => setActivity("running")}>

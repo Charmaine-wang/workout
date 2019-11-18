@@ -53,7 +53,6 @@ const TimeKeeperComponent = (props) => {
  	const [isActive, setIsActive] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
-
 	const [saveWorkout, setSaveWorkout] = useState(isActive)
 
 
@@ -136,13 +135,10 @@ const TimeKeeperComponent = (props) => {
 	];
 
   const date = new Date()
-
-	// const day = days[date.getDay()]
 	const dateNum = date.getDate()
 	const month = monthNames[date.getMonth()]
 
 	const fetchWorkout = event => {
-
 		firebase
 		.firestore()
 		.collection("users")
@@ -164,7 +160,6 @@ const TimeKeeperComponent = (props) => {
 		navigateDistance();
 		let interval = null;
 		if (isActive) {
-
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
 			}, 1000);
@@ -200,9 +195,6 @@ const TimeKeeperComponent = (props) => {
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * authUser.weight)/200);
 
 
-
-console.log(saveWorkout);
-
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
 
@@ -214,7 +206,6 @@ console.log(saveWorkout);
 					setSeconds(0);
 					setIsActive(false);
 					setSaveWorkout(false)
-
 				}}
 			>
 
@@ -241,7 +232,6 @@ console.log(saveWorkout);
 						setSeconds(0);
 						fetchWorkout();
 						setTimeout(() => setSaveWorkout(false), 1800);
-
 					}}
 					showStopBtn={totalDistanceRounded >= 0.01}
 				/>
@@ -259,4 +249,3 @@ console.log(saveWorkout);
 };
 
 export default TimeKeeperComponent;
-
