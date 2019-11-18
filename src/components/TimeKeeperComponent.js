@@ -53,7 +53,9 @@ const TimeKeeperComponent = (props) => {
  	const [isActive, setIsActive] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
+
 	const [saveWorkout, setSaveWorkout] = useState(isActive)
+
 
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -112,8 +114,6 @@ const TimeKeeperComponent = (props) => {
 
 	const toggleTimer = () => {
 		setIsActive(!isActive);
-		// setStartedBg(!startedBg)
-
 	};
 
 	let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
@@ -200,23 +200,24 @@ const TimeKeeperComponent = (props) => {
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * authUser.weight)/200);
 
 
+
 console.log(saveWorkout);
 
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
+
 			<ArrowBack
 				{...props}
 				onClick={() => {
 					totalDistanceRounded >= 0.01 && fetchWorkout();
 					props.goBack();
 					setSeconds(0);
-					setFinalDistanceKm(0)
 					setIsActive(false);
-					// setStartedBg(false);
 					setSaveWorkout(false)
 
 				}}
 			>
+
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
 
@@ -236,10 +237,9 @@ console.log(saveWorkout);
 					onClick={() => {
 						setFinalDistanceKm(0);
 						setSaveWorkout(true);
-						setIsActive(false);
+						setIsActive(false)
 						setSeconds(0);
 						fetchWorkout();
-						// setIsActive()
 						setTimeout(() => setSaveWorkout(false), 1800);
 
 					}}
@@ -252,9 +252,11 @@ console.log(saveWorkout);
 					averageSpeed={averageSpeed}
 					caloriesBurned={caloriesBurned}
 				/>
+
 			</div>
 		</StyledTimekeeperComponent>
 	);
 };
 
 export default TimeKeeperComponent;
+
