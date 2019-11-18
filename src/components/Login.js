@@ -84,9 +84,6 @@ const StyledLogin = styled.form`
 `
 
 const Login = ( props ) => {
-
-  // const [user, isLoading] = useAuthState(firebase.auth());
-
 const { authUser, authLoading } = useAuth();
 
   const handleSubmit =  (event) => {
@@ -94,25 +91,23 @@ const { authUser, authLoading } = useAuth();
 		const formData = new FormData(event.currentTarget);
 
     firebase
-      .auth()
-      .signInWithEmailAndPassword(
-        formData.get('email'),
-        formData.get('password')
-			)
+    .auth()
+    .signInWithEmailAndPassword(
+      formData.get('email'),
+      formData.get('password')
+		)
 
 
-	.catch(function(error) {
-
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		if (errorCode === "auth/wrong-password") {
-			alert("Wrong password.");
-		} else {
-			alert(errorMessage);
-		}
-		console.log(error);
-	});
-
+		.catch(function(error) {
+			let errorCode = error.code;
+			let errorMessage = error.message;
+			if (errorCode === "auth/wrong-password") {
+				alert("Wrong password.");
+			} else {
+				alert(errorMessage);
+			}
+			console.log(error);
+		});
 	};
 
   if (authLoading) {

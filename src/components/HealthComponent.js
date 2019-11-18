@@ -24,7 +24,7 @@ const StyledHealth = styled.div`
 		justify-content: space-between;
 		align-items: flex-end;
 		> p {
-			font-size: 36px;
+			font-size: 32px;
 			color: white;
 		}
 	}

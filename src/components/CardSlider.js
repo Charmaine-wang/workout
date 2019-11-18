@@ -34,9 +34,6 @@ const StyledCardSlider = styled.div`
 `;
 
 const CardSlider = (props) => {
-	useEffect(() => {
-		console.log("mounted");
-	}, []);
 
 	return (
 		<StyledCardSlider>

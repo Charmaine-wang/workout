@@ -88,9 +88,8 @@ const DayWrapper = styled.div`
 		align-items: center;
 		justify-content: space-around;
 		flex-direction: row;
-
 		background-color: rgba(0,0,0, 0.8);
-		margin-bottom: 2px;
+		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 		width: 100%;
 		height: calc((100vh - 58px - 48px - 130px - 54px) / 3);
 
@@ -105,6 +104,9 @@ const DayWrapper = styled.div`
 			width: 40px;
 			opacity: 0.3;
 		}
+	}
+	> div:nth-child(4) {
+		border-bottom: none;
 	}
 `;
 
@@ -151,44 +153,27 @@ const PageMoves = (props) => {
 
 	useEffect(() => {
 		fetchActivities();
-		// fetchMonthActivities();
 	}, []);
 
 
 	// get all activities from user
 	const fetchActivities = () => {
 		firebase
-			.firestore()
-			.collection("users")
-			.doc(authUser.uid)
-			.collection("activities")
-			.where('dateNum', '==', currentDate)
-			.where('month', '==', monthName)
-			.get()
-			.then(activities => {
-				const data = [];
-				activities.forEach(doc => {
-					data.push({ id: doc.id, ...doc.data() });
-				});
-				setActivities(data);
+		.firestore()
+		.collection("users")
+		.doc(authUser.uid)
+		.collection("activities")
+		.where('dateNum', '==', currentDate)
+		.where('month', '==', monthName)
+		.get()
+		.then(activities => {
+			const data = [];
+			activities.forEach(doc => {
+				data.push({ id: doc.id, ...doc.data() });
 			});
+			setActivities(data);
+		});
 	};
-
-	// const fetchMonthActivities = () => {
-	// 	firebase
-	// 		.firestore()
-	// 		.collection("users")
-	// 		.doc(authUser.uid)
-	// 		.collection("activities")
-	// 		.get()
-	// 		.then(activities => {
-	// 			const data = [];
-	// 			activities.forEach(doc => {
-	// 				data.push({ id: doc.id, ...doc.data() });
-	// 			});
-	// 			setActivities(data);
-	// 		});
-	// };
 
 	let totalKmRunning = 0;
 	let totalKmCycling = 0;
@@ -216,13 +201,13 @@ const PageMoves = (props) => {
 
 	// get total time in hours and seconds
 	let minutesR = ("0" + (Math.floor(totalTimeRunning / 60) % 60)).slice(-2);
-	let hoursR = ("0" + Math.floor(minutesR / 360)).slice(-2);
+	let hoursR = ("0" + Math.floor(totalTimeRunning / 3600)).slice(-2);
 
 	let minutesC = ("0" + (Math.floor(totalTimeCycling / 60) % 60)).slice(-2);
-	let hoursC = ("0" + Math.floor(minutesC / 360)).slice(-2);
+	let hoursC = ("0" + Math.floor(totalTimeCycling / 3600)).slice(-2);
 
 	let minutesW = ("0" + (Math.floor(totalTimeWalking / 60) % 60)).slice(-2);
-	let hoursW = ("0" + Math.floor(minutesW / 360)).slice(-2);
+	let hoursW = ("0" + Math.floor(totalTimeWalking / 3600)).slice(-2);
 
 
 	let runningfinalKm = 0;
@@ -243,32 +228,6 @@ const PageMoves = (props) => {
 	if(totalKmWalking > 0.00) {
 		walkingfinalKm = Number(totalKmWalking).toFixed(2);
 	}
-
-
-	// let dayToMonth;
-	// let dateToMonth;
-	// let monthToMonth;
-	// let monthNameToMonth;
-	// let dayNameToMonth;
-
-	// get last 30 days (excluding today)
-	// date.setDate(date.getDate() + 1);
-	// for(let i = 0; i < 30; i++) {
-	// 	date.setDate(date.getDate() - 1);
-	//
-	// 	dayToMonth = date.getDay();
-	// 	dateToMonth = date.getDate();
-	// 	monthToMonth = date.getMonth();
-	//
-	// 	monthNameToMonth = monthNames[monthToMonth];
-	// 	dayNameToMonth = days[currentDay];
-	//
-	// 	console.log(date)
-	// 	console.log(dateToMonth)
-	// 	console.log(monthNameToMonth)
-	// 	console.log(dayNameToMonth)
-	// 	console.log("----")
-	// };
 
 	return (
 		<div {...props}>
