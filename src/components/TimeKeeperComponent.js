@@ -7,6 +7,7 @@ import { Route } from "react-router-dom";
 import Activity from "./Activity";
 import FadedBackground from "./FadedBackground";
 import firebase, { firestore } from "../firebase";
+import Modal from "./Modal";
 
 const StyledTimekeeperComponent = styled.div`
 	position: absolute;
@@ -52,7 +53,9 @@ const TimeKeeperComponent = (props) => {
  	const [isActive, setIsActive] = useState(false);
 	const [prevPosition, setPrevPosition] = useState(null);
 	let [finalDistanceKm, setFinalDistanceKm] = useState(0);
-	const [updateDistance, setUpdateDistance] = useState(0);
+
+	const [saveWorkout, setSaveWorkout] = useState(isActive)
+
 
 	// function calculating distance
 	const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -133,11 +136,13 @@ const TimeKeeperComponent = (props) => {
 	];
 
   const date = new Date()
+
+	// const day = days[date.getDay()]
 	const dateNum = date.getDate()
 	const month = monthNames[date.getMonth()]
 
 	const fetchWorkout = event => {
-		setIsActive(false);
+
 		firebase
 		.firestore()
 		.collection("users")
@@ -159,6 +164,7 @@ const TimeKeeperComponent = (props) => {
 		navigateDistance();
 		let interval = null;
 		if (isActive) {
+
 			interval = setInterval(() => {
 				setSeconds(seconds => seconds + 1);
 			}, 1000);
@@ -193,22 +199,32 @@ const TimeKeeperComponent = (props) => {
 	//formula total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
 	let caloriesBurned = Math.round((seconds / 60) * (activityMET * 3.5 * authUser.weight)/200);
 
+
+
+console.log(saveWorkout);
+
 	return (
 		<StyledTimekeeperComponent expanded={props.isToggled} onSubmit={isActive}>
-			<ArrowBack {...props} onClick={() => {
-				totalDistanceRounded >= 0.01 && fetchWorkout()
-				props.goBack()
-				setSeconds(0);
-				setFinalDistanceKm(0)
-				setIsActive(false)
-			}
-			 }>
+
+			<ArrowBack
+				{...props}
+				onClick={() => {
+					totalDistanceRounded >= 0.01 && fetchWorkout();
+					props.goBack();
+					setSeconds(0);
+					setIsActive(false);
+					setSaveWorkout(false)
+
+				}}
+			>
+
 				<img src="/images/arrowBack.png" alt="arrow back" />
 			</ArrowBack>
 
 			<FadedBackground opacity={"0.55"} />
 			<div>
 				<img src="/images/dots.png" alt="dots" />
+
 				<Timekeeper
 					onClick={toggleTimer}
 					isActive={isActive ? "Pause" : "Start"}
@@ -217,15 +233,26 @@ const TimeKeeperComponent = (props) => {
 					isActiveBtn={isActive}
 				/>
 
-				<StopTimer onClick={() => {
-					totalDistanceRounded >= 0.01 && fetchWorkout()
-					setSeconds(0);
-					setIsActive(false)
-					setFinalDistanceKm(0)
-				}}
+				<StopTimer
+					onClick={() => {
+						setFinalDistanceKm(0);
+						setSaveWorkout(true);
+						setIsActive(false)
+						setSeconds(0);
+						fetchWorkout();
+						setTimeout(() => setSaveWorkout(false), 1800);
+
+					}}
 					showStopBtn={totalDistanceRounded >= 0.01}
 				/>
-				<Activity distance={totalDistanceRounded} averageSpeed={averageSpeed} caloriesBurned={caloriesBurned} />
+
+				<Modal isActive={saveWorkout} />
+				<Activity
+					distance={totalDistanceRounded}
+					averageSpeed={averageSpeed}
+					caloriesBurned={caloriesBurned}
+				/>
+
 			</div>
 		</StyledTimekeeperComponent>
 	);

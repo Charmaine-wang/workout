@@ -12,6 +12,7 @@ import PageTimer from "./pages/menu/main/Timer";
 import PageHealth from "./pages/menu/main/Health";
 import PageMoves from "./pages/menu/main/Moves";
 import PageSettings from "./pages/menu/main/Settings";
+import Layout from "./components/Layout";
 import { collectIdsAndDocs } from "./components/Utilities";
 import { useAuth } from "./authcontext";
 
@@ -53,6 +54,7 @@ const {authUser, authLoading} = useAuth();
 
 				{authUser ? <Navbar /> : ""}
 			</Router>
+			{/* <Layout /> */}
 		</StyledApp>
 	);
 };
