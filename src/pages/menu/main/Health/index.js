@@ -36,7 +36,7 @@ const BMIWrapper = styled.div`
 	height: 10vh;
 	background-color: rgba(0,0,0, 0.8);
 	display: flex;
-	flex-directin: row;
+	flex-direction: row;
 	justify-content: flex-end;
 	align-items: center;
 	padding: 0 34px;
@@ -60,7 +60,8 @@ const StyledButton = styled(Button)`
 	height: 40px;
 	border-radius: 0;
 	transition: 0.5s;
-	background-color: ${props => props.saved ? 'rgba(150,200,255, 0.3)' : 'rgba(255,255,255, 0.15)'}
+	background-color: ${props => props.saved ? 'rgba(150,200,255, 0.3)' : 'rgba(255,255,255, 0.15)'};
+
 `;
 
 const PageHealth = () => {
