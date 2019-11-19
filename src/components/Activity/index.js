@@ -20,7 +20,7 @@ const Activity = props => {
 			<div>
 				<img src="/images/speed.png" alt="" />
 				<p>Average Speed</p>
-				<p>{props.averageSpeed} km/h</p>
+				<p>{props.averageSpeed} min/km</p>
 			</div>
 		</StyledActivity>
 	);

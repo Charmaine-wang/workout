@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import firebase, { firestore } from "../../firebase";
 import { Button } from "../index";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { useAuth } from "../../authcontext";
 import { StyledSignup } from './StyledSignup'
 
 
 const Signup = props => {
 	const { authUser } = useAuth();
+	const [loggedin, setloggedin] = useState(false)
 
 	const handleSubmit = event => {
 		event.preventDefault();
@@ -30,6 +31,8 @@ const Signup = props => {
 						weight: 0,
 						length: 0
 					});
+
+				setloggedin(true);
 			})
 			.catch(function(error) {
 				const errorCode = error.code;
@@ -38,9 +41,14 @@ const Signup = props => {
 			});
 	};
 
-	if (authUser) {
-		return (window.location.href = "/");
-	}
+	// if (authUser) {
+	// 	return (window.location.href = "/");
+	// }
+if(loggedin){
+	return (
+		<Redirect to="/" />
+	)
+}
 
 	return (
 		<div>

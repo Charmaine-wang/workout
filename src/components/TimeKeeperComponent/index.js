@@ -133,7 +133,7 @@ const TimeKeeperComponent = props => {
 	let totalDistanceRounded = Number(finalDistanceKm).toFixed(2);
 
 	// average speed in km per hour
-	let averageSpeed = Number((totalDistanceRounded / seconds) * 60 * 60).toFixed(
+	let averageSpeed = Number((totalDistanceRounded / seconds) * 60 * 60 / 60).toFixed(
 		1
 	);
 	if (averageSpeed == "NaN" || averageSpeed == "Infinity") {
@@ -163,7 +163,7 @@ const TimeKeeperComponent = props => {
 			<ArrowBack
 				{...props}
 				onClick={() => {
-					totalDistanceRounded >= 0.01 && fetchWorkout();
+					totalDistanceRounded >= 0.1 && fetchWorkout();
 					props.goBack();
 					setSeconds(0);
 					setIsActive(false);
@@ -194,7 +194,7 @@ const TimeKeeperComponent = props => {
 						fetchWorkout();
 						setTimeout(() => setSaveWorkout(false), 1800);
 					}}
-					showStopBtn={totalDistanceRounded >= 0.01}
+					showStopBtn={totalDistanceRounded >= 0.1}
 				/>
 
 				<Modal isActive={saveWorkout} />
