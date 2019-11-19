@@ -15,30 +15,28 @@ export const BubbleContainer = styled.div`
 export const StyledBubble = styled.div`
 	width: ${props => props.diameter};
 	height: ${props => props.diameter};
-	max-width: 100px;
-	min-width: 70px;
-	max-height: 100px;
-	min-height: 70px;
+	max-width: 104px;
+	min-width: 74px;
+	max-height: 104px;
+	min-height: 74px;
 	background-color: rgba(255, 255, 255, 0.25);
 	border-radius: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	transition: 0.8s;
 
-	&:hover {
-		animation: pulseBubble 1s;
-	}
+	${props => props.animationR && 'animation: pulseBubble 0.4s;'};
+	${props => props.animationC && 'animation: pulseBubble 0.4s;'};
+	${props => props.animationW && 'animation: pulseBubble 0.4s;'};
 
 	@keyframes pulseBubble {
 		0% {
 			box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
 		}
-		70% {
-			box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-		}
 		100% {
-			box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+			box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
 		}
 	}
 
