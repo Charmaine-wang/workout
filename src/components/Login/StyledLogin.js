@@ -8,6 +8,11 @@ export const StyledLogin = styled.form`
 	width: 100%;
 	height: 80vh;
 
+	> h1 {
+		color: rgba(255,255,255,0.6);
+		text-align: center;
+	}
+
 	> img {
 		width: 100px;
 		margin-bottom: 40px;
@@ -49,17 +54,13 @@ export const StyledLogin = styled.form`
 			border: none;
 			outline: none;
 			-webkit-tap-highlight-color: none;
-
 			&::placeholder {
-				/* Chrome, Firefox, Opera, Safari 10.1+ */
 				color: white;
-				opacity: 0.7; /* Firefox */
+				opacity: 0.7;
 			}
-
 			&::value {
 				font-weight: 200;
 			}
-
 			&::after,
 			&::before {
 				color: white;
@@ -77,8 +78,8 @@ export const StyledLogin = styled.form`
 		}
 	}
 
-	.my-node-enter {
-  opacity: 0;
+.my-node-enter {
+	opacity: 0;
 }
 .my-node-enter-active {
   opacity: 1;

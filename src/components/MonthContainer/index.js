@@ -7,6 +7,9 @@ const MonthContainer = props => {
 	const [toggleRunning, setToggleRunning] = useState(props);
 	const [toggleCycling, setToggleCycling] = useState(props);
 	const [toggleWalking, setToggleWalking] = useState(props);
+	const [animationR, setAnimationR] = useState(false);
+	const [animationC, setAnimationC] = useState(false);
+	const [animationW, setAnimationW] = useState(false);
 
 	return (
 		<StyledMonthContainer {...props} key={props.key}>
@@ -17,24 +20,30 @@ const MonthContainer = props => {
 			<div>
 				<Bubble
 					diameter={props.diameterRun}
-					onClick={() => setToggleRunning(!toggleRunning)}
+					onClick={() => { setToggleRunning(!toggleRunning); setAnimationR(true) }}
+					onAnimationEnd={() => setAnimationR(false)}
 					hourOrKm={toggleRunning ? props.kmRunning : props.hourRunning}
-					unit={"km"}
+					unit={toggleRunning ? "km" : "hours"}
 					icon={"/images/running.png"}
+					animationR={animationR}
 				/>
 				<Bubble
 					diameter={props.diameterCyc}
-					onClick={() => setToggleCycling(!toggleCycling)}
+					onClick={() => { setToggleCycling(!toggleCycling); setAnimationC(true) }}
+					onAnimationEnd={() => setAnimationC(false)}
 					hourOrKm={toggleCycling ? props.kmCycling : props.hourCycling}
-					unit={"km"}
+					unit={toggleCycling ? "km" : "hours"}
 					icon={"/images/cycling.png"}
+					animationC={animationC}
 				/>
 				<Bubble
 					diameter={props.diameterWal}
-					onClick={() => setToggleWalking(!toggleWalking)}
+					onClick={() => { setToggleWalking(!toggleWalking); setAnimationW(true) }}
+					onAnimationEnd={() => setAnimationW(false)}
 					hourOrKm={toggleWalking ? props.kmWalking : props.hourWalking}
-					unit={"km"}
+					unit={toggleWalking ? "km" : "hours"}
 					icon={"/images/walking.png"}
+					animationW={animationW}
 				/>
 			</div>
 		</StyledMonthContainer>

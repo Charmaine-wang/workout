@@ -4,8 +4,6 @@ import { useAuth } from "../../authcontext";
 import { StyledTimekeeperComponent, ArrowBack} from './StyledTimeKeeperComponent'
 import firebase from "../../firebase";
 
-
-
 const TimeKeeperComponent = props => {
 	const { authUser, authLoading } = useAuth();
 	const [seconds, setSeconds] = useState(0);
@@ -78,7 +76,6 @@ const TimeKeeperComponent = props => {
 
 	let secondstimer = ("0" + Math.floor(seconds % 60)).slice(-2);
 	let minutes = ("0" + (Math.floor(seconds / 60) % 60)).slice(-2);
-	let hours = ("0" + Math.floor(seconds / 3600)).slice(-2);
 
 	const monthNames = [
 		"January",
@@ -132,28 +129,25 @@ const TimeKeeperComponent = props => {
 	// round final distance to 2 decimals in km
 	let totalDistanceRounded = Number(finalDistanceKm).toFixed(2);
 
-	// average speed in km per hour
-	let averageSpeed = Number((totalDistanceRounded / seconds) * 60 * 60 / 60).toFixed(
-		1
-	);
+	// calculated speed min/km
+	let averageSpeed = Number((1 / totalDistanceRounded * seconds) / 60).toFixed(0);
 	if (averageSpeed == "NaN" || averageSpeed == "Infinity") {
-		averageSpeed = "0.0";
+		averageSpeed = "0";
 	}
 
 	// calories burned during training session
 	let activityMET;
 	let activityType = props.getActivity; // choosen activity type
 
-	//if walking elr running räkna på km istället, else blir cycklign ta andra värden
 	if (activityType == "running") {
-		activityMET = 9.8; // about 9.8 MET value when running
+		activityMET = 9.8; // 9.8 MET value running
 	} else if (activityType == "walking") {
-		activityMET = 3.8; // about 3.8 MET value when walking
+		activityMET = 3.8; // 3.8 MET value walking
 	} else if (activityType == "cycling") {
-		activityMET = 9.5; // about 3.8 MET value when cycling
+		activityMET = 9.5; // 9.5 MET value cycling
 	}
 
-	//formula total calories burned = Duration (in minutes)*(MET*3.5*weight in kg)/200
+	//formula total calories burned
 	let caloriesBurned = Math.round(
 		((seconds / 60) * (activityMET * 3.5 * authUser.weight)) / 200
 	);
@@ -163,9 +157,10 @@ const TimeKeeperComponent = props => {
 			<ArrowBack
 				{...props}
 				onClick={() => {
-					totalDistanceRounded >= 0.1 && fetchWorkout();
+					totalDistanceRounded >= 0.01 && fetchWorkout();
 					props.goBack();
 					setSeconds(0);
+					setFinalDistanceKm(0);
 					setIsActive(false);
 					setSaveWorkout(false);
 				}}
@@ -187,14 +182,14 @@ const TimeKeeperComponent = props => {
 
 				<StopTimer
 					onClick={() => {
+						fetchWorkout();
 						setFinalDistanceKm(0);
 						setSaveWorkout(true);
 						setIsActive(false);
 						setSeconds(0);
-						fetchWorkout();
 						setTimeout(() => setSaveWorkout(false), 1800);
 					}}
-					showStopBtn={totalDistanceRounded >= 0.1}
+					showStopBtn={totalDistanceRounded >= 0.01}
 				/>
 
 				<Modal isActive={saveWorkout} />

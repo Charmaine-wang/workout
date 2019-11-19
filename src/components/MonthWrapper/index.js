@@ -41,18 +41,18 @@ const MonthWrapper = ({ ...props }) => {
 
 	const fetchMonthActivities = () => {
 		firebase
-			.firestore()
-			.collection("users")
-			.doc(authUser.uid)
-			.collection("activities")
-			.get()
-			.then(activities => {
-				const data = [];
-				activities.forEach(doc => {
-					data.push({ id: doc.id, ...doc.data() });
-				});
-				setMonthActivities(data);
+		.firestore()
+		.collection("users")
+		.doc(authUser.uid)
+		.collection("activities")
+		.get()
+		.then(activities => {
+			const data = [];
+			activities.forEach(doc => {
+				data.push({ id: doc.id, ...doc.data() });
 			});
+			setMonthActivities(data);
+		});
 	};
 
 	let date = new Date();
@@ -65,9 +65,7 @@ const MonthWrapper = ({ ...props }) => {
 
 	// set 1 day forwards to also get today
 	date.setDate(date.getDate() + 1);
-
 	for (let i = 0; i < 30; i++) {
-		//set the date to 1 day sooner each loop, and get its values like day, month, date
 		date.setDate(date.getDate() - 1);
 		day = date.getDay();
 		dateNum = date.getDate();
@@ -130,9 +128,9 @@ const MonthWrapper = ({ ...props }) => {
 		cyclingfinalTime = hoursC + ":" + minutesC;
 		walkingfinalTime = hoursW + ":" + minutesW;
 
-		let bubbleRun = 70;
-		let bubbleCyc = 70;
-		let bubbleWal = 70;
+		let bubbleRun = 74;
+		let bubbleCyc = 74;
+		let bubbleWal = 74;
 
 		// get rounded total km, else keep the value on 0
 		if(totalKmRunning > 0.00) {
@@ -162,8 +160,6 @@ const MonthWrapper = ({ ...props }) => {
 			bubbleCyc: bubbleCyc,
 			bubbleWal: bubbleWal
 		});
-
-		console.log(calendar)
 	}
 
 	return (

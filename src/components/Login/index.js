@@ -35,7 +35,7 @@ const Login = props => {
 		return (
 			<>
 				<StyledLogin>
-					<h1>Du loggas snart in</h1>
+					<h1>Logging in...</h1>
 				</StyledLogin>
 			</>
 		);
